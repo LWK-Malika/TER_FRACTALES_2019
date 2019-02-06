@@ -18,19 +18,21 @@ int main(int argv, char** argc){
   //Zn=0
   //Zn+1=Zn²+c
 
-  int Zn=0;
+  int ZnR=0;
+  int ZnI=0;
   
-  int cmp=100;
-  while(sqrt(pow(r,2)+pow(i,2))>2 || cmp>100){
-
-    //zn=pow(Zn,2)+
+  int cmp=0;
+  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<1000){
     
+   
+    ZnR=pow(ZnR,2)+pow(ZnI,2)+r;
+    ZnI=2*ZnR*ZnI;
     cmp++;
   }
 
   if (sqrt(pow(r,2)+pow(i,2))>2)
     cout<<"la fonction diverge a partir de n= "<<cmp<<endl;
   else
-    cout<<"la fonction converse"<<endl;
+    cout<<"la fonction converge"<<endl;
 
 }
