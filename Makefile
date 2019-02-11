@@ -22,7 +22,7 @@ ifeq ($(DEBUG),yes)
 	LDFLAGS= -lncurses
 else
 	CFLAGS=-W -Wall -ansi -pedantic
-	LDFLAGS= #-lncurses
+	LDFLAGS= -lglut -lGLU -lGL #-lncurses
 endif
 
 ##SOURCES=$(wildcard *.c)
