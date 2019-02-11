@@ -25,7 +25,7 @@ int main(int argv, char** argc){
   while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<1000){
     
    
-    ZnR=pow(ZnR,2)+pow(ZnI,2)+r;
+    ZnR=pow(ZnR,2)-pow(ZnI,2)+r;
     ZnI=2*ZnR*ZnI;
     cmp++;
   }
