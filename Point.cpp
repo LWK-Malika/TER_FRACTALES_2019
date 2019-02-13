@@ -18,7 +18,7 @@ void point::setY(int y) {
 	this->y=y;}
 
 bool point::diverge(double r,double i){
-  std::cout<<"le nombre complexe entré est: " <<r<<"+i("<<i<<")"<< std::endl;
+  // std::cout<<"le nombre complexe entré est: " <<r<<"+i("<<i<<")"<< std::endl;
 
   //Zn=0
   //Zn+1=Zn²+c
@@ -29,7 +29,7 @@ bool point::diverge(double r,double i){
   int temporaire;
   
   int cmp=0;
-  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<=2 && cmp<1000){
+  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<100){
 
     temporaire=ZnR;
     
@@ -38,5 +38,5 @@ bool point::diverge(double r,double i){
     cmp++;
   }
 
-  return(sqrt(pow(ZnR,2)+pow(ZnI,2))>2);
+  return(sqrt(pow(ZnR,2)+pow(ZnI,2))>=2);
 }
