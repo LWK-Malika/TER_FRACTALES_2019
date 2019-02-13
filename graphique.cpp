@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     for(float a=-2.2;a<2.2;a=a+0.02){ //double boucle pour parcourir les points étudier
        for(float b=-2.2;b<2.2;b=b+0.02){
 	 if((point::diverge(a,b)))
-	   { glColor3f(1.0, 0, 1.0);
+	   { glColor3f(2.0, 1, 2.0);
 	     glVertex2f(a*100+300, b*100+300);
 	   }
 	 else

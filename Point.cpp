@@ -5,24 +5,17 @@
 point::point(int X, int Y): x(X), y(Y){}
 
 
-
 int point::getX() const {
-	return x;
-}
+	return x;}
 
 int point::getY() const {
-	return y;
-}
-
-
+	return y;}
 
 void point::setX(int x) {
-	this->x=x;
-}
+	this->x=x;}
 
 void point::setY(int y) {
-	this->y=y;
-}
+	this->y=y;}
 
 bool point::diverge(float r,float i){
   std::cout<<"le nombre complexe entré est: " <<r<<"+i("<<i<<")"<< std::endl;
