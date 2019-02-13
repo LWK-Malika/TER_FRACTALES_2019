@@ -37,16 +37,16 @@ int main(int argc, char* argv[])
 
 
   
- glClearColor(0, 5, 0, 0); 
- gluOrtho2D(0,600,0,600);	      	// On garde ces coordonnées
+  //  glClearColor(1, 1, 4, 0); 
+  gluOrtho2D(0,575,0,575);	      	// On garde ces coordonnées
  //glutDisplayFunc(Rafraichir); 		// Callback de la fenêtre
 
 
  //glPointSize(2); //changer taille point
  
- //glColor3f(1.0, 0, 1.0);
+  // glColor3f(1.0, 1.0, 1.0);
 
- // gluLookAt(-200,0,0,0,0,0,0,1,0); //cadrage
+  //gluLookAt(-200,0,0,0,0,0,0,1,0); //cadrage
  
    // Dessiner des points
   glBegin(GL_POINTS); 	//mode affichage de points
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 	   }
 	 else
 	   {
-	     glColor3f(2.0, 4.0, 0);
+	     glColor3f(0.2, 0.2, 0.2);
 	     glVertex2f(a*100+300, b*100+300);
 	   }
        }
