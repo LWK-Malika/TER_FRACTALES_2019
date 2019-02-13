@@ -15,7 +15,7 @@ class point{
   void setY( int y);
   
 
-  static bool diverge(float x, float y);
+  static bool diverge(double x, double y);
 
 };
 
