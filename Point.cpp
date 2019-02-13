@@ -24,7 +24,7 @@ void point::setY(int y) {
 	this->y=y;
 }
 
-bool point::diverge(float r,float i){
+bool point::diverge(double r,double i){
   std::cout<<"le nombre complexe entré est: " <<r<<"+i("<<i<<")"<< std::endl;
 
   //Zn=0
@@ -45,7 +45,7 @@ bool point::diverge(float r,float i){
     cmp++;
   }
 
-  if (sqrt(pow(r,2)+pow(i,2))>2){
+  if (sqrt(pow(ZnR,2)+pow(ZnI,2))>2){
     std::cout<<"la fonction diverge a partir de n= "<<cmp<< std::endl;
     return true;
     }

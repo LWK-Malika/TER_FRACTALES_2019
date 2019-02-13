@@ -31,7 +31,7 @@ void Rafraichir(void){
 int main(int argc, char* argv[])
 {
   glutInit(&argc,argv); 
-  glutInitWindowSize(700,700); //taille fenetre
+  glutInitWindowSize(800,800); //taille fenetre
   glutInitDisplayMode(GLUT_RGB); 	// On travaille en RGB
   int win = glutCreateWindow("Fractale de Mandelbrot"); //nomme la fenêtre
 
@@ -51,9 +51,9 @@ int main(int argc, char* argv[])
    // Dessiner des points
   glBegin(GL_POINTS); 	//mode affichage de points
 
-    for(float a=-2.2;a<2.2;a=a+0.02){ //double boucle pour parcourir les points étudier
-       for(float b=-2.2;b<2.2;b=b+0.02){
-	 if((point::diverge(a,b)))
+    for(double a=-2.5;a<2.5;a=a+0.01){ //double boucle pour parcourir les points étudier
+       for(double  b=-2.5;b<2.5;b=b+0.01){
+	 if(point::diverge(a,b))
 	   { glColor3f(1.0, 0, 1.0);
 	     glVertex2f(a*100+300, b*100+300);
 	   }
