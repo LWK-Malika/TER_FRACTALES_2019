@@ -55,12 +55,12 @@ int main(int argc, char* argv[])
     for(double a=-2.5;a<2.5;a=a+0.01){ //double boucle pour parcourir les points étudier
        for(double  b=-2.5;b<2.5;b=b+0.01){
 	 if(point::diverge(a,b))
-	   { glColor3f(2.0, 1, 2.0);
+	   { glColor3f(2.0, 0, 4.0);
 	     glVertex2f(a*100+300, b*100+300);
 	   }
 	 else
 	   {
-	     glColor3f(0, 4.0, 1.0);
+	     glColor3f(2.0, 4.0, 0);
 	     glVertex2f(a*100+300, b*100+300);
 	   }
        }
