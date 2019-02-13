@@ -6,6 +6,10 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include <ctime> //pour calculer le temps du programme
+
+#include <iostream>
+
 int firstPass = 1; // simule le « once » d'Eiffel
 
 void Rafraichir(void){
@@ -30,6 +34,10 @@ void Rafraichir(void){
 
 int main(int argc, char* argv[])
 {
+
+  time_t start, stop;
+  start =clock();
+  
   glutInit(&argc,argv); 
   glutInitWindowSize(800,800); //taille fenetre
   glutInitDisplayMode(GLUT_RGB); 	// On travaille en RGB
@@ -72,6 +80,9 @@ int main(int argc, char* argv[])
   glEnd(); 		       	// Fermer le polygone
   glFlush(); 			// Dessiner le polygone
 
+  stop =clock();
+
+  std::cout<<"durer du programme: "<<difftime(stop,start)<<" miliseconde"<<std::endl;
 
   glutMainLoop(); //permet un "arret sur image"
  
