@@ -38,12 +38,5 @@ bool point::diverge(double r,double i){
     cmp++;
   }
 
-  if (sqrt(pow(ZnR,2)+pow(ZnI,2))>2){
-    std::cout<<"la fonction diverge a partir de n= "<<cmp<< std::endl;
-    return true;
-    }
-  else{
-    std::cout<<"la fonction converge"<< std::endl;
-    return false;
-  }
+  return(sqrt(pow(ZnR,2)+pow(ZnI,2))>2);
 }
