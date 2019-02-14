@@ -34,7 +34,7 @@ void Rafraichir(void){
 
 int main(int argc, char* argv[])
 {
-
+  
   time_t start, stop;
   start =clock();
   
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 
   stop =clock();
 
-  std::cout<<"durer du programme: "<<difftime(stop,start)<<" miliseconde"<<std::endl;
+  std::cout<<"durer du programme: "<<difftime(stop,start)<<" milliseconde"<<std::endl;
 
   glutMainLoop(); //permet un "arret sur image"
  
