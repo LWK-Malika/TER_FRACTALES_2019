@@ -20,13 +20,16 @@ int main(int argv, char** argc){
 
   int ZnR=0;
   int ZnI=0;
+
+  int temporaire;
   
   int cmp=0;
-  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<1000){
+  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<100){
+
+    temporaire=ZnR;
     
-   
-    ZnR=pow(ZnR,2)-pow(ZnI,2)+r;
-    ZnI=2*ZnR*ZnI;
+    ZnR=pow(ZnR,2)-pow(ZnI,2)+r;    
+    ZnI=2*temporaire*ZnI+i;
     cmp++;
   }
 
