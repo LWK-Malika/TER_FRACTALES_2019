@@ -18,10 +18,10 @@ int main(int argv, char** argc){
   //Zn=0
   //Zn+1=Zn²+c
 
-  int ZnR=0;
-  int ZnI=0;
+  double ZnR=0;
+  double ZnI=0;
 
-  int temporaire;
+  double temporaire;
   
   int cmp=0;
   while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<100){
