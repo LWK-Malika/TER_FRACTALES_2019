@@ -17,7 +17,7 @@ void point::setX(int x) {
 void point::setY(int y) {
 	this->y=y;}
 
-bool point::diverge(double r,double i){
+int point::diverge(double r,double i){
   // std::cout<<"le nombre complexe entré est: " <<r<<"+i("<<i<<")"<< std::endl;
 
   //Zn=0
@@ -38,5 +38,8 @@ bool point::diverge(double r,double i){
     cmp++;
   }
 
-  return(cmp<50);
+  if(cmp==50)
+    return -1;
+  else
+    return cmp;
 }
