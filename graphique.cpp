@@ -9,6 +9,8 @@
 #include <ctime> //pour calculer le temps du programme
 #include <vector>
 
+#include <cmath>
+
 
 #include <iostream>
 using namespace std;
@@ -43,15 +45,15 @@ void Rafraichir(void){
 
   
 
-  float xmin=-2;
-  float xmax=2;
-  float ymin=-2;
-  float ymax=2;
+  float xmin=-2.15;
+  float xmax=0.55;
+  float ymin=-1.3;
+  float ymax=1.3;
 
   float tailleX=xmax-xmin;
   float tailleY=ymax-ymin;
   
-  gluOrtho2D(xmin,xmax,ymin,xmax);	      	//zoom du repère
+  gluOrtho2D(xmin,xmax,ymin,ymax);	      	//zoom du repère
 
 
 
@@ -88,7 +90,7 @@ void Rafraichir(void){
 	  glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
 	}
       else
-	glColor3f(1-0.01*tab[i][j], 0,0);
+	glColor3f((1-0.01*tab[i][j]), -pow((0.01*tab[i][j])-0.5,2)+1   ,(1-0.01*tab[i][j]));
 	
 	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }

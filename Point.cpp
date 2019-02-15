@@ -29,7 +29,7 @@ int point::diverge(double r,double i){
   double temporaire;
   
   int cmp=0;
-  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<50){
+  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<100){
 
     temporaire=ZnR;
     
@@ -38,7 +38,7 @@ int point::diverge(double r,double i){
     cmp++;
   }
 
-  if(cmp==50)
+  if(cmp==100)
     return -1;
   else
     return cmp;
