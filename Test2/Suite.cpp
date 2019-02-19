@@ -41,7 +41,6 @@ int main(int argc, char** argv){
 
 
   
-  
   double ZnR=0;
   double ZnI=0;
 
@@ -49,22 +48,22 @@ int main(int argc, char** argv){
   
   int cmp=0;
   while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<50){
-
+    
     temporaire=ZnR;
     
     ZnR=pow(ZnR,2)-pow(ZnI,2)+r;    
     ZnI=2*temporaire*ZnI+i;
     cmp++;
     cout<<" ZnR ="<<ZnR<<" ZnI ="<<ZnI <<endl;
-
-
+    
+    
     glBegin(GL_POINTS); 	//mode affichage de points
-
-     glColor3f(0, 1, 0);
-     glVertex2f(ZnR,ZnI);
-
-     glEnd(); 		       	// Fermer le polygone
-     glFlush(); 
+    
+    glColor3f(0.6, 0, 003);
+    glVertex2f(ZnR,ZnI);
+    
+    glEnd(); 		        
+    glFlush(); 
   }
 
   if(cmp<50){
@@ -78,4 +77,6 @@ int main(int argc, char** argv){
 
   
   glutMainLoop(); //permet un "arret sur image"
+
+
 }
