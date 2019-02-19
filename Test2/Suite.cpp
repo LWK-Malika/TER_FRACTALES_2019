@@ -8,11 +8,6 @@
 using namespace std;
 
 int main(int argc, char** argv){
-
-  
-
-
-
   
   float r;
   cin>>r;
@@ -37,8 +32,20 @@ int main(int argc, char** argv){
   gluOrtho2D(xmin,xmax,ymin,ymax);	      	//zoom du repère
 
 
+  glBegin(GL_LINES);
+  glColor3f(1, 1,1);
+  glVertex2f(-2,0);
+  glVertex2f(2,0);
+
+    glVertex2f(0,-2);
+  glVertex2f(0,2);
+
+  glEnd();
+  glFlush();
   glPointSize(3);
 
+
+  
 
   
   double ZnR=0;
