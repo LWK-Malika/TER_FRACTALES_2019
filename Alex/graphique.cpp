@@ -17,27 +17,26 @@ void Rafraichir(void) {
 
   // ----------------- Tableaux de pixels (entier correspondant a la couleur) ------------------
   // vector<vector<int>> tab(glutGet(GLUT_WINDOW_WIDTH)); // creer le tableau avec la taille de la fenetre
- 
   //cout<<"taille fenetre :"<<glutGet(GLUT_WINDOW_WIDTH)<<glutGet(GLUT_WINDOW_HEIGHT)<<endl;
-
   //innitiallisation du tableau:
   /*
     int** tab=new int*[glutGet(GLUT_WINDOW_WIDTH)];
-
     for
-  
     tab[i]=new int
-
     int x=glutGet(GLUT_WINDOW_WIDTH);
     int y=glutGet(GLUT_WINDOW_HEIGHT);
-
     cout<<x<<"miaou"<<y<<endl;
   */
 
-  float xmin = -2.15;
-  float xmax = 0.55;
-  float ymin = -1.3;
-  float ymax = 1.3;
+  // float xmin = -2.15;
+  // float xmax = 0.55;
+  // float ymin = -1.3;
+  // float ymax = 1.3;
+
+  float xmin = -0.7;
+  float xmax = -0.5;
+  float ymin = -0.7;
+  float ymax = -0.5;
 
   float tailleX = xmax - xmin;
   float tailleY = ymax - ymin;
@@ -65,9 +64,21 @@ void Rafraichir(void) {
 	  glVertex2f((tailleX / 800) * i + xmin, (tailleY / 800) * j + ymin);
 	}
       else
-	glColor3f((1 - 0.01 * tab[i][j]),
-		  - pow((0.01 * tab[i][j]) - 0.5, 2) + 1,
-		  (1 - 0.01 * tab[i][j]));
+	glColor3f(pow((0.001 * tab[i][j]), 1), // Red
+		  pow((0.001 * tab[i][j]), 1), // Green
+		  pow((0.0001 * tab[i][j]), 1)); // Blue
+
+      	// glColor3f((0.1 * tab[i][j]), // Red
+	// 	  1 - (0.01 * tab[i][j]), // Green
+	// 	  (0.001 * tab[i][j])); // Blue
+
+	// glColor3f(1 - (0.01 * tab[i][j]), // Red
+	// 	  1 - (0.01 * tab[i][j]), // Green
+	// 	  1 - (0.01 * tab[i][j])); // Blue
+      
+      	// glColor3f((0.1 * tab[i][j]), // Red
+	// 	  - pow((0.1 * tab[i][j]) - 0.5, 2) + 1, // Green
+	// 	  (1 - 0.1 * tab[i][j])); // Blue
 	
       glVertex2f((tailleX / 800) * i + xmin, (tailleY / 800) * j + ymin);
     }
