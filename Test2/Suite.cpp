@@ -95,7 +95,7 @@ int main(int argc, char** argv){
 
 
   //affiche graduation 
-  glRasterPos2f(1,0.05);
+  glRasterPos2f(1,0.025);
   glutBitmapCharacter(GLUT_BITMAP_8_BY_13,'1');
 
   glRasterPos2f(-0.05,1);
@@ -103,37 +103,9 @@ int main(int argc, char** argv){
 
 
   
-<<<<<<< HEAD
+
   diverge(r,i,1);
-=======
-  int cmp=0;
-  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<50){
-    
-    temporaire=ZnR;
-    
-    ZnR=pow(ZnR,2)-pow(ZnI,2)+r;    
-    ZnI=2*temporaire*ZnI+i;
-    cmp++;
-    cout<<" ZnR ="<<ZnR<<" ZnI ="<<ZnI <<endl;
-    
-    
-    glBegin(GL_POINTS); 	//mode affichage de points
-    
-    glColor3f(0.6, 0, 3);
-    glVertex2f(ZnR,ZnI);
-    
-    glEnd(); 		        
-    glFlush(); 
-  }
 
-  if(cmp<50){
-    cout<<"la fonction diverge a partir de n= "<<cmp<<endl;
-    
-  }
-  else
-    cout<<"la fonction converge"<<endl;
-
->>>>>>> 60eaf3865848a3e8bb85efa64cf3e108a90a2b4f
 
   double tab[5][2]={{0,0.6},{0.3,0.5},{-0.8,0.156},{0.577,0.478},{-0.7436,0.661746}};
 
