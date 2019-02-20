@@ -22,8 +22,6 @@ float ymax=1.3;
 
 
 
-
-
 void Rafraichir(void){
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
 
@@ -42,7 +40,6 @@ void Rafraichir(void){
 
   int x=glutGet(GLUT_WINDOW_WIDTH);
   int y=glutGet(GLUT_WINDOW_HEIGHT);
-
   cout<<x<<"miaou"<<y<<endl;
   */
   /*
@@ -51,20 +48,14 @@ void Rafraichir(void){
   float ymin = -0.7;
   float ymax = -0.5;
 
-  
-  
-  
-  float xmin=-2.15;
-  float xmax=0.55;
-  float ymin=-1.3;
-  float ymax=1.3;
-  */
+  */ 
+
   float tailleX=xmax-xmin;
   float tailleY=ymax-ymin;
   
 
-
-
+  cout<<"xmax: "<<xmax<<", ymax "<<ymax<<endl;
+  cout<<"xmin: "<<xmin<<", ymin "<<ymin<<endl;
 
   
   int tab[800][800];
@@ -76,20 +67,10 @@ void Rafraichir(void){
       }
   }
 
-  
-  
-  
-    
-
-  
-
-
-
 
   //--------------------- début fonction affiche --------------------
   
   glBegin(GL_POINTS); 	//mode affichage de points
-
 
   for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudier
     for(int  j=0;j<800;j++){
@@ -107,27 +88,72 @@ void Rafraichir(void){
 	
 	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }
-
-    /*    
-      if(point::diverge(a,b))
-	{ glColor3f(2.0, 0, 4.0);
-	  glVertex2f(a, b);
-	}
-      else
-	{
-	  glColor3f(0.2, 0.2, 0.2);
-	  glVertex2f(a, b);
-	}
-    */
-    }
+  }
   glEnd(); 		       	// Fermer le polygone
   glFlush(); 
   // -----------------------------------------------------------------
 
-
-  
-
 }
+
+void inverse(float &min, float &max){
+  if(max<min){
+    float a=min;
+    min=max;
+    max=a;
+  }
+}
+
+
+
+void clique(int button, int state, int x, int y)
+{
+  switch(button)
+    {
+    case GLUT_LEFT_BUTTON:
+      float tailleX=xmax-xmin;
+      float tailleY=ymax-ymin;
+
+      float xmin1;
+      float ymin1;
+      float xmax1;
+      float ymax1;
+      if(state == GLUT_DOWN){
+
+	cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
+	    <<"coordonnée en par rapport a l'axe "<<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
+
+	xmin1=(tailleX/800)*x+xmin;
+	ymin1=(tailleY/800)*y+ymin;
+      }
+      
+      
+      if(state == GLUT_UP){
+
+	cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
+	    <<"coordonnée en par rapport a l'axe "<<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
+	
+	xmax1=(tailleX/800)*x+xmin;
+	ymax1=(tailleY/800)*y+ymin;
+	
+	inverse(xmin1,xmax1);
+	inverse(ymin1,ymax1);
+
+	xmin=xmin1;
+	ymin=ymin1;
+	xmax=xmax1;
+	ymax=ymax1;
+	
+	gluOrtho2D(xmin,xmax,ymin,ymax);	      	//zoom du repère
+
+	Rafraichir(); 		// Callback de la fenêtre
+	break;
+      }
+  
+    }
+}
+
+
+
 
 int main(int argc, char* argv[])
 {
@@ -141,54 +167,18 @@ int main(int argc, char* argv[])
   int win = glutCreateWindow("Fractale de Mandelbrot"); //nomme la fenêtre
 
 
-  
-  //  glClearColor(1, 1, 4, 0); 
-  // gluOrtho2D(-2,2,-2,2);	      	// On garde ces coordonnées
-
-
   gluOrtho2D(xmin,xmax,ymin,ymax);	      	//zoom du repère
   
   glutDisplayFunc(Rafraichir); 		// Callback de la fenêtre
 
 
   //glPointSize(2); //changer taille point
+
  
-  // glColor3f(1.0, 1.0, 1.0);
 
+  glutMouseFunc(clique);
 
-
-
-
-
-
-  /*
   
-  
-  // Dessiner des points
-  glBegin(GL_POINTS); 	//mode affichage de points
-
-
-  for(double a=-2;a<2;a=a+0.01){ //double boucle pour parcourir les points étudier
-  for(double  b=-2;b<2;b=b+0.01){
-  if(point::diverge(a,b))
-  { glColor3f(2.0, 0, 4.0);
-  glVertex2f(a, b);
-  }
-  else
-  {
-  glColor3f(0.2, 0.2, 0.2);
-  glVertex2f(a, b);
-  }
-  }
-  }
-  // glVertex2i(100, 100); // Coordonnées des trois points
-  // glVertex2i(400, 100);
-  // glVertex2i(250, 400);
-
-  glEnd(); 		       	// Fermer le polygone
-  glFlush(); 			// Dessiner le polygone
-
-  */
   stop =clock();
 
   std::cout<<"durer du programme: "<<difftime(stop,start)<<" milliseconde"<<std::endl;
