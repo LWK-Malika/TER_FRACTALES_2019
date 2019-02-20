@@ -43,7 +43,7 @@ int main(int argc, char** argv){
   glEnd();
   glFlush();
   
-  glPointSize(3);
+  glPointSize(2);
 
 
   
@@ -54,7 +54,7 @@ int main(int argc, char** argv){
 
   double temporaire;
   
-  float cmp=0;
+  int cmp=0;
   while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<50){
     
     temporaire=ZnR;
