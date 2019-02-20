@@ -15,7 +15,10 @@
 #include <iostream>
 using namespace std;
 
-  
+float xmin=-2.15;
+float xmax=0.55;
+float ymin=-1.3;
+float ymax=1.3;
 
 
 
@@ -42,7 +45,7 @@ void Rafraichir(void){
 
   cout<<x<<"miaou"<<y<<endl;
   */
-  
+  /*
   float xmin = -0.7;
   float xmax = -0.5;
   float ymin = -0.7;
@@ -50,7 +53,7 @@ void Rafraichir(void){
 
   
   
-  /*
+  
   float xmin=-2.15;
   float xmax=0.55;
   float ymin=-1.3;
@@ -59,7 +62,7 @@ void Rafraichir(void){
   float tailleX=xmax-xmin;
   float tailleY=ymax-ymin;
   
-  gluOrtho2D(xmin,xmax,ymin,ymax);	      	//zoom du repère
+
 
 
 
@@ -97,8 +100,10 @@ void Rafraichir(void){
 	}
       else
 	//glColor3f((1-0.01*tab[i][j]), -pow((0.01*tab[i][j])-0.5,2)+1,(1-0.01*tab[i][j]));
-	glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -0.9*pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
-	// glColor3f(1-0.0008*pow((0.01*tab[i][j])-70,2),1-0.5*pow((0.01*tab[i][j])-100,2),1-0.0008*pow((0.01*tab[i][j])-5,2));
+	//glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -0.9*pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
+	glColor3f(cos(exp(6*(0.01*tab[i][j]))+4.5),
+		  cos(exp(6*(0.01*tab[i][j]))),
+		  cos(exp(6*(0.01*tab[i][j]))+3));
 	
 	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }
@@ -139,6 +144,9 @@ int main(int argc, char* argv[])
   
   //  glClearColor(1, 1, 4, 0); 
   // gluOrtho2D(-2,2,-2,2);	      	// On garde ces coordonnées
+
+
+  gluOrtho2D(xmin,xmax,ymin,ymax);	      	//zoom du repère
   
   glutDisplayFunc(Rafraichir); 		// Callback de la fenêtre
 
