@@ -42,7 +42,7 @@ void Rafraichir(void){
 
   cout<<x<<"miaou"<<y<<endl;
   */
-
+  
   float xmin = -0.7;
   float xmax = -0.5;
   float ymin = -0.7;
@@ -97,7 +97,9 @@ void Rafraichir(void){
 	}
       else
 	//glColor3f((1-0.01*tab[i][j]), -pow((0.01*tab[i][j])-0.5,2)+1,(1-0.01*tab[i][j]));
-	glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
+	glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -0.9*pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
+	// glColor3f(1-0.0008*pow((0.01*tab[i][j])-70,2),1-0.5*pow((0.01*tab[i][j])-100,2),1-0.0008*pow((0.01*tab[i][j])-5,2));
+	
 	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }
 
