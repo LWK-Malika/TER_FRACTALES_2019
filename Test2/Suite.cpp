@@ -46,7 +46,12 @@ int main(int argc, char** argv){
   glPointSize(2);
 
 
-  
+  //affiche graduation 
+  glRasterPos2f(1,0.05);
+  glutBitmapCharacter(GLUT_BITMAP_8_BY_13,'1');
+
+  glRasterPos2f(-0.05,1);
+  glutBitmapCharacter(GLUT_BITMAP_8_BY_13,'1');
 
   
   double ZnR=0;
