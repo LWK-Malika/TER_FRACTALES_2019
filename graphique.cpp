@@ -19,8 +19,16 @@ float xmin=-2.15;
 float xmax=0.55;
 float ymin=-1.3;
 float ymax=1.3;
-
-
+/*
+  float xmin = -0.7;
+  float xmax = -0.5;
+  float ymin = -0.7;
+  float ymax = -0.5;
+*/
+float xmin1;
+float ymin1;
+float xmax1;
+float ymax1;
 
 void Rafraichir(void){
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
@@ -53,9 +61,8 @@ void Rafraichir(void){
   float tailleX=xmax-xmin;
   float tailleY=ymax-ymin;
   
-
-  cout<<"xmax: "<<xmax<<", ymax "<<ymax<<endl;
   cout<<"xmin: "<<xmin<<", ymin "<<ymin<<endl;
+  cout<<"xmax: "<<xmax<<", ymax "<<ymax<<endl;
 
   
   int tab[800][800];
@@ -81,10 +88,10 @@ void Rafraichir(void){
 	}
       else
 	//glColor3f((1-0.01*tab[i][j]), -pow((0.01*tab[i][j])-0.5,2)+1,(1-0.01*tab[i][j]));
-	//glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -0.9*pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
-	glColor3f(cos(exp(6*(0.01*tab[i][j]))+4.5),
-		  cos(exp(6*(0.01*tab[i][j]))),
-		  cos(exp(6*(0.01*tab[i][j]))+3));
+      //glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -0.9*pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
+      glColor3f(cos(exp(6*(0.01*tab[i][j]))+4.5),
+		cos(exp(6*(0.01*tab[i][j]))),
+		cos(exp(6*(0.01*tab[i][j]))+3));
 	
 	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }
@@ -104,6 +111,25 @@ void inverse(float &min, float &max){
 }
 
 
+void testud(int button, int state, int x, int y){
+  switch(button)
+    {case  GLUT_LEFT_BUTTON:
+	if(state == GLUT_DOWN){
+	  cout<<"glut down"<<endl;
+
+	}
+	if( state == GLUT_UP){
+	    cout<<"glut up"<<endl;
+	    
+	}
+	cout<<"miaou"<<endl;
+	break;
+    }
+
+}
+
+
+
 
 void clique(int button, int state, int x, int y)
 {
@@ -113,10 +139,7 @@ void clique(int button, int state, int x, int y)
       float tailleX=xmax-xmin;
       float tailleY=ymax-ymin;
 
-      float xmin1;
-      float ymin1;
-      float xmax1;
-      float ymax1;
+
       if(state == GLUT_DOWN){
 
 	cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
@@ -130,25 +153,28 @@ void clique(int button, int state, int x, int y)
       if(state == GLUT_UP){
 
 	cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
-	    <<"coordonnée en par rapport a l'axe "<<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
+	    <<"coordonnée par rapport à l'axe "<<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
 	
 	xmax1=(tailleX/800)*x+xmin;
 	ymax1=(tailleY/800)*y+ymin;
 	
 	inverse(xmin1,xmax1);
 	inverse(ymin1,ymax1);
-
+	
 	xmin=xmin1;
 	ymin=ymin1;
 	xmax=xmax1;
 	ymax=ymax1;
-	
+
+	cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymin= "<<ymax<<endl<<endl;
+
+	glLoadIdentity();
 	gluOrtho2D(xmin,xmax,ymin,ymax);	      	//zoom du repère
 
 	Rafraichir(); 		// Callback de la fenêtre
-	break;
+
       }
-  
+	break;  
     }
 }
 
@@ -176,8 +202,8 @@ int main(int argc, char* argv[])
 
  
 
-  glutMouseFunc(clique);
-
+   glutMouseFunc(clique);
+  // glutMouseFunc(testud);
   
   stop =clock();
 

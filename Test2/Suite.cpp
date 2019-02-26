@@ -17,7 +17,7 @@ void diverge(double r, double i,int a){
   double temporaire;
   
   float cmp=0;
-  // glBegin(GL_LINE_STRIP);
+   glBegin(GL_LINE_STRIP);
   while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<50){
     
     temporaire=ZnR;
@@ -28,18 +28,18 @@ void diverge(double r, double i,int a){
     cout<<" ZnR ="<<ZnR<<" ZnI ="<<ZnI <<endl;
     
     
-     glBegin(GL_POINTS); 	//mode affichage de points
+    /* glBegin(GL_POINTS); 	//mode affichage de points*/
 
    
-    glColor3f(0.1*a,0, 1-0.05*a);
+     glColor3f(0.1*a,0.2, 1-0.1*a);
     
     glVertex2f(ZnR,ZnI);
-    
-     glEnd(); 		        
-      glFlush(); 
+    /*
+      glEnd(); 		        
+      glFlush(); */
   }
-  //  glEnd(); 		        
-  //   glFlush(); 
+    glEnd(); 		        
+    glFlush(); 
   if(cmp<50){
     cout<<"la fonction diverge a partir de n= "<<cmp<<endl;
     
@@ -52,7 +52,7 @@ void diverge(double r, double i,int a){
 int main(int argc, char** argv){
 
 
-  
+  cout<<"entrez le nombre complexe"<<endl;
   
   float r;
   cin>>r;
@@ -107,10 +107,15 @@ int main(int argc, char** argv){
   diverge(r,i,1);
 
 
-  double tab[5][2]={{0,0.6},{0.3,0.5},{-0.8,0.156},{0.577,0.478},{-0.7436,0.661746}};
+  double tab[6][2]={{0,0.6},
+		    {0.3,0.5},
+		    {-0.8,0.156},
+		    {0.577,0.478},
+		    {-0.7436,0.661746},
+		    {-0.55,-0.45}};
 
   if(a){
-    for(int i=0;i<5;i++)
+    for(int i=0;i<6;i++)
       diverge(tab[i][0],tab[i][1],i+1);
   }
   glutMainLoop(); //permet un "arret sur image"
