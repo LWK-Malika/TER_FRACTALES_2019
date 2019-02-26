@@ -14,20 +14,20 @@
 #include <iostream>
 using namespace std;
 
-float xmin=-2.15;
-float xmax=0.55;
-float ymin=-1.3;
-float ymax=1.3;
+double xmin=-2.15;
+double xmax=0.55;
+double ymin=-1.3;
+double ymax=1.3;
 /*
   float xmin = -0.7;
   float xmax = -0.5;
   float ymin = -0.7;
   float ymax = -0.5;
 */
-float xmin1;
-float ymin1;
-float xmax1;
-float ymax1;
+double xmin1;
+double ymin1;
+double xmax1;
+double ymax1;
 
 void Rafraichir(void) {
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
@@ -57,8 +57,10 @@ void Rafraichir(void) {
 
   */ 
 
-  float tailleX = xmax - xmin;
-  float tailleY = ymax - ymin;
+
+  double tailleX=abs(xmax-xmin);
+  double tailleY=abs(ymax-ymin);
+
   
   cout << "xmin: " << xmin << ", ymin " << ymin << endl;
   cout << "xmax: " << xmax << ", ymax " << ymax << endl;
@@ -76,20 +78,24 @@ void Rafraichir(void) {
   
   glBegin(GL_POINTS); 	//mode affichage de points
 
-  for (int i=0 ; i<800 ; i++) { //double boucle pour parcourir les points étudier
-    for (int j=0 ; j<800 ; j++) {
-      if (tab[i][j] == -1) {	
-	      glColor3f(0.2, 0.2, 0.2);
-	      glVertex2f((tailleX / 800) * i + xmin, (tailleY / 800) * j + ymin);
-	    }
-      else {
+
+  for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudier
+    for(int  j=0;j<800;j++){
+
+      if (tab[i][j]==-1)
+	{	
+	  glColor3f(0.2, 0.2, 0.2);
+	  glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+	}
+      else
 	//glColor3f((1-0.01*tab[i][j]), -pow((0.01*tab[i][j])-0.5,2)+1,(1-0.01*tab[i][j]));
       //glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -0.9*pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
-        glColor3f(cos(exp(6*(0.01*tab[i][j]))+4.5),
-		      cos(exp(6*(0.01*tab[i][j]))),
-		      cos(exp(6*(0.01*tab[i][j]))+3));
-      }
-	    glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+      glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
+		cos(exp(5*(0.01*tab[i][j]))+2),
+		cos(exp(5*(0.01*tab[i][j]))));
+	
+	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+
     }
   }
   glEnd(); 		       	// Fermer le polygone
@@ -97,11 +103,13 @@ void Rafraichir(void) {
   // -----------------------------------------------------------------
 }
 
-void inverse(float &min, float &max) {
+
+void inverse(double &min, double &max) {
   if (max < min) {
-    float a = min;
+    double a = min;
     min = max;
     max = a;
+
   }
 }
 
@@ -133,27 +141,32 @@ void clique (int button, int state, int x, int y) {
 	      ymin1=(tailleY/800)*y+ymin;
       }
       
-      if(state == GLUT_UP) {
-	      cout << "coordonnées en pixel:" << x << ", " << y << endl
-	        << "coordonnée par rapport à l'axe " << (tailleX / 800) * x + xmin 
-          << "; " << (tailleY / 800) * y + ymin << endl;
-	        xmax1 = (tailleX / 800) * x + xmin;
-	        ymax1 = (tailleY / 800) * y + ymin;
 
-	      inverse(xmin1, xmax1);
-	      inverse(ymin1, ymax1);
+      
+      if(state == GLUT_UP){
 
-	      xmin = xmin1;
-	      ymin = ymin1;
-	      xmax = xmax1;
-	      ymax = ymax1;
+	cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
+	    <<"coordonnée par rapport à l'axe "<<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
+	
+	xmax1=(tailleX/800)*x+xmin;
+	ymax1=(tailleY/800)*y+ymin;
+	
+	inverse(xmin1,xmax1);
+	inverse(ymin1,ymax1);
+	
+	xmin=xmin1;
+	ymin=ymin1;
+	xmax=xmin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
+	ymax=ymin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
 
-	      cout << endl << "xmin= " << xmin << " xmax= " << xmax << " ymin= " 
-          << ymin << " ymin= " << ymax << endl << endl;
+	cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymin= "<<ymax<<endl<<endl;
 
-	      glLoadIdentity();
-	      gluOrtho2D(xmin, xmax, ymin, ymax);	//zoom du repère
-	      Rafraichir(); 		// Callback de la fenêtre
+	glLoadIdentity();
+	gluOrtho2D(xmin,xmax,ymax,ymin);	      	//zoom du repère
+
+	Rafraichir(); 		// Callback de la fenêtre
+
+
       }
 	  break;  
   }
