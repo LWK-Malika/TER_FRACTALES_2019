@@ -108,10 +108,10 @@ void inverse(float &min, float &max) {
 void testud(int button, int state, int x, int y) {
   switch (button) {
     case  GLUT_LEFT_BUTTON:
-	    if(state == GLUT_DOWN) {
+	    if (state == GLUT_DOWN) {
 	      cout << "glut down" << endl;
 	    }
-	    if(state == GLUT_UP) {
+	    if (state == GLUT_UP) {
 	      cout<<"glut up"<<endl;
 	    }
 	  cout<<"miaou"<<endl;
