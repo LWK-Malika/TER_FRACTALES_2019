@@ -113,18 +113,21 @@ void inverse(double &min, double &max) {
   }
 }
 
-void testud(int button, int state, int x, int y) {
-  switch (button) {
-    case  GLUT_LEFT_BUTTON:
-	    if (state == GLUT_DOWN) {
-	      cout << "glut down" << endl;
-	    }
-	    if (state == GLUT_UP) {
-	      cout<<"glut up"<<endl;
-	    }
-	  cout<<"miaou"<<endl;
-	  break;
-  }
+void testud( int x, int y) {
+  float tailleX = abs(xmax - xmin);
+  float tailleY = abs(ymax - ymin);
+
+  cout << "la souris bouge avec un bouton appuyer" << endl;
+  glBegin(GL_POINTS);
+  glColor3f(1,1,1);
+
+  //affiche le point de la position de la souris:
+  glVertex2f((tailleX / 800) * x + xmin,-((tailleY / 800) * y + ymin));
+  glEnd(); 		       	// Fermer le polygone
+  glFlush();
+  cout << "coordonnées en pixel:" << x << ", " << y << endl
+       << "coordonnée en par rapport a l'axe "
+       << (tailleX / 800) * x + xmin<< "; " << (tailleY / 800) * y + ymin << endl;
 }
 
 void clique (int button, int state, int x, int y) {
@@ -159,7 +162,7 @@ void clique (int button, int state, int x, int y) {
 	xmax=xmin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
 	ymax=ymin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
 
-	cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymin= "<<ymax<<endl<<endl;
+	cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymax= "<<ymax<<endl<<endl;
 
 	glLoadIdentity();
 	gluOrtho2D(xmin,xmax,ymax,ymin);	      	//zoom du repère
@@ -187,7 +190,7 @@ int main(int argc, char* argv[]) {
   //glPointSize(2); //changer taille point
 
   glutMouseFunc(clique);
-  // glutMouseFunc(testud);
+  glutMotionFunc(testud);
   
   stop = clock();
 
