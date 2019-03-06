@@ -29,6 +29,14 @@ double ymin1;
 double xmax1;
 double ymax1;
 
+
+//variable globale pour déssiner le carré:
+//coordonné temporaire qui permet d'effacer les traits non utile
+int tempX;
+int tempY;
+int tab[800][800];
+
+
 void Rafraichir(void) {
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
 
@@ -66,7 +74,7 @@ void Rafraichir(void) {
   cout << "xmax: " << xmax << ", ymax " << ymax << endl;
 
   
-  int tab[800][800];
+  //int tab[800][800];
 
   for (int i=0 ; i<800 ; i++) {
     for (int j=0 ; j<800 ; j++) {
@@ -84,8 +92,7 @@ void Rafraichir(void) {
 
       if (tab[i][j]==-1)
 	{	
-	  glColor3f(0.2, 0.2, 0.2);
-	  glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+	  glColor3f(0.2, 0.2, 0.2);	 
 	}
       else
 	//glColor3f((1-0.01*tab[i][j]), -pow((0.01*tab[i][j])-0.5,2)+1,(1-0.01*tab[i][j]));
@@ -93,7 +100,8 @@ void Rafraichir(void) {
       glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
 		cos(exp(5*(0.01*tab[i][j]))+2),
 		cos(exp(5*(0.01*tab[i][j]))));
-	
+
+      
 	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
 
     }
@@ -103,28 +111,114 @@ void Rafraichir(void) {
   // -----------------------------------------------------------------
 }
 
-
-void inverse(double &min, double &max) {
+template<typename T>
+void inverse(T &min, T &max) {
   if (max < min) {
-    double a = min;
+    T a = min;
     min = max;
     max = a;
 
   }
 }
 
-void testud( int x, int y) {
+
+
+
+void carre( int x, int y) {
   float tailleX = abs(xmax - xmin);
   float tailleY = abs(ymax - ymin);
 
-  cout << "la souris bouge avec un bouton appuyer" << endl;
+ 
+
+  /*
   glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(xmin1,ymin1);
+  glVertex2f(xmin1,-ymin1);
   //affiche le point de la position de la souris:
+  glVertex2f((tailleX / 800) * x + xmin,-((tailleY / 800) * y + ymin));
+  glEnd(); 		       	// Fermer le polygone
+  glFlush();
+
+  */
+
+  //on enlève les trait parasite:
+   glBegin(GL_POINTS);
+
+
+
+
+   
+   //////////////////////////POSE PROBLEMMMMMMMMEEE////////////////////:
+   int j=(ymin1-ymin)*(800/tailleY);
+
+   int Imin=x;
+   int Imax=tempX;
+   inverse(Imin,Imax);
+
+   int Jmin=y;
+   int Jmax=tempY;
+   inverse(Jmin,Jmax);
+
+   //permet de gerer le cas ou j est plus grand que Jmin
+   inverse(j,Jmax);
+
+   
+       
+   for (;j<=Jmax;j++){
+   
+   
+     for(int i=Imin; i<=Imax; i++){
+       if((0<=i) && (800 >=i)){
+       
+       if (tab[i][j]==-1)     
+	     glColor3f(0.2, 0.2, 0.2);
+	   
+	   else
+	     glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
+		       cos(exp(5*(0.01*tab[i][j]))+2),
+		       cos(exp(5*(0.01*tab[i][j]))));
+       glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+       }   
+     }
+   }
+   glEnd(); 		       	// Fermer le polygone
+   glFlush();  
+   
+   //////////////////////////POSE PROBLEMMMMMMMMEEE////////////////////:
+  
+
+  //on retient la coordonné de la souris pour pouvoir effacer les trait en trop plus tard
+  tempX=x;
+  tempY=y;
+  
+  //on trace le carré:
+    glColor3f(1,1,1);
+  //trace la ligne verticale partant du point de départ
+  glBegin(GL_LINES);
+  glVertex2f(xmin1,ymin1);
+  glVertex2f(xmin1,((tailleY / 800) * y + ymin));
+  glEnd(); 		       	// Fermer le polygone
+  glFlush();
+
+  //ligne horizontale partant du point de départ
+    glBegin(GL_LINES);
+  glVertex2f(xmin1,ymin1);
+  glVertex2f((tailleX / 800) * x + xmin,ymin1);
+  glEnd(); 		       	// Fermer le polygone
+  glFlush();
+
+  ////
+
+  glBegin(GL_LINES);
+  glVertex2f((tailleX / 800) * x + xmin,ymin1);
   glVertex2f((tailleX / 800) * x + xmin,((tailleY / 800) * y + ymin));
   glEnd(); 		       	// Fermer le polygone
   glFlush();
+  
+
+  
+  
+  
+  
   cout << "coordonnées en pixel:" << x << ", " << y << endl
        << "coordonnée en par rapport a l'axe "
        << (tailleX / 800) * x + xmin<< "; " << (tailleY / 800) * y + ymin << endl;
@@ -134,8 +228,8 @@ void clique (int button, int state, int x, int y) {
 
   switch (button) {
     case GLUT_LEFT_BUTTON:
-      float tailleX = xmax - xmin;
-      float tailleY = ymax - ymin;
+      float tailleX =abs( xmax - xmin);
+      float tailleY = abs(ymax - ymin);
       if(state == GLUT_DOWN) {
 	      cout << "coordonnées en pixel:" << x << ", " << y << endl
 	        << "coordonnée en par rapport a l'axe " << (tailleX / 800) * x + xmin
@@ -150,7 +244,8 @@ void clique (int button, int state, int x, int y) {
        if(state == GLUT_UP)	  {
 
        	cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
-       	    <<"coordonnée par rapport à l'axe "<<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
+       	    <<"coordonnée par rapport à l'axe "
+	    <<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
 	
        	xmax1=(tailleX/800)*x+xmin;
        	ymax1=((tailleY/800)*y+ymin);
@@ -166,7 +261,7 @@ void clique (int button, int state, int x, int y) {
        	cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymax= "<<ymax<<endl<<endl;
 
        	glLoadIdentity();
-       	gluOrtho2D(xmin,xmax,ymax,ymin);	      	//zoom du repère
+       	gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
 
        	Rafraichir(); 		// Callback de la fenêtre
 
@@ -191,7 +286,7 @@ int main(int argc, char* argv[]) {
   //glPointSize(2); //changer taille point
 
    glutMouseFunc(clique);
-  glutMotionFunc(testud);
+  glutMotionFunc(carre);
   
   stop = clock();
 
