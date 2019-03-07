@@ -36,6 +36,9 @@ int tempX;
 int tempY;
 int tab[800][800];
 
+int cliqX;
+int cliqY;
+
 
 void Rafraichir(void) {
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
@@ -63,11 +66,25 @@ void Rafraichir(void) {
   float ymin = -0.7;
   float ymax = -0.5;
 
-  */ 
+  */
 
 
   double tailleX=abs(xmax-xmin);
   double tailleY=abs(ymax-ymin);
+
+
+  
+
+  glColor3f(1,1,1);
+  
+  glBegin(GL_LINES);
+  glVertex2f((tailleX/800)*-1+xmin,ymin);
+  glVertex2f((tailleX/800)*-1+xmin,ymax);
+  glEnd();      	// Fermer le polygone
+  glFlush();
+
+  
+
 
   
   cout << "xmin: " << xmin << ", ymin " << ymin << endl;
@@ -148,38 +165,71 @@ void carre( int x, int y) {
 
    
    //////////////////////////POSE PROBLEMMMMMMMMEEE////////////////////:
-   int j=(ymin1-ymin)*(800/tailleY);
+   //int k=(ymin1-ymin)*(800/tailleY);
+   int k=cliqY;
 
+   
    int Imin=x;
    int Imax=tempX;
    inverse(Imin,Imax);
+
+
+
+ 
+   //enleve le surplus de la ligne horizontale du haut
+   for(int i=Imin; i<=Imax; i++){
+     if((0<=i) && (800 >=i)){
+       
+       if (tab[i][k]==-1)     
+	 glColor3f(0.2, 0.2, 0.2);
+	   
+       else
+	 glColor3f(cos(exp(5*(0.01*tab[i][k]))+4),
+		   cos(exp(5*(0.01*tab[i][k]))+2),
+		   cos(exp(5*(0.01*tab[i][k]))));
+       glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*k+ymin);
+     }   
+   }
 
    int Jmin=y;
    int Jmax=tempY;
    inverse(Jmin,Jmax);
 
-   //permet de gerer le cas ou j est plus grand que Jmin
-   inverse(j,Jmax);
-
-   
+   //int l=(xmin1-xmin)*(800/tailleX);
+     int l=cliqX;
+   //enlève le surplus de la ligne verticale de gauche
+   for(int j=Jmin; j<=Jmax; j++){
+     if((0<=j) && (800 >=j)){
        
-   for (;j<=Jmax;j++){
-   
-   
-     for(int i=Imin; i<=Imax; i++){
-       if((0<=i) && (800 >=i)){
-       
-       if (tab[i][j]==-1)     
-	     glColor3f(0.2, 0.2, 0.2);
+       if (tab[l][j]==-1)     
+	 glColor3f(0.2, 0.2, 0.2);
 	   
-	   else
-	     glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
-		       cos(exp(5*(0.01*tab[i][j]))+2),
-		       cos(exp(5*(0.01*tab[i][j]))));
-       glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
-       }   
-     }
+       else
+	 glColor3f(cos(exp(5*(0.01*tab[l][j]))+4),
+		   cos(exp(5*(0.01*tab[l][j]))+2),
+		   cos(exp(5*(0.01*tab[l][j]))));
+       glVertex2f((tailleX/800)*l+xmin,(tailleY/800)*j+ymin);
+     }   
    }
+   
+
+   //permet de gerer le cas ou j est plus grand que Jmin
+   /*  inverse(k,Jmax);
+   
+   //enleve la ligne droite verticale de l'encien cadre
+   for(int i=j; i<=Jmax;i++){
+     if((0<=i) && (800 >=i)){
+	if (tab[tempX][i]==-1)     
+	 glColor3f(0.2, 0.2, 0.2);
+	 
+       else
+	 glColor3f(cos(exp(5*(0.01*tab[tempX][i]))+4),
+		   cos(exp(5*(0.01*tab[tempX][i]))+2),
+		   cos(exp(5*(0.01*tab[tempX][i]))));
+		   glVertex2f((tailleX/800)*tempX+xmin,(tailleY/800)*i+ymin);
+	  }   
+	  }*/
+   
    glEnd(); 		       	// Fermer le polygone
    glFlush();  
    
@@ -200,20 +250,20 @@ void carre( int x, int y) {
   glFlush();
 
   //ligne horizontale partant du point de départ
-    glBegin(GL_LINES);
+  glBegin(GL_LINES);
   glVertex2f(xmin1,ymin1);
   glVertex2f((tailleX / 800) * x + xmin,ymin1);
   glEnd(); 		       	// Fermer le polygone
   glFlush();
 
   ////
-
+  /*
   glBegin(GL_LINES);
   glVertex2f((tailleX / 800) * x + xmin,ymin1);
   glVertex2f((tailleX / 800) * x + xmin,((tailleY / 800) * y + ymin));
   glEnd(); 		       	// Fermer le polygone
   glFlush();
-  
+  */  
 
   
   
@@ -226,50 +276,102 @@ void carre( int x, int y) {
 
 void clique (int button, int state, int x, int y) {
 
+  cliqX=x;
+  cliqY=y;
+  
   switch (button) {
-    case GLUT_LEFT_BUTTON:
-      float tailleX =abs( xmax - xmin);
-      float tailleY = abs(ymax - ymin);
-      if(state == GLUT_DOWN) {
-	      cout << "coordonnées en pixel:" << x << ", " << y << endl
-	        << "coordonnée en par rapport a l'axe " << (tailleX / 800) * x + xmin
-          << "; " << (tailleY / 800) * y + ymin << endl;
+     case 4: //roulette vers le bas
+       if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
+	 //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
+       cout<<"miaou"<<endl<<endl;
 
-	      xmin1=(tailleX/800)*x+xmin;
-	      ymin1=((tailleY/800)*y+ymin);
-      }
-      
+    //dezoom
+    xmin=xmin*1.1;
+    xmax=xmax*1.1;
+    ymin=ymin*1.1;
+    ymax=ymax*1.1;
+ 
+    glLoadIdentity();
 
-      
-       if(state == GLUT_UP)	  {
 
-       	cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
-       	    <<"coordonnée par rapport à l'axe "
-	    <<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
-	
-       	xmax1=(tailleX/800)*x+xmin;
-       	ymax1=((tailleY/800)*y+ymin);
-	
-       	inverse(xmin1,xmax1);
-       	inverse(ymin1,ymax1);
-	
-       	xmin=xmin1;
-       	ymin=ymin1;
-       	xmax=xmin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
-       	ymax=ymin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
 
-       	cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymax= "<<ymax<<endl<<endl;
 
-       	glLoadIdentity();
-       	gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
+    
+    gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
 
-       	Rafraichir(); 		// Callback de la fenêtre
 
+    Rafraichir(); 		// Callback de la fenêtre
 
        }
-	  break;  
+    
+    break;
+
+ case 3: //roulette vers le haut
+    //zoom
+     if (state == GLUT_DOWN){ 
+    xmin=xmin*0.9;
+    xmax=xmax*0.9;
+    ymin=ymin*0.9;
+    ymax=ymax*0.9;
+ 
+    glLoadIdentity();
+    gluOrtho2D(xmin,xmax,ymax,ymin);	      	//zoom du repère
+
+    Rafraichir(); 		// Callback de la fenêtre
+     }
+    break;
+    
+  case GLUT_LEFT_BUTTON:
+    
+    float tailleX = abs( xmax - xmin);
+    float tailleY = abs(ymax - ymin);
+    if(state == GLUT_DOWN) {
+      cout << "coordonnées en pixel:" << x << ", " << y << endl
+	   << "coordonnée en par rapport a l'axe " << (tailleX / 800) * x + xmin
+	   << "; " << (tailleY / 800) * y + ymin << endl;
+
+      xmin1=(tailleX/800)*x+xmin;
+      ymin1=((tailleY/800)*y+ymin);
+    }
+      
+
+      
+    if(state == GLUT_UP)	  {
+
+      cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
+	  <<"coordonnée par rapport à l'axe "
+	  <<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
+	
+      xmax1=(tailleX/800)*x+xmin;
+      ymax1=((tailleY/800)*y+ymin);
+	
+      inverse(xmin1,xmax1);
+      inverse(ymin1,ymax1);
+	
+      xmin=xmin1;
+      ymin=ymin1;
+      xmax=xmin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
+      ymax=ymin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
+
+      cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymax= "<<ymax<<endl<<endl;
+
+      glLoadIdentity();
+      gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
+
+      Rafraichir(); 		// Callback de la fenêtre
+
+
+    }
+    break;
+
   }
+  
 }
+
+void objetMenu(int x){
+
+}
+
 
 int main(int argc, char* argv[]) {
   time_t start, stop;
@@ -280,12 +382,19 @@ int main(int argc, char* argv[]) {
   glutInitDisplayMode(GLUT_RGB); // On travaille en RGB
   int win = glutCreateWindow("Fractale de Mandelbrot"); // nomme la fenêtre
 
+
+  
   gluOrtho2D(xmin, xmax, ymin, ymax);	// zoom du repère  
   glutDisplayFunc(Rafraichir); // Callback de la fenêtre
 
   //glPointSize(2); //changer taille point
 
-   glutMouseFunc(clique);
+  int m=glutCreateMenu(objetMenu);
+  glutSetMenu(m);
+
+
+  
+  glutMouseFunc(clique);
   glutMotionFunc(carre);
   
   stop = clock();
