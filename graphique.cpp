@@ -145,6 +145,8 @@ void carre( int x, int y) {
   float tailleX = abs(xmax - xmin);
   float tailleY = abs(ymax - ymin);
 
+  cout<<"zemoifhaz epofuhqezsghepifuzefiygazefpiyg    "<<endl;
+
  
 
   /*
@@ -173,21 +175,31 @@ void carre( int x, int y) {
    int Imax=tempX;
    inverse(Imin,Imax);
 
-
+   cout<<endl<<endl<<endl<<"cliqX= "<<x<<"cliqY ="<<y<<endl<<endl;
 
  
    //enleve le surplus de la ligne horizontale du haut
    for(int i=Imin; i<=Imax; i++){
      if((0<=i) && (800 >=i)){
        
-       if (tab[i][k]==-1)     
+       if (tab[i][k]==-1)    { 
 	 glColor3f(0.2, 0.2, 0.2);
+
+	 //glColor3f(0,0,0);
+	 
+       }
 	   
-       else
-	 glColor3f(cos(exp(5*(0.01*tab[i][k]))+4),
-		   cos(exp(5*(0.01*tab[i][k]))+2),
-		   cos(exp(5*(0.01*tab[i][k]))));
+       else{
+	 	 glColor3f(cos(exp(5*(0.01*tab[i][k]))+4),
+	    cos(exp(5*(0.01*tab[i][k]))+2),
+	    cos(exp(5*(0.01*tab[i][k]))));
+
+		 // glColor3f(0,0,0);
+	 
+       }
+
        glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*k+ymin);
+
      }   
    }
 
@@ -201,14 +213,25 @@ void carre( int x, int y) {
    for(int j=Jmin; j<=Jmax; j++){
      if((0<=j) && (800 >=j)){
        
-       if (tab[l][j]==-1)     
+       if (tab[l][j]==-1) {    
 	 glColor3f(0.2, 0.2, 0.2);
+
+	 //glColor3f(0,0,0);
+	 
+       }
 	   
-       else
-	 glColor3f(cos(exp(5*(0.01*tab[l][j]))+4),
-		   cos(exp(5*(0.01*tab[l][j]))+2),
-		   cos(exp(5*(0.01*tab[l][j]))));
+       else{
+	  glColor3f(cos(exp(5*(0.01*tab[l][j]))+4),
+	cos(exp(5*(0.01*tab[l][j]))+2),
+	 	   cos(exp(5*(0.01*tab[l][j]))));
+
+	  //glColor3f(0,0,0);
+	 
+       }
+
        glVertex2f((tailleX/800)*l+xmin,(tailleY/800)*j+ymin);
+
+       
      }   
    }
    
@@ -241,7 +264,7 @@ void carre( int x, int y) {
   tempY=y;
   
   //on trace le carré:
-    glColor3f(1,1,1);
+  glColor3f(1,1,1);
   //trace la ligne verticale partant du point de départ
   glBegin(GL_LINES);
   glVertex2f(xmin1,ymin1);
@@ -276,8 +299,13 @@ void carre( int x, int y) {
 
 void clique (int button, int state, int x, int y) {
 
+  // réinitialisation de temp pour le tracer du carré
+  tempX=x;
+  tempY=y;
+
   cliqX=x;
   cliqY=y;
+  cout<<endl<<endl<<"clique"<<endl<<"cliqX= "<<x<<"clqY ="<<y<<endl<<endl;
   
   switch (button) {
      case 4: //roulette vers le bas
@@ -326,6 +354,10 @@ void clique (int button, int state, int x, int y) {
     float tailleX = abs( xmax - xmin);
     float tailleY = abs(ymax - ymin);
     if(state == GLUT_DOWN) {
+
+
+      
+      
       cout << "coordonnées en pixel:" << x << ", " << y << endl
 	   << "coordonnée en par rapport a l'axe " << (tailleX / 800) * x + xmin
 	   << "; " << (tailleY / 800) * y + ymin << endl;
@@ -360,7 +392,8 @@ void clique (int button, int state, int x, int y) {
 
       Rafraichir(); 		// Callback de la fenêtre
 
-
+      
+      
     }
     break;
 
@@ -368,9 +401,7 @@ void clique (int button, int state, int x, int y) {
   
 }
 
-void objetMenu(int x){
 
-}
 
 
 int main(int argc, char* argv[]) {
@@ -388,10 +419,6 @@ int main(int argc, char* argv[]) {
   glutDisplayFunc(Rafraichir); // Callback de la fenêtre
 
   //glPointSize(2); //changer taille point
-
-  int m=glutCreateMenu(objetMenu);
-  glutSetMenu(m);
-
 
   
   glutMouseFunc(clique);
