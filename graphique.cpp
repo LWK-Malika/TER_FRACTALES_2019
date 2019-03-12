@@ -34,7 +34,7 @@ double ymax1;
 //coordonné temporaire qui permet d'effacer les traits non utile
 int tempX;
 int tempY;
-int tab[800][800];
+vector< vector<int> > tab;
 
 int cliqX;
 int cliqY;
@@ -94,8 +94,9 @@ void Rafraichir(void) {
   //int tab[800][800];
 
   for (int i=0 ; i<800 ; i++) {
+    tab.push_back(vector<int>(0));
     for (int j=0 ; j<800 ; j++) {
-	    tab[i][j] = point::diverge((tailleX / 800) * i + xmin, (tailleY / 800) * j + ymin);	
+      tab[i].push_back(point::diverge((tailleX / 800) * i + xmin, (tailleY / 800) * j + ymin)); 
     }
   }
 
@@ -108,24 +109,35 @@ void Rafraichir(void) {
     for(int  j=0;j<800;j++){
 
       if (tab[i][j]==-1)
-	{	
-	  glColor3f(0.2, 0.2, 0.2);	 
-	}
-      else
-	//glColor3f((1-0.01*tab[i][j]), -pow((0.01*tab[i][j])-0.5,2)+1,(1-0.01*tab[i][j]));
-      //glColor3f(-pow((0.01*tab[i][j])+0.25,2)+1, -0.9*pow((0.01*tab[i][j])-0.5,2)+0.5, pow((0.01*tab[i][j])-0.4,2));
-      glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
-		cos(exp(5*(0.01*tab[i][j]))+2),
-		cos(exp(5*(0.01*tab[i][j]))));
-
-      
-	glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
-
+  { 
+    glColor3f(0.2, 0.2, 0.2);  
+  }
+      else{
+    glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
+    cos(exp(5*(0.01*tab[i][j]))+2),
+    cos(exp(5*(0.01*tab[i][j]))));
+  }
+  glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }
   }
+  
   glEnd(); 		       	// Fermer le polygone
   glFlush(); 
   // -----------------------------------------------------------------
+  glBegin(GL_LINES);
+  glColor3f(1,1,1);
+  glVertex2f(0, 0);
+  glVertex2f(0, 1);
+  glEnd();
+  glFlush();
+
+  glBegin(GL_LINES);
+  glColor3f(1,1,1);
+  glVertex2f(0, 0);
+  glVertex2f(1, 0);
+  glEnd();
+  glFlush();
+
 }
 
 template<typename T>
