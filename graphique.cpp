@@ -40,6 +40,55 @@ int cliqX;
 int cliqY;
 
 
+//pour le redimentionnement de la fenetre
+
+
+  int fenetreX;
+  int fenetreY;
+
+
+
+
+
+void dessine(){
+
+  double tailleX=abs(xmax-xmin);
+  double tailleY=abs(ymax-ymin);
+
+  glBegin(GL_POINTS); 	//mode affichage de points
+
+  for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudier
+    for(int  j=0;j<800;j++){
+
+      if (tab[i][j]==-1)
+    glColor3f(0.2, 0.2, 0.2);  
+  
+      else
+    glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
+    cos(exp(5*(0.01*tab[i][j]))+2),
+    cos(exp(5*(0.01*tab[i][j])))); 
+  glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+    }
+  }
+  glEnd(); 		       	// Fermer le polygone
+  glFlush(); 
+}
+
+
+ void remplirTab(){
+  double tailleX=abs(xmax-xmin);
+  double tailleY=abs(ymax-ymin);
+  for (int i=0 ; i<800 ; i++) {
+    tab.push_back(vector<int>(800));
+    for (int j=0 ; j<800 ; j++) {
+      tab[i][j]=point::diverge((tailleX / 800) * i + xmin,
+       (tailleY / 800) * j + ymin); 
+    }
+  }
+}
+
+
+
 void Rafraichir(void) {
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
 
@@ -51,22 +100,25 @@ void Rafraichir(void) {
   //innitiallisation du tableau:
   /*
   int** tab=new int*[glutGet(GLUT_WINDOW_WIDTH)];
+*/
 
-  for
   
-  tab[i]=new int
+  //int fenetreX=glutGet(GLUT_WINDOW_WIDTH);
+  //int fenetreY=glutGet(GLUT_WINDOW_HEIGHT);
 
-  int x=glutGet(GLUT_WINDOW_WIDTH);
-  int y=glutGet(GLUT_WINDOW_HEIGHT);
-  cout<<x<<"miaou"<<y<<endl;
-  */
+  //int tailleTabX;
+  //int tailleTabY;
   /*
-  float xmin = -0.7;
-  float xmax = -0.5;
-  float ymin = -0.7;
-  float ymax = -0.5;
+  if(tab.size()>0){
 
-  */
+
+  	//tab.push_back()
+
+
+  	tab[0].size();
+}
+*/
+
 
 
   double tailleX=abs(xmax-xmin);
@@ -84,46 +136,19 @@ void Rafraichir(void) {
   glFlush();
 
   
-
-
   
   cout << "xmin: " << xmin << ", ymin " << ymin << endl;
   cout << "xmax: " << xmax << ", ymax " << ymax << endl;
 
+
+  remplirTab();
+
+  //----------- fonction affiche ---------
+  dessine();
+
   
-  //int tab[800][800];
-
-  for (int i=0 ; i<800 ; i++) {
-    tab.push_back(vector<int>(0));
-    for (int j=0 ; j<800 ; j++) {
-      tab[i].push_back(point::diverge((tailleX / 800) * i + xmin, (tailleY / 800) * j + ymin)); 
-    }
-  }
-
-  //--------------------- début fonction affiche --------------------
-  
-  glBegin(GL_POINTS); 	//mode affichage de points
-
-
-  for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudier
-    for(int  j=0;j<800;j++){
-
-      if (tab[i][j]==-1)
-  { 
-    glColor3f(0.2, 0.2, 0.2);  
-  }
-      else{
-    glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
-    cos(exp(5*(0.01*tab[i][j]))+2),
-    cos(exp(5*(0.01*tab[i][j]))));
-  }
-  glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
-    }
-  }
-  
-  glEnd(); 		       	// Fermer le polygone
-  glFlush(); 
   // -----------------------------------------------------------------
+ 
   glBegin(GL_LINES);
   glColor3f(1,1,1);
   glVertex2f(0, 0);
@@ -139,6 +164,15 @@ void Rafraichir(void) {
   glFlush();
 
 }
+
+
+
+
+
+
+
+
+
 
 template<typename T>
 void inverse(T &min, T &max) {
@@ -424,6 +458,11 @@ int main(int argc, char* argv[]) {
   glutInitWindowSize(800, 800); // taille fenetre
   glutInitDisplayMode(GLUT_RGB); // On travaille en RGB
   int win = glutCreateWindow("Fractale de Mandelbrot"); // nomme la fenêtre
+
+
+  fenetreX=glutGet(GLUT_WINDOW_WIDTH);
+  fenetreY=glutGet(GLUT_WINDOW_HEIGHT);
+
 
 
   
