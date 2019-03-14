@@ -135,11 +135,6 @@ void Rafraichir(void) {
   glEnd();      	// Fermer le polygone
   glFlush();
 
-  
-  
-  cout << "xmin: " << xmin << ", ymin " << ymin << endl;
-  cout << "xmax: " << xmax << ", ymax " << ymax << endl;
-
 
   remplirTab();
 
@@ -191,8 +186,7 @@ void carre( int x, int y) {
   float tailleX = abs(xmax - xmin);
   float tailleY = abs(ymax - ymin);
 
-  cout<<"zemoifhaz epofuhqezsghepifuzefiygazefpiyg    "<<endl;
-
+  dessine();
  
 
   /*
@@ -205,10 +199,10 @@ void carre( int x, int y) {
 
   */
 
+  
+  /*
   //on enlève les trait parasite:
    glBegin(GL_POINTS);
-
-
 
 
    
@@ -230,8 +224,8 @@ void carre( int x, int y) {
        
        if (tab[i][k]==-1)    { 
 	 glColor3f(0.2, 0.2, 0.2);
-
-	 //glColor3f(0,0,0);
+	 
+	  // glColor3f(0,0,0);
 	 
        }
 	   
@@ -239,8 +233,8 @@ void carre( int x, int y) {
 	 	 glColor3f(cos(exp(5*(0.01*tab[i][k]))+4),
 	    cos(exp(5*(0.01*tab[i][k]))+2),
 	    cos(exp(5*(0.01*tab[i][k]))));
-
-		 // glColor3f(0,0,0);
+	    
+  //	 glColor3f(0,0,0);
 	 
        }
 
@@ -259,19 +253,19 @@ void carre( int x, int y) {
    for(int j=Jmin; j<=Jmax; j++){
      if((0<=j) && (800 >=j)){
        
-       if (tab[l][j]==-1) {    
+       if   (tab[l][j]==-1) {    
 	 glColor3f(0.2, 0.2, 0.2);
-
-	 //glColor3f(0,0,0);
+	 
+// glColor3f(0,0,0);
 	 
        }
 	   
        else{
-	  glColor3f(cos(exp(5*(0.01*tab[l][j]))+4),
+	 	  glColor3f(cos(exp(5*(0.01*tab[l][j]))+4),
 	cos(exp(5*(0.01*tab[l][j]))+2),
 	 	   cos(exp(5*(0.01*tab[l][j]))));
-
-	  //glColor3f(0,0,0);
+	 
+		  //  glColor3f(0,0,0);
 	 
        }
 
@@ -297,11 +291,11 @@ void carre( int x, int y) {
 		   cos(exp(5*(0.01*tab[tempX][i]))));
 		   glVertex2f((tailleX/800)*tempX+xmin,(tailleY/800)*i+ymin);
 	  }   
-	  }*/
+	  }
    
    glEnd(); 		       	// Fermer le polygone
    glFlush();  
-   
+  */
    //////////////////////////POSE PROBLEMMMMMMMMEEE////////////////////:
   
 
@@ -316,7 +310,6 @@ void carre( int x, int y) {
   glVertex2f(xmin1,ymin1);
   glVertex2f(xmin1,((tailleY / 800) * y + ymin));
   glEnd(); 		       	// Fermer le polygone
-  glFlush();
 
   //ligne horizontale partant du point de départ
   glBegin(GL_LINES);
@@ -334,13 +327,8 @@ void carre( int x, int y) {
   glFlush();
   */  
 
+ 
   
-  
-  
-  
-  cout << "coordonnées en pixel:" << x << ", " << y << endl
-       << "coordonnée en par rapport a l'axe "
-       << (tailleX / 800) * x + xmin<< "; " << (tailleY / 800) * y + ymin << endl;
 }
 
 void clique (int button, int state, int x, int y) {
