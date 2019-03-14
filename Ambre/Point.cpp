@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 
+//
+
 point::point(int X, int Y): x(X), y(Y){}
 
 
