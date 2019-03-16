@@ -186,7 +186,7 @@ void carre( int x, int y) {
   float tailleX = abs(xmax - xmin);
   float tailleY = abs(ymax - ymin);
 
-  dessine();
+  //dessine();
  
 
   /*
@@ -348,10 +348,10 @@ void clique (int button, int state, int x, int y) {
        cout<<"miaou"<<endl<<endl;
 
     //dezoom
-    xmin=xmin*1.1;
-    xmax=xmax*1.1;
-    ymin=ymin*1.1;
-    ymax=ymax*1.1;
+       xmin=xmin*(xmin<0?1.1:0.9);
+       xmax=xmax*(xmax<0?0.9:1.1);
+       ymin=ymin*(ymin<0?1.1:0.9);
+       ymax=ymax*(ymax<0?0.9:1.1);
  
     glLoadIdentity();
 
@@ -371,10 +371,10 @@ void clique (int button, int state, int x, int y) {
  case 3: //roulette vers le haut
     //zoom
      if (state == GLUT_DOWN){ 
-    xmin=xmin*0.9;
-    xmax=xmax*0.9;
-    ymin=ymin*0.9;
-    ymax=ymax*0.9;
+        xmin=xmin*(xmin>0?1.1:0.9);
+	xmax=xmax*(xmax>0?0.9:1.1);
+       ymin=ymin*(ymin>0?1.1:0.9);
+       ymax=ymax*(ymax>0?0.9:1.1);
  
     glLoadIdentity();
     gluOrtho2D(xmin,xmax,ymax,ymin);	      	//zoom du repère
@@ -464,6 +464,9 @@ int main(int argc, char* argv[]) {
   glutMotionFunc(carre);
   
   stop = clock();
+
+
+ 
 
   cout << "durer du programme: " << difftime(stop, start) << " milliseconde" << endl;
 
