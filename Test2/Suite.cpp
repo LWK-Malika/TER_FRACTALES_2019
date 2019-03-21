@@ -7,6 +7,19 @@
 #include <ctime>
 using namespace std;
 
+bool pause = false;
+
+void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
+{
+  printf("Touche : %c = %d \n", key, key);
+  switch (key) {
+    case 32 :
+      cout << "rentre dans le case";
+      pause = !pause;
+      break;
+  }
+}
+
 void diverge(double r, double i, int a) 
 {
   double ZnR = 0;
@@ -17,24 +30,28 @@ void diverge(double r, double i, int a)
 
   // glBegin(GL_LINE_STRIP); // mode affichage de lignes
 
-  while ((sqrt(pow(ZnR, 2) + pow(ZnI, 2)) < 2) and (cmp < 120)) {
-    if (difftime(clock(), depart) >= 50000) {
-      glBegin(GL_POINTS); // mode affichage de points  
-    temporaire = ZnR;
-    
-    ZnR = pow(ZnR, 2) - pow(ZnI, 2) + r;    
-    ZnI = 2 * temporaire * ZnI + i;
-    cmp++;
-    cout << " ZnR =" << ZnR << " ZnI =" << ZnI << endl;
-   
-    glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
-    
-    glVertex2f(ZnR, ZnI);
 
-    glEnd(); 		        
-    glFlush(); 
+  while ((sqrt(pow(ZnR, 2) + pow(ZnI, 2)) < 2) and (cmp < 120)) {
+
+    // glutKeyboardFunc(clavier);   
+
+    if (!pause && difftime(clock(), depart) >= 50000) {
+      glBegin(GL_POINTS); // mode affichage de points  
+      temporaire = ZnR;
     
-    depart = clock();
+      ZnR = pow(ZnR, 2) - pow(ZnI, 2) + r;    
+      ZnI = 2 * temporaire * ZnI + i;
+      cmp++;
+      cout << " ZnR =" << ZnR << " ZnI =" << ZnI << endl;
+   
+      glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
+    
+      glVertex2f(ZnR, ZnI);
+
+      glEnd(); 		        
+      glFlush(); 
+    
+      depart = clock();
     }
   }
 
@@ -47,6 +64,7 @@ void diverge(double r, double i, int a)
 
 int main(int argc, char** argv) 
 {
+ 
   int a; 
   int win;
 
@@ -75,9 +93,13 @@ int main(int argc, char** argv)
   win = glutCreateWindow("Fractale "); // On nomme la fenêtre
   
   gluOrtho2D(xmin, xmax, ymin, ymax);	// Zoom du repère
-  glBegin(GL_LINES); // Création du repère
-  glColor3f(1, 1, 1);
 
+  glBegin(GL_LINES); // Création du repère
+
+  glutKeyboardFunc(clavier);  
+
+  glColor3f(1, 1, 1);
+  //création du repère
   glVertex2f(-2, 0);
   glVertex2f(2, 0); 
   glVertex2f(0, -2);
