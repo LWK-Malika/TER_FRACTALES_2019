@@ -4,14 +4,15 @@
 #include <ctime>
 using namespace std;
 
-int frequency_of_primes (int n) {
+int frequency_of_primes (int n) 
+{
   int i,j;
   int freq=n-1;
   for (i=2; i<=n; ++i) for (j=sqrt(i);j>1;--j) if (i%j==0) {--freq; break;}
   return freq;
 }
 
-int main()
+int main2()
 {
   clock_t t;
   int f;
@@ -25,17 +26,15 @@ int main()
 
 
 
- //variable temporelle:
+ // variable temporelle:
   time_t depart;
-  depart=clock();
-  int a=0;
-  while(1){
+  depart = clock();
+  int a = 0;
+  while (1) {
 
-    if( difftime(clock(),depart)>=1000000){  
-      cout<<a++<<endl;
-      depart=clock();
+    if (difftime(clock(), depart) >= 1000000) {  
+      cout << a++ << endl;
+      depart = clock();
     }
   }
-  
-  
 }

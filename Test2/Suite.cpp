@@ -4,35 +4,39 @@
 #include <GL/glut.h>
 #include <cmath>
 #include <cstdlib>
+#include <ctime>
 using namespace std;
 
-void diverge(double r, double i, int a) {
+void diverge(double r, double i, int a) 
+{
   double ZnR = 0;
   double ZnI = 0;
   double temporaire;
   float cmp = 0;
-  glBegin(GL_LINE_STRIP);
-  while ((sqrt(pow(ZnR, 2) + pow(ZnI, 2)) < 2) and (cmp < 50)) {
-    
+  clock_t depart = clock();
+
+  // glBegin(GL_LINE_STRIP); // mode affichage de lignes
+
+  while ((sqrt(pow(ZnR, 2) + pow(ZnI, 2)) < 2) and (cmp < 120)) {
+    if (difftime(clock(), depart) >= 50000) {
+      glBegin(GL_POINTS); // mode affichage de points  
     temporaire = ZnR;
     
     ZnR = pow(ZnR, 2) - pow(ZnI, 2) + r;    
     ZnI = 2 * temporaire * ZnI + i;
     cmp++;
     cout << " ZnR =" << ZnR << " ZnI =" << ZnI << endl;
-    
-    /* glBegin(GL_POINTS); 	// mode affichage de points */
    
-    glColor3f(0.1 * a, 0.2, 1 - 0.1 * a);
+    glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
     
     glVertex2f(ZnR, ZnI);
-    
-    // glEnd();		        
-    // glFlush();
-  }
 
-  glEnd(); 		        
-  glFlush(); 
+    glEnd(); 		        
+    glFlush(); 
+    
+    depart = clock();
+    }
+  }
 
   if (cmp < 50) {
     cout << "la fonction diverge à partir de n = "<< cmp << endl;
@@ -41,19 +45,13 @@ void diverge(double r, double i, int a) {
   }
 }
 
-int main(int argc, char** argv) {
-  cout << "Entrez le nombre complexe : " << endl;
-  float r; cin >> r;
-  float i; cin >> i;
-  cout << "Le nombre complexe entré est : " << r << "+i(" << i << ")" << endl;
-  cout << "Voulez-vous afficher les suites préféfinies ?" << endl 
-    << "Tapez '1' pour oui et '0' pour non : ";
-  int a; cin >> a;
+int main(int argc, char** argv) 
+{
+  int a; 
+  int win;
 
-  glutInit(&argc, argv); 
-  glutInitWindowSize(800, 800); // Taille de la fenêtre
-  glutInitDisplayMode(GLUT_RGB); 	// On travaille en RGB
-  int win = glutCreateWindow("Fractale "); // On nomme la fenêtre
+  float r; 
+  float i; 
 
   float xmin = -2;
   float xmax = 2;
@@ -62,6 +60,19 @@ int main(int argc, char** argv) {
   
   float tailleX = xmax - xmin;
   float tailleY = ymax - ymin;
+
+  cout << "Entrez le nombre complexe : ";
+  cin >> r;
+  cin >> i;
+  cout << "Le nombre complexe entré est : " << r << " + i" << i << "" << endl;
+  cout << "Voulez-vous aussi afficher les suites préféfinies ?" << endl 
+    << "Tapez '1' pour oui et '0' pour non : ";
+  cin >> a;
+
+  glutInit(&argc, argv); 
+  glutInitWindowSize(800, 800); // Taille de la fenêtre
+  glutInitDisplayMode(GLUT_RGB); 	// On travaille en RGB
+  win = glutCreateWindow("Fractale "); // On nomme la fenêtre
   
   gluOrtho2D(xmin, xmax, ymin, ymax);	// Zoom du repère
   glBegin(GL_LINES); // Création du repère
@@ -86,18 +97,21 @@ int main(int argc, char** argv) {
 
   diverge(r, i, 1);
 
-  double tab[6][2] = {  {0, 0.6},
-		                    {0.3,0.5},
-		                    {-0.8,0.156},
-		                    {0.577,0.478},
-		                    {-0.7436,0.661746},
-		                    {-0.55,-0.45} 
-                      };
+  // Suites prédéfinies
+  double tab[6][2] = {  
+    {0, 0.6},
+		{0.3,0.5},
+		{-0.8,0.156},
+		{0.577,0.478},
+		{-0.7436,0.661746},
+		{-0.55,-0.45} 
+  };
 
   if (a) {
     for (int i=0 ; i < 6 ; i++) {
       diverge(tab[i][0], tab[i][1], i + 1);
     }
   }
+
   glutMainLoop(); // Permet un "arrêt sur image"
 }
