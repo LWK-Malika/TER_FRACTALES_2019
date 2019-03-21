@@ -11,7 +11,7 @@ int frequency_of_primes (int n) {
   return freq;
 }
 
-int test ()
+int main()
 {
   clock_t t;
   int f;
@@ -22,4 +22,20 @@ int test ()
   t = clock() - t;
   cout << "It took me " << t << 
   " clicks (" << (float)t / CLOCKS_PER_SEC << " seconds)." << endl;
+
+
+
+ //variable temporelle:
+  time_t depart;
+  depart=clock();
+  int a=0;
+  while(1){
+
+    if( difftime(clock(),depart)>=1000000){  
+      cout<<a++<<endl;
+      depart=clock();
+    }
+  }
+  
+  
 }
