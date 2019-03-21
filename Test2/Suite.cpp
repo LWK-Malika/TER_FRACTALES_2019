@@ -9,7 +9,7 @@ using namespace std;
 
 bool pause = false;
 
-void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
+void clavier(unsigned char key, int x, int y)  // glutKeyboardFunc(clavier);
 {
   printf("Touche : %c = %d \n", key, key);
   switch (key) {

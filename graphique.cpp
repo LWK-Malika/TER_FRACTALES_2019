@@ -47,6 +47,14 @@ int cliqY;
   int fenetreY;
 
 
+int tabOcc[100]={0};
+
+int couleur=0;
+
+
+
+
+
 
 
 
@@ -64,9 +72,16 @@ void dessine(){
     glColor3f(0.2, 0.2, 0.2);  
   
       else
-    glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
-    cos(exp(5*(0.01*tab[i][j]))+2),
-    cos(exp(5*(0.01*tab[i][j])))); 
+	if(couleur==0)
+	  glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
+		    cos(exp(5*(0.01*tab[i][j]))+2),
+		    cos(exp(5*(0.01*tab[i][j]))));
+	else
+	  {
+	    glColor3f(0.00001*tabOcc[tab[i][j]],
+		      1-0.0001*tabOcc[tab[i][j]],
+		      0.5-0.00001*tabOcc[tab[i][j]]);
+	  }
   glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }
   }
@@ -87,7 +102,12 @@ void dessine(){
   }
 }
 
+void occuranceDiv(){
 
+  for(int i=0; i<800; i++)
+    for(int j=0; j<800; j++)
+      tabOcc[tab[i][j]]++;
+}
 
 void Rafraichir(void) {
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
@@ -138,6 +158,10 @@ void Rafraichir(void) {
 
   remplirTab();
 
+  //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
+  occuranceDiv();
+  
+  
   //----------- fonction affiche ---------
   dessine();
 
@@ -162,6 +186,25 @@ void Rafraichir(void) {
 
 
 
+void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
+{
+  printf("Touche : %c = %d \n", key, key);
+  // test, permet de savoir quelle touche est tapé
+   switch (key) {
+    case 97:
+ 
+      cout << "couleur par défaut"<<endl;
+      couleur=0;
+      dessine();
+      break;
+   case 122:
+     
+     cout << "couleur en fonction du nombre d'occurence pour chaque temps de divergence."<<endl;
+     couleur=1;
+     dessine();
+     break;
+   }
+}
 
 
 
@@ -465,7 +508,8 @@ int main(int argc, char* argv[]) {
   
   stop = clock();
 
-
+  //evenement clavier
+  glutKeyboardFunc(clavier);
  
 
   cout << "durer du programme: " << difftime(stop, start) << " milliseconde" << endl;
