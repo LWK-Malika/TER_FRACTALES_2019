@@ -185,7 +185,7 @@ void Rafraichir(void) {
 }
 
 
-
+//gere les touche basique du clavier
 void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
 {
   printf("Touche : %c = %d \n", key, key);
@@ -203,11 +203,62 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
      couleur=1;
      dessine();
      break;
+   
+   case 13: //touche entrer
+     cout << "Fractale par défaut"<<endl;
+     couleur=0;//réinitialise la couleur
+     glLoadIdentity(); //réinitialise le repère
+     gluOrtho2D( xmin=-2.15,xmax=0.55,ymin=-1.3, ymax=1.3);//zoom du repère
+     Rafraichir();
+     break;
+
+     //ajout ici des autre evenement du clavier
    }
 }
 
 
+//gère les touche dite "spéciale" du clavier (comme les touche directionnelle)
+void touche(int key, int x, int y){
+  double tailleX=abs(xmax-xmin);
+  double tailleY=abs(ymax-ymin);
 
+  
+  printf("Touche spécial: %c = %d \n", key, key);
+  
+  
+  switch(key){
+  case GLUT_KEY_UP :
+
+    glLoadIdentity(); //réinitialise le repère
+    gluOrtho2D( xmin,xmax,ymin=ymin+(tailleY/10),ymax=ymax+(tailleY/10));
+    Rafraichir();
+    break;
+		
+  case GLUT_KEY_DOWN :
+        glLoadIdentity(); //réinitialise le repère
+    gluOrtho2D( xmin,xmax,ymin=ymin-(tailleY/10),ymax=ymax-(tailleY/10));
+    Rafraichir();
+    
+    break;
+
+  case GLUT_KEY_LEFT :
+        glLoadIdentity(); //réinitialise le repère
+	gluOrtho2D( xmin=xmin-(tailleX/10),xmax=xmax-(tailleX/10),ymin, ymax);
+	Rafraichir();
+
+    
+    break;
+
+  case GLUT_KEY_RIGHT :
+ glLoadIdentity(); //réinitialise le repère
+	gluOrtho2D( xmin=xmin+(tailleX/10),xmax=xmax+(tailleX/10),ymin, ymax);
+	Rafraichir();
+    
+    break;
+ 
+  }
+
+}
 
 
 
@@ -508,9 +559,12 @@ int main(int argc, char* argv[]) {
   
   stop = clock();
 
-  //evenement clavier
+  //evenement clavier basique
   glutKeyboardFunc(clavier);
- 
+
+  //evenement touche clavier "spécial"
+  glutSpecialFunc(touche);
+  
 
   cout << "durer du programme: " << difftime(stop, start) << " milliseconde" << endl;
 
