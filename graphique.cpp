@@ -84,10 +84,25 @@ void dessine(){
 		      0.5-0.00001*tabOcc[tab[i][j]]);
 	  }
 	  else{
-	    int tabCouleur[5][3]={{1,0,0},{1,1,0},{0,1,0},{0,1,1},{0,0,1}};
-	    glColor3f(tabCouleur[(tab[i][j]/20)][0] ,
-		      tabCouleur[(tab[i][j]/20)][1],
-		      tabCouleur[(tab[i][j]/20)][2]  );
+	    //vert -> bleu -> rouge
+	    float tabCouleur[10][3]={
+	      {0,1,0}, {0,1,0.85},
+	      {0,0.8,1}, {0,0.95,1},
+	      {0,0,1}, {0.8,0,1},
+	      {1,0,1}, {1,0,0.5},
+	      {1,0,0}, {1,0.5,0}};
+
+	    //rouge ->vert->bleu
+	    // float tabCouleur[10][3]={{1,0,0}, {1,0.5,0},
+	    // 			   {1,1,0}, {0.5,1,0},
+	    // 			   {0,1,0}, {0,1,0.5},
+	    // 			   {0,1,1}, {0,0.5,1},
+	    // 			   {0,0,1}, {1,0,1}};
+
+	    
+	    glColor3f(tabCouleur[(tab[i][j]/10)][0] ,
+		      tabCouleur[(tab[i][j]/10)][1],
+		      tabCouleur[(tab[i][j]/10)][2]  );
     
 
 	  }
