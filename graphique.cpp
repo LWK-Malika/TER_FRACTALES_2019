@@ -76,12 +76,23 @@ void dessine(){
 	  glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
 		    cos(exp(5*(0.01*tab[i][j]))+2),
 		    cos(exp(5*(0.01*tab[i][j]))));
-	else
-	  {
+	else{
+	  if(couleur==1){
+	    
 	    glColor3f(0.00001*tabOcc[tab[i][j]],
 		      1-0.0001*tabOcc[tab[i][j]],
 		      0.5-0.00001*tabOcc[tab[i][j]]);
 	  }
+	  else{
+	    int tabCouleur[5][3]={{1,0,0},{1,1,0},{0,1,0},{0,1,1},{0,0,1}};
+	    glColor3f(tabCouleur[(tab[i][j]/20)][0] ,
+		      tabCouleur[(tab[i][j]/20)][1],
+		      tabCouleur[(tab[i][j]/20)][2]  );
+    
+
+	  }
+	  
+	}
   glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
     }
   }
@@ -226,19 +237,26 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
   printf("Touche : %c = %d \n", key, key);
   // test, permet de savoir quelle touche est tapé
    switch (key) {
-    case 97:
+   case 97: //touche a 
  
       cout << "couleur par défaut"<<endl;
       couleur=0;
       dessine();
       break;
-   case 122:
+   case 122: //touche z
      
      cout << "couleur en fonction du nombre d'occurence pour chaque temps de divergence."<<endl;
      couleur=1;
      dessine();
      break;
-   
+
+   case 101: //touche e
+     cout << "Couleurs par intervalles"<<endl;
+     couleur=974;
+     dessine();
+     break;
+
+     
    case 13: //touche entrer
      cout << "Fractale par défaut"<<endl;
      couleur=0;//réinitialise la couleur
@@ -246,6 +264,7 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
      gluOrtho2D( xmin=-2.15,xmax=0.55,ymin=-1.3, ymax=1.3);//zoom du repère
      Rafraichir();
      break;
+
 
      //ajout ici des autre evenement du clavier
    }
