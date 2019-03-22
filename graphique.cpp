@@ -90,7 +90,7 @@ void dessine(){
 }
 
 
- void remplirTab(){
+void remplirTab(){
   double tailleX=abs(xmax-xmin);
   double tailleY=abs(ymax-ymin);
   for (int i=0 ; i<800 ; i++) {
@@ -101,6 +101,41 @@ void dessine(){
     }
   }
 }
+
+/*  NE FONCTIONNE PAS
+
+void supprLigne(int const i){
+  tab.erase(tab.begin() + i);
+}
+
+void ajoutLigne(int const i){
+  tab.insert(tab.begin()+i, 0);
+}
+
+
+
+
+void supprColonne(int const j){
+  for(int i=0; i<800;i++)
+    tab[i].erase(tab.begin()+ j);
+    }
+
+
+void deplaceTab(int move, int dir){
+  double tailleX=abs(xmax-xmin);
+  double tailleY=abs(ymax-ymin);
+  for(int i=0;i<move;i++)
+    if(dir ==1)
+      supprLigne(800);
+
+  //on supprime les cases
+  
+}
+*/
+
+
+
+
 
 void occuranceDiv(){
 
@@ -228,10 +263,11 @@ void touche(int key, int x, int y){
   
   switch(key){
   case GLUT_KEY_UP :
-
+    
     glLoadIdentity(); //réinitialise le repère
-    gluOrtho2D( xmin,xmax,ymin=ymin+(tailleY/10),ymax=ymax+(tailleY/10));
-    Rafraichir();
+    gluOrtho2D( xmin,xmax,ymin=ymin+(tailleY/10),ymax=ymax+(tailleY/10)); 
+
+    dessine();
     break;
 		
   case GLUT_KEY_DOWN :
