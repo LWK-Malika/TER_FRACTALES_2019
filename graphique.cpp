@@ -129,35 +129,82 @@ void remplirTab(){
 }
 
 /*  NE FONCTIONNE PAS
-
-void supprLigne(int const i){
-  tab.erase(tab.begin() + i);
-}
-
-void ajoutLigne(int const i){
-  tab.insert(tab.begin()+i, 0);
-}
+ */
 
 
-
-
-void supprColonne(int const j){
-  for(int i=0; i<800;i++)
-    tab[i].erase(tab.begin()+ j);
+void completeTab(int imin, int imax, int jmin,int jmax){
+  double tailleX=abs(xmax-xmin);
+  double tailleY=abs(ymax-ymin);
+  for (int i=imin ; i<imax ; i++) {
+   
+    for (int j=jmin ; j<jmax; j++) {
+      tab[i][j]=point::diverge((tailleX / 800) * i + xmin,
+       (tailleY / 800) * j + ymin);
     }
+  }
+}
+
+void newTab(int move, int dir){
+  //dir de 1 a 4;
+  
+  vector< vector<int> > tabcopie(800,vector<int>(800,0));
+
+  //suivant la valeur de dir, boucle ne commence/finis pas au meme endrois
+  
+  switch(dir){
+  case 1:
+    //vers la gauche
+    for (int i=move ; i<800 ; i++) {
+      for (int j=0 ; j<800 ; j++) {
+	tabcopie[i][j]=tab[i-move][j];
+      }
+    }
+ 
+    tab.swap(tabcopie);
+    completeTab(0,move,0,800);
+    break;
+  case 2:
+    for (int i=0 ; i<800-move ; i++) {
+      for (int j=0 ; j<800 ; j++){
+	tabcopie[i][j]=tab[i+move][j]; 
+      }
+    }
+
+    tab.swap(tabcopie);
+    completeTab(800-move,800,0,800);
+    
+    break;
+  case 3:
+    for (int i=0 ; i<800; i++) {
+      for (int j=move; j<800 ; j++){
+	tabcopie[i][j]=tab[i][j-move];
+      }
+    }
+    tab.swap(tabcopie);
+    completeTab(0,800,0,move);
+    break;
+    
+  case 4:
+    for (int i=0 ; i<800 ; i++) {
+      for (int j=0 ; j<800-move ; j++){
+	tabcopie[i][j]=tab[i][j+move]; 
+      }
+    }
+
+    tab.swap(tabcopie);
+    completeTab(0,800,0,0);
+    break;
+  }
+}
 
 
 void deplaceTab(int move, int dir){
-  double tailleX=abs(xmax-xmin);
-  double tailleY=abs(ymax-ymin);
-  for(int i=0;i<move;i++)
-    if(dir ==1)
-      supprLigne(800);
-
+  newTab(move, dir);
+  
   //on supprime les cases
   
 }
-*/
+
 
 
 
@@ -300,29 +347,32 @@ void touche(int key, int x, int y){
     
     glLoadIdentity(); //réinitialise le repère
     gluOrtho2D( xmin,xmax,ymin=ymin+(tailleY/10),ymax=ymax+(tailleY/10)); 
-
+    deplaceTab(20,4);
     dessine();
     break;
 		
   case GLUT_KEY_DOWN :
-        glLoadIdentity(); //réinitialise le repère
+    glLoadIdentity(); //réinitialise le repère
     gluOrtho2D( xmin,xmax,ymin=ymin-(tailleY/10),ymax=ymax-(tailleY/10));
-    Rafraichir();
+    deplaceTab(20,3);
+    dessine();
     
     break;
 
   case GLUT_KEY_LEFT :
-        glLoadIdentity(); //réinitialise le repère
-	gluOrtho2D( xmin=xmin-(tailleX/10),xmax=xmax-(tailleX/10),ymin, ymax);
-	Rafraichir();
-
+    glLoadIdentity(); //réinitialise le repère
+    gluOrtho2D( xmin=xmin-(tailleX/10),xmax=xmax-(tailleX/10),ymin, ymax);
+    deplaceTab(20,1);
+    dessine();
+    
     
     break;
-
+    
   case GLUT_KEY_RIGHT :
  glLoadIdentity(); //réinitialise le repère
 	gluOrtho2D( xmin=xmin+(tailleX/10),xmax=xmax+(tailleX/10),ymin, ymax);
-	Rafraichir();
+	deplaceTab(20,2);
+	dessine();
     
     break;
  
