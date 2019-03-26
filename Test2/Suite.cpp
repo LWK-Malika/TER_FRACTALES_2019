@@ -29,21 +29,26 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardFunc(clavier);
   }
 }
 
-/* Créer une fonction qui affiche une suite aux coordonnée du clique souris
+// Converti des coordonnées en pixel [0, 800] en coordonnée du repère [-2, 2]
+double pixel_to_repere(int i) 
+{
+  double d = (((double)i) / 200) - 2; 
+  return d;
+}
 
-void clique (int button, int state, int x, int y) {
+// Créer une fonction qui affiche une suite aux coordonnée du clique souris
+void clique (int button, int state, int x, int y) // A COMPLETER
+{
+  cout << "Coordonnées en pixel : " << x << ", " << y << endl;
+  cout << "Coordonnées en fonction du repère : " 
+    << pixel_to_repere(x) << ", " << pixel_to_repere(y) << endl;
+	  // << "coordonnée en par rapport a l'axe " << (tailleX / 800) * x + xmin
+	  // << "; " << (tailleY / 800) * y + ymin << endl;
 
+      // xmin1=(tailleX/800)*x+xmin;
+      // ymin1=((tailleY/800)*y+ymin);
+}
 
-      cout << "coordonnées en pixel:" << x << ", " << y << endl
-	   << "coordonnée en par rapport a l'axe " << (tailleX / 800) * x + xmin
-	   << "; " << (tailleY / 800) * y + ymin << endl;
-
-      xmin1=(tailleX/800)*x+xmin;
-      ymin1=((tailleY/800)*y+ymin);
-    }
-  glutMouseFunc(clique);
-
-  */
 
 void diverge(double r, double i, int a) 
 {
@@ -176,6 +181,8 @@ int main(int argc, char** argv)
       diverge(tab[i][0], tab[i][1], i + 1);
     }
   }
+
+  glutMouseFunc(clique);
 
   glutMainLoop(); // Permet un "arrêt sur image"
 }
