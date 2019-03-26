@@ -53,6 +53,17 @@ int couleur=0;
 
 
 
+double pixelToRepereX(int pixel){
+  double tailleX=abs(xmax-xmin);
+  return (tailleX/800)*pixel+xmin;   
+}
+
+double pixelToRepereY(int pixel){
+  double tailleY=abs(ymax-ymin);
+  return -((tailleY/800)*pixel+ymin); 
+}
+
+
 
 
 
@@ -128,18 +139,23 @@ void remplirTab(){
   }
 }
 
+
+
+
 /*  NE FONCTIONNE PAS
  */
 
 
+
+
+
+
 void completeTab(int imin, int imax, int jmin,int jmax){
-  double tailleX=abs(xmax-xmin);
-  double tailleY=abs(ymax-ymin);
+
   for (int i=imin ; i<imax ; i++) {
    
     for (int j=jmin ; j<jmax; j++) {
-      tab[i][j]=point::diverge((tailleX / 800) * i + xmin,
-       (tailleY / 800) * j + ymin);
+      tab[i][j]=point::diverge(pixelToRepereX(i), pixelToRepereY(j));
     }
   }
 }
@@ -163,6 +179,8 @@ void newTab(int move, int dir){
     tab.swap(tabcopie);
     completeTab(0,move,0,800);
     break;
+    
+    //droite
   case 2:
     for (int i=0 ; i<800-move ; i++) {
       for (int j=0 ; j<800 ; j++){
@@ -340,28 +358,30 @@ void touche(int key, int x, int y){
 
   
   printf("Touche spécial: %c = %d \n", key, key);
-  
-  
+
+  double distMoveX=pixelToRepereX(20);
+ double distMoveY=pixelToRepereY(20);
   switch(key){
   case GLUT_KEY_UP :
     
     glLoadIdentity(); //réinitialise le repère
-    gluOrtho2D( xmin,xmax,ymin=ymin+(tailleY/10),ymax=ymax+(tailleY/10)); 
+    gluOrtho2D( xmin,xmax,ymin=ymin+distMoveY,ymax=ymax+distMoveY); 
     deplaceTab(20,4);
     dessine();
     break;
 		
   case GLUT_KEY_DOWN :
     glLoadIdentity(); //réinitialise le repère
-    gluOrtho2D( xmin,xmax,ymin=ymin-(tailleY/10),ymax=ymax-(tailleY/10));
+    gluOrtho2D( xmin,xmax,ymin=ymin-distMoveY,ymax=ymax-distMoveY);
     deplaceTab(20,3);
     dessine();
     
     break;
 
   case GLUT_KEY_LEFT :
+
     glLoadIdentity(); //réinitialise le repère
-    gluOrtho2D( xmin=xmin-(tailleX/10),xmax=xmax-(tailleX/10),ymin, ymax);
+    gluOrtho2D( xmin=xmin-distMoveX,xmax=xmax-distMoveX,ymin, ymax);
     deplaceTab(20,1);
     dessine();
     
@@ -369,10 +389,11 @@ void touche(int key, int x, int y){
     break;
     
   case GLUT_KEY_RIGHT :
- glLoadIdentity(); //réinitialise le repère
-	gluOrtho2D( xmin=xmin+(tailleX/10),xmax=xmax+(tailleX/10),ymin, ymax);
-	deplaceTab(20,2);
-	dessine();
+        
+    glLoadIdentity(); //réinitialise le repère
+    gluOrtho2D( xmin=xmin+distMoveX,xmax=xmax+distMoveX,ymin, ymax);
+    deplaceTab(20,2);
+    dessine();
     
     break;
  
