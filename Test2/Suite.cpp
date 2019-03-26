@@ -45,7 +45,7 @@ void diverge(double r, double i, int a)
 {
   double ZnR = 0, ZnI = 0, tmp_ZnR, tmp_ZnI, temporaire;
   float cmp = 0;
-  float stop = 130;
+  float stop = 180;
   clock_t depart = clock();
 
   if (a == -1) {
@@ -58,7 +58,7 @@ void diverge(double r, double i, int a)
 
     // glutKeyboardFunc(clavier);   
 
-    if (!pause && difftime(clock(), depart) >= 10000) {
+    if (!pause && difftime(clock(), depart) >= 8000) {
       glBegin(GL_POINTS); // mode affichage de points  
       temporaire = ZnR;
     
@@ -68,10 +68,13 @@ void diverge(double r, double i, int a)
       ZnR = pow(ZnR, 2) - pow(ZnI, 2) + r;    
       ZnI = 2 * temporaire * ZnI + i;
 
-      if (abs(tmp_ZnR - ZnR) < 0.000001 && abs(tmp_ZnI - ZnI) < 0.000001) {
+      // Si pas intéressant
+      if (abs(tmp_ZnR - ZnR) < 0.00001 && abs(tmp_ZnI - ZnI) < 0.000001) { 
         cout << " [diverge] Arrêt forcé, car peu intéressante." << endl;
         cmp = stop;
       }
+
+      // Si intéressant
 
       cmp++;
       //cout << " ZnR =" << ZnR << " ZnI =" << ZnI << endl; Affiche les coordonnées du point généré
