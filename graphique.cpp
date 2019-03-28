@@ -1,7 +1,7 @@
 
 //compiler avec g++ graphique.cpp -o graphique -lglut -lGLU -lGL
 #include "Point.h"
-
+#include "rectangle.h"
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -14,16 +14,15 @@
 #include <iostream>
 using namespace std;
 
+//////////
 double xmin=-2.15;
 double xmax=0.55;
 double ymin=-1.3;
 double ymax=1.3;
-/*
-  float xmin = -0.7;
-  float xmax = -0.5;
-  float ymin = -0.7;
-  float ymax = -0.5;
-*/
+//////////
+
+rectangle cadre(-2.15,-1.3,0.55,1.3); 
+
 double xmin1;
 double ymin1;
 double xmax1;
@@ -84,8 +83,14 @@ double distPixToRepY(int pixel){
 
 void dessine(){
 
+  //////////
+  
   double tailleX=abs(xmax-xmin);
-  double tailleY=abs(ymax-ymin);
+  double tailleY=abs(ymax-ymin); 
+
+  //////////
+
+  
 
   glBegin(GL_POINTS); 	//mode affichage de points
 
@@ -132,7 +137,12 @@ void dessine(){
 	  }
 	  
 	}
-  glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+
+      
+      glVertex2f((tailleX/800)*i+xmin,(tailleY/800)*j+ymin);
+
+  
+ 
     }
   }
   glEnd(); 		       	// Fermer le polygone
@@ -401,9 +411,7 @@ void touche(int key, int x, int y){
 
     glLoadIdentity(); //réinitialise le repère
 
-    // xmin=xmin-distMoveX;
-    //xmax=xmax-distMoveX;
-    // gluOrtho2D( xmin,xmax,ymin, ymax);
+
     
     gluOrtho2D( xmin=xmin-distMoveX,xmax=xmax-distMoveX,ymin, ymax);
     deplaceTab(20,1);
@@ -415,10 +423,7 @@ void touche(int key, int x, int y){
   case GLUT_KEY_RIGHT :
         
     glLoadIdentity(); //réinitialise le repère
-    // xmin=xmin+distMoveX;
-    // xmax=xmax+distMoveX;
-    // gluOrtho2D( xmin,xmax,ymin, ymax);
-    
+
     gluOrtho2D( xmin=xmin+distMoveX,xmax=xmax+distMoveX,ymin, ymax);
     deplaceTab(20,2);
     dessine();
