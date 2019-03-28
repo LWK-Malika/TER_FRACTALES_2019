@@ -24,6 +24,19 @@ class rectangle{
   void setXmax(int x);
   void setYmax(int x);
 
+  double getTailleX()const;
+  double getTailleY()const;
+  
+  double pixelToRepereX(int pixel)const; 
+  double pixelToRepereY(int pixel)const;
+ 
+  double distPixToRepX(int pixel)const;
+  double distPixToRepY(int pixel)const;
+  
+
+
+
+
   
 };
 
