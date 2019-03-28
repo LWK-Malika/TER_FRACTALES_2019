@@ -8,7 +8,10 @@
 using namespace std;
 
 /*  TODO LIST
+  - 
+  Difficile à faire :
   - Faire durer les suites intéressantes
+  - Mettre en pause
 */
 
 /* A Améliorer
@@ -23,8 +26,9 @@ struct Complexe {
 }; typedef struct Complexe Complexe;
 // ---
 
-void initialise(){
 
+void initialise()
+{
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
   
   glBegin(GL_LINES); // Création du repère
@@ -48,19 +52,18 @@ void initialise(){
   glutBitmapCharacter(GLUT_BITMAP_8_BY_13, '1');
 }
 
-
+// Récupère l'entrée clavier et reset l'affichage
 void clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier);
 {
   printf(" [clavier] Touche : %c = %d \n", key, key);
   switch (key) {
-    case 32 :
+    case 32: // touche: [Espace]
       //cout << " [clavier] Rentre dans le case"; plus utile
       pause = !pause;
       break;
-  case 13:
-    initialise();
-        
-    break;
+    case 13: // touche: [Entrée]
+      initialise();   
+      break;
   }
 }
 
@@ -74,7 +77,7 @@ double pixel_to_repere(int i)
 void diverge(double r, double i, int a) 
 {
   double ZnR = 0, ZnI = 0, tmp_ZnR, tmp_ZnI, temporaire;
-  float cmp = 0;
+  float compteur = 0;
   float stop = 180;
   clock_t depart = clock();
 
@@ -84,7 +87,7 @@ void diverge(double r, double i, int a)
 
   // glBegin(GL_LINE_STRIP); // mode affichage de lignes
   
-  while ((sqrt(pow(ZnR, 2) + pow(ZnI, 2)) < 2) and (cmp < stop)) {
+  while ((sqrt(pow(ZnR, 2) + pow(ZnI, 2)) < 2) and (compteur < stop)) {
 
     // glutKeyboardFunc(clavier);   
 
@@ -101,12 +104,12 @@ void diverge(double r, double i, int a)
       // Si pas intéressant
       if (abs(tmp_ZnR - ZnR) < 0.00001 && abs(tmp_ZnI - ZnI) < 0.000001) { 
         cout << " [diverge] Arrêt forcé, car peu intéressante." << endl;
-        cmp = stop;
+        compteur = stop;
       }
 
       // Si intéressant
 
-      cmp++;
+      compteur++;
       //cout << " ZnR =" << ZnR << " ZnI =" << ZnI << endl; Affiche les coordonnées du point généré
    
       glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
@@ -120,8 +123,8 @@ void diverge(double r, double i, int a)
     }
   }
 
-  if (cmp < 50) {
-    cout << " [diverge] Diverge à partir de n = "<< cmp << endl << endl;
+  if (compteur < 50) {
+    cout << " [diverge] Diverge à partir de n = "<< compteur << endl << endl;
   } else {
     cout << " [diverge] Converge" << endl << endl;
   }
@@ -135,30 +138,26 @@ void clique (int button, int state, int x, int y) // A COMPLETER
 
     cout << " [clique] Pixel: " << x << ", " << y << endl;
     cout << " [clique] Repère: " << dx << ", " << dy << endl;
+    cout << " ..." << endl;
     diverge(dx, dy, -1);
   }
 }
 
 int main(int argc, char** argv) 
 {
-  if (argc != 3) { // Le programme s'arrête si on ne rentre pas le bon nombre de paramètres
-    cerr << " [main] Nombre de paramètre incorrect." << endl;
-    cout << " [main] Rentrez par exemple: ./main -0.74, -0.175" << endl;
-    return -1;
+  Complexe c; 
+  if (argc == 3) { // Le programme continue avec les paramètre rentrée
+    c.r = atof(argv[1]);
+    c.i = atof(argv[2]);
+    cout << " [main] Le nombre complexe entré est: " << c.r << " + i" << c.i << "" << endl;
   }
 
-  srand (time(NULL));
+	srand (time(NULL));
   int a; 
   int win;
-
-  Complexe c; 
-  c.r = atof(argv[1]);
-  c.i = atof(argv[2]);
-
-  float xmin = -2, xmax = 2, ymin = -2, ymax = 2;
+	float xmin = -2, xmax = 2, ymin = -2, ymax = 2;
   float tailleX = xmax - xmin, tailleY = ymax - ymin;
 
-  cout << " [main] Le nombre complexe entré est: " << c.r << " + i" << c.i << "" << endl;
   cout << " [main] Voulez-vous aussi afficher les suites préféfinies ?" << endl 
     << " [main] Tapez '1' pour oui et '0' pour non: " << endl;
   cin >> a;
@@ -167,17 +166,12 @@ int main(int argc, char** argv)
   glutInitWindowSize(800, 800); // Taille de la fenêtre
   glutInitDisplayMode(GLUT_RGB); 	// On travaille en RGB
   win = glutCreateWindow("Fractale: Animations de suites complexes"); // On nomme la fenêtre
-  
   gluOrtho2D(xmin, xmax, ymin, ymax);	// Zoom du repère
-  
-
   glutKeyboardFunc(clavier);  
-
-
-
   initialise();
 
-  diverge(c.r, c.i, 1);
+  if (c.r == 0 && c.i == 0) // si on a pas rentrer de complexe en paramètre
+    diverge(c.r, c.i, 1);
 
   double tab[8][2] = {  // Suites prédéfinies
     {0, 0.6},
@@ -188,7 +182,6 @@ int main(int argc, char** argv)
     {-0.7436,0.661746},
     {-0.55,-0.45},
     {-0.745, 0.055}
-
   };
 
   if (a) {
