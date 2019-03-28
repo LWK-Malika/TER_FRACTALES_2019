@@ -3,16 +3,16 @@
 
 class point{
  private:
-  int x;
-  int y;
+  double x;
+  double y;
  public:
-  point(int X=0, int Y=0);
+  point(double X=0, double Y=0);
   
-  int getX() const;
-  int getY() const;
+  double getX() const;
+  double getY() const;
 
-  void setX( int x);
-  void setY( int y);
+  void setX( double x);
+  void setY( double y);
   
 
   static int diverge(double x, double y);

@@ -3,37 +3,37 @@
 
 rectangle::rectangle(point min, point max):min(min), max(max){}
 
-rectangle::rectangle(int xmin, int ymin, int xmax, int ymax):
+rectangle::rectangle(double xmin, double ymin, double xmax, double ymax):
   min(xmin,ymin), max(xmax,ymax){}
 
 
-int rectangle::getXmin() const{
+double rectangle::getXmin() const{
   return min.getX();
 }
 
-int rectangle::getXmax() const{
+double rectangle::getXmax() const{
   return max.getX();
 }
 
-int rectangle::getYmin() const{
+double rectangle::getYmin() const{
   return min.getY();
 }
-int rectangle::getYmax() const{
+double rectangle::getYmax() const{
   return max.getY();
 }
 
 
 
-void rectangle::setXmin(int x){
+void rectangle::setXmin(double x){
   min.setX(x);
 }
-void rectangle::setXmax(int x){
+void rectangle::setXmax(double x){
   max.setX(x);
 }
-void rectangle::setYmin(int x){
+void rectangle::setYmin(double x){
   min.setY(x);
 }
-void rectangle::setYmax(int x){
+void rectangle::setYmax(double x){
   max.setY(x);
 }
 

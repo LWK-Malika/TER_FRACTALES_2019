@@ -2,19 +2,19 @@
 #include <iostream>
 #include <cmath>
 
-point::point(int X, int Y): x(X), y(Y){}
+point::point(double X, double Y): x(X), y(Y){}
 
 
-int point::getX() const {
+double point::getX() const {
 	return x;}
 
-int point::getY() const {
+double point::getY() const {
 	return y;}
 
-void point::setX(int x) {
+void point::setX(double x) {
 	this->x=x;}
 
-void point::setY(int y) {
+void point::setY(double y) {
 	this->y=y;}
 
 int point::diverge(double r,double i){

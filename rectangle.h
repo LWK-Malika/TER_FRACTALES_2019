@@ -11,18 +11,18 @@ class rectangle{
   point max;
  public:
   rectangle(point min, point max);
-  rectangle(int xmin, int ymin, int xmax, int ymax);
+  rectangle(double xmin, double ymin, double xmax, double ymax);
   
-  int getXmin() const;
-  int getYmin() const;
-  int getXmax() const;
-  int getYmax() const;
+  double getXmin() const;
+  double getYmin() const;
+  double getXmax() const;
+  double  getYmax() const;
   
    
-  void setXmin(int x);
-  void setYmin(int x);
-  void setXmax(int x);
-  void setYmax(int x);
+  void setXmin(double x);
+  void setYmin(double x);
+  void setXmax(double x);
+  void setYmax(double x);
 
   double getTailleX()const;
   double getTailleY()const;
