@@ -153,16 +153,11 @@ void remplirTab(){
 }
 
 
+////
+///
+///
 
-
-/*  NE FONCTIONNE PAS
- */
-
-
-
-
-
-
+//complete le tableau
 void completeTab(int imin, int imax, int jmin,int jmax){
 
   for (int i=imin ; i<imax ; i++) {
@@ -223,7 +218,7 @@ void newTab(int move, int dir){
     }
 
     tab.swap(tabcopie);
-    completeTab(0,800,0,0);
+    completeTab(0,800,800-move,800);
     break;
   }
 }
