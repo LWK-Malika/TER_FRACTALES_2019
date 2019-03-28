@@ -365,7 +365,7 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
    }
 }
 
-
+//
 //gère les touche dite "spéciale" du clavier (comme les touche directionnelle)
 void touche(int key, int x, int y){
   // double tailleX=abs(xmax-xmin);
