@@ -23,6 +23,32 @@ struct Complexe {
 }; typedef struct Complexe Complexe;
 // ---
 
+void initialise(){
+
+  glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
+  
+  glBegin(GL_LINES); // Création du repère
+  glColor3f(1, 1, 1);
+  // Création du repère
+  glVertex2f(-2, 0);
+  glVertex2f(2, 0); 
+  glVertex2f(0, -2);
+  glVertex2f(0, 2);
+
+  glEnd();
+  glFlush();
+  
+  glPointSize(2);
+
+  // Affiche graduation 
+  glRasterPos2f(1, 0.025);
+  glutBitmapCharacter(GLUT_BITMAP_8_BY_13, '1');
+
+  glRasterPos2f(-0.05, 1);
+  glutBitmapCharacter(GLUT_BITMAP_8_BY_13, '1');
+}
+
+
 void clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier);
 {
   printf(" [clavier] Touche : %c = %d \n", key, key);
@@ -31,6 +57,10 @@ void clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier);
       //cout << " [clavier] Rentre dans le case"; plus utile
       pause = !pause;
       break;
+  case 13:
+    initialise();
+        
+    break;
   }
 }
 
@@ -139,43 +169,30 @@ int main(int argc, char** argv)
   win = glutCreateWindow("Fractale: Animations de suites complexes"); // On nomme la fenêtre
   
   gluOrtho2D(xmin, xmax, ymin, ymax);	// Zoom du repère
-  glBegin(GL_LINES); // Création du repère
+  
 
   glutKeyboardFunc(clavier);  
 
-  glColor3f(1, 1, 1);
-  // Création du repère
-  glVertex2f(-2, 0);
-  glVertex2f(2, 0); 
-  glVertex2f(0, -2);
-  glVertex2f(0, 2);
 
-  glEnd();
-  glFlush();
-  
-  glPointSize(2);
 
-  // Affiche graduation 
-  glRasterPos2f(1, 0.025);
-  glutBitmapCharacter(GLUT_BITMAP_8_BY_13, '1');
-
-  glRasterPos2f(-0.05, 1);
-  glutBitmapCharacter(GLUT_BITMAP_8_BY_13, '1');
+  initialise();
 
   diverge(c.r, c.i, 1);
 
-  double tab[7][2] = {  // Suites prédéfinies
+  double tab[8][2] = {  // Suites prédéfinies
     {0, 0.6},
-		{0.3,0.5},
+    {0.3,0.5},
     {0.2, 0.5},
-		{-0.8,0.156},
-		{0.577,0.478},
-		{-0.7436,0.661746},
-		{-0.55,-0.45} 
+    {-0.8,0.156},
+    {0.577,0.478},
+    {-0.7436,0.661746},
+    {-0.55,-0.45},
+    {-0.745, 0.055}
+
   };
 
   if (a) {
-    for (int i=0 ; i < 6 ; i++) {
+    for (int i=0 ; i < 8 ; i++) {
       diverge(tab[i][0], tab[i][1], i + 1);
     }
   }
