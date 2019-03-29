@@ -3,39 +3,20 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <cmath>
+#include "rectangle.h"
+#include "Point.h"
+
 
 using namespace std;
 
 
 int main(int argv, char** argc){
-  
-  float r;
-  cin>>r;
-  float i;
-  cin>>i;
-  std::cout<<"le nombre complexe entré est: "<<r<<"+i("<<i<<")"<<endl;
+  rectangle cadre(-2.15,-1.3,0.55,1.3);
 
-  //Zn=0
-  //Zn+1=Zn²+c
+  cout<<cadre.getXmin()<<endl;
 
-  double ZnR=0;
-  double ZnI=0;
-
-  double temporaire;
-  
-  int cmp=0;
-  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<100){
-
-    temporaire=ZnR;
-    
-    ZnR=pow(ZnR,2)-pow(ZnI,2)+r;    
-    ZnI=2*temporaire*ZnI+i;
-    cmp++;
-  }
-
-  if (sqrt(pow(r,2)+pow(i,2))>2)
-    cout<<"la fonction diverge a partir de n= "<<cmp<<endl;
-  else
-    cout<<"la fonction converge"<<endl;
-
+  cout<<"pixtorep "<<cadre.pixelToRepereX(20)<<endl;
 }
+
+
+

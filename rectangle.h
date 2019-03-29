@@ -1,6 +1,7 @@
 #ifndef Rectangle_h
 #define Rectangle_h
 
+
 #include "Point.h"
 
 class rectangle{
@@ -40,13 +41,10 @@ class rectangle{
   double coordRepY(int i) const;
 
 
+  void dessine();
 
   
 };
-
-
-
-
 
 
 

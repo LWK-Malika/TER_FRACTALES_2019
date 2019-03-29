@@ -28,6 +28,8 @@ double ymin1;
 double xmax1;
 double ymax1;
 
+rectangle cadreTmp(0,0,0,0);
+
 
 //variable globale pour déssiner le carré:
 //coordonné temporaire qui permet d'effacer les traits non utile
@@ -94,7 +96,7 @@ void dessine(){
 
   glBegin(GL_POINTS); 	//mode affichage de points
 
-  for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudier
+  for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudié
     for(int  j=0;j<800;j++){
 
       if (tab[i][j]==-1)
