@@ -55,7 +55,8 @@ void initialise()
 // Récupère l'entrée clavier et reset l'affichage
 void clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier);
 {
-  printf(" [clavier] Touche : %c = %d \n", key, key);
+  cout << "-> clavier" << endl;
+  printf(" Touche : %c = %d \n", key, key);
   switch (key) {
     case 32: // touche: [Espace]
       //cout << " [clavier] Rentre dans le case"; plus utile
@@ -65,6 +66,7 @@ void clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier);
       initialise();   
       break;
   }
+  cout << "<-";
 }
 
 // Convertir des coordonnées en pixel [0, 800] en coordonnée du repère [-2, 2]
@@ -76,9 +78,10 @@ double pixel_to_repere(int i)
 
 void diverge(double r, double i, int a) 
 {
+  cout << "-> diverge" << endl;
   double ZnR = 0, ZnI = 0, tmp_ZnR, tmp_ZnI, temporaire;
   float compteur = 0;
-  float stop = 180;
+  float stop = 300; // nombre d'itération avant l'arrêt
   clock_t depart = clock();
 
   if (a == -1) {
@@ -91,7 +94,7 @@ void diverge(double r, double i, int a)
 
     // glutKeyboardFunc(clavier);   
 
-    if (!pause && difftime(clock(), depart) >= 8000) {
+    if (!pause && difftime(clock(), depart) >= 8000) { // Vitesse d'affichage
       glBegin(GL_POINTS); // mode affichage de points  
       temporaire = ZnR;
     
@@ -102,8 +105,8 @@ void diverge(double r, double i, int a)
       ZnI = 2 * temporaire * ZnI + i;
 
       // Si pas intéressant
-      if (abs(tmp_ZnR - ZnR) < 0.00001 && abs(tmp_ZnI - ZnI) < 0.000001) { 
-        cout << " [diverge] Arrêt forcé, car peu intéressante." << endl;
+      if (abs(tmp_ZnR - ZnR) < 0.001 && abs(tmp_ZnI - ZnI) < 0.001) { 
+        cout << " Arrêt forcé, car peu intéressante." << endl;
         compteur = stop;
       }
 
@@ -124,42 +127,48 @@ void diverge(double r, double i, int a)
   }
 
   if (compteur < 50) {
-    cout << " [diverge] Diverge à partir de n = "<< compteur << endl << endl;
+    cout << " Diverge à partir de n = "<< compteur;
   } else {
-    cout << " [diverge] Converge" << endl << endl;
+    cout << " Converge";
   }
+  cout << endl << endl;
 }
 
 // Créer une fonction qui affiche une suite aux coordonnée du clique souris
-void clique (int button, int state, int x, int y) // A COMPLETER
+void clique(int button, int state, int x, int y) // A COMPLETER
 {
   if (state == GLUT_UP) {
+    cout << "-> clique" << endl;
     double dx = pixel_to_repere(x), dy = -pixel_to_repere(y);
 
-    cout << " [clique] Pixel: " << x << ", " << y << endl;
-    cout << " [clique] Repère: " << dx << ", " << dy << endl;
-    cout << " ..." << endl;
+    cout << " Pixel: " << x << ", " << y << endl;
+    cout << " Repère: " << dx << ", " << dy << endl;
+
+    if (button == GLUT_RIGHT_BUTTON) { 
+      initialise(); 
+    }
     diverge(dx, dy, -1);
   }
 }
 
 int main(int argc, char** argv) 
 {
+  cout << "-> main" << endl;
   Complexe c; 
   if (argc == 3) { // Le programme continue avec les paramètre rentrée
     c.r = atof(argv[1]);
     c.i = atof(argv[2]);
-    cout << " [main] Le nombre complexe entré est: " << c.r << " + i" << c.i << "" << endl;
+    cout << " Le nombre complexe entré est: " << c.r << " + i" << c.i << "" << endl;
   }
 
-	srand (time(NULL));
+	srand(time(NULL));
   int a; 
   int win;
 	float xmin = -2, xmax = 2, ymin = -2, ymax = 2;
   float tailleX = xmax - xmin, tailleY = ymax - ymin;
 
-  cout << " [main] Voulez-vous aussi afficher les suites préféfinies ?" << endl 
-    << " [main] Tapez '1' pour oui et '0' pour non: " << endl;
+  cout << " Voulez-vous aussi afficher les suites préféfinies ?" << endl 
+    << " Tapez '1' pour oui et '0' pour non: " << endl;
   cin >> a;
 
   glutInit(&argc, argv); 
