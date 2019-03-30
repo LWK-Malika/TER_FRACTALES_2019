@@ -43,7 +43,8 @@ class rectangle{
 
   void dessine();
 
-  
+
+  void remplirTab();
 };
 
 

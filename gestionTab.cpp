@@ -1,0 +1,75 @@
+#include <iostream>
+#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <vector>
+#include <cmath>
+
+#include "gestionTab.h"
+
+
+void gestionTab::dessine(){
+    
+  glBegin(GL_POINTS); 	//mode affichage de points  
+  for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudié
+    for(int  j=0;j<800;j++){     
+     
+      if (tab[i][j]==-1)
+	glColor3f(0.2, 0.2, 0.2);             
+      else
+	switch(couleur){
+	case 0:
+	  glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
+		    cos(exp(5*(0.01*tab[i][j]))+2),
+		    cos(exp(5*(0.01*tab[i][j]))));
+	  break;
+	case 1:
+	  
+	  glColor3f(0.00001*tabOcc[tab[i][j]],
+		    1-0.0001*tabOcc[tab[i][j]],
+		    0.5-0.00001*tabOcc[tab[i][j]]);
+	  break;
+	case 974:	  
+	  //vert -> bleu -> rouge
+	  float tabCouleur[10][3]={
+	    {0,1,0}, {0,1,0.85},
+	    {0,0.8,1}, {0,0.95,1},
+	    {0,0,1}, {0.8,0,1},
+	    {1,0,1}, {1,0,0.5},
+	    {1,0,0}, {1,0.5,0}};
+	    
+	  //rouge ->vert->bleu
+	  // float tabCouleur[10][3]={{1,0,0}, {1,0.5,0},
+	  // 			     {1,1,0}, {0.5,1,0},
+	  // 			     {0,1,0}, {0,1,0.5},
+	  // 			     {0,1,1}, {0,0.5,1},
+	  // 			     {0,0,1}, {1,0,1}};
+	    
+	  glColor3f(tabCouleur[(tab[i][j]/10)][0] ,
+		    tabCouleur[(tab[i][j]/10)][1],
+		    tabCouleur[(tab[i][j]/10)][2]  );
+	}
+      glVertex2f((cadre.getTailleX()/800)*i+cadre.getXmin(),
+		 (cadre.getTailleY()/800)*j+cadre.getYmin()); 
+    }      
+  }
+  glEnd(); 		       	// Fermer le polygone
+  glFlush(); 
+}
+
+
+void gestionTab::remplirTab(){
+  for (int i=0 ; i<800 ; i++) {
+    tab.push_back(std::vector<int>(800));
+    for (int j=0 ; j<800 ; j++) {
+      tab[i][j]=point::diverge((cadre.getTailleX() / 800)
+			       * i + cadre.getXmin(),
+			       (cadre.getTailleY() / 800)
+			       * j + cadre.getYmin()); 
+    }
+  }
+}
+
+
+
+
