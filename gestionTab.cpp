@@ -71,5 +71,70 @@ void gestionTab::remplirTab(){
 }
 
 
+void gestionTab::completeTab( rectangle aRemplir){
+  for (int i=aRemplir.getXmin() ; i<aRemplir.getXmax() ; i++) {  
+    for (int j=aRemplir.getYmin() ; j<aRemplir.getYmax(); j++) {
+      tab[i][j]=point::diverge(cadre.pixelToRepereX(i),
+			       cadre.pixelToRepereY(j));
+    }
+  }
+}
 
+void gestionTab::newTab(int move, int dir){
+  //dir de 1 a 4;
+  std::vector< std::vector<int> > tabcopie(800,std::vector<int>(800,0));
+
+  //suivant la valeur de dir, on ne complète pas le tableau au meme endroit.
+
+
+  //il n'est pas possible de déclarer une variable dans un switch
+  rectangle aRemplir1(0,0,move,800);
+  rectangle aRemplir2(800-move,0,800,800);
+  rectangle aRemplir3(0,0,800,move);
+  rectangle aRemplir4(0,800-move,800,800);
+  
+  
+  switch(dir){
+  case 1:
+    //vers la gauche
+    for (int i=move ; i<800 ; i++) {
+      for (int j=0 ; j<800 ; j++) {
+	tabcopie[i][j]=tab[i-move][j];
+      }
+    } 
+    tab.swap(tabcopie);
+    completeTab(aRemplir1);
+    break;
+    
+    //droite
+  case 2:
+    for (int i=0 ; i<800-move ; i++) {
+      for (int j=0 ; j<800 ; j++){
+	tabcopie[i][j]=tab[i+move][j]; 
+      }
+    }
+    tab.swap(tabcopie);
+    completeTab(aRemplir2);
+    break;
+  case 3:
+    for (int i=0 ; i<800; i++) {
+      for (int j=move; j<800 ; j++){
+	tabcopie[i][j]=tab[i][j-move];
+      }
+    }
+    tab.swap(tabcopie);
+    completeTab(aRemplir3);
+    break;
+    
+  case 4:
+    for (int i=0 ; i<800 ; i++) {
+      for (int j=0 ; j<800-move ; j++){
+	tabcopie[i][j]=tab[i][j+move]; 
+      }
+    }
+    tab.swap(tabcopie);
+     completeTab(aRemplir4);
+    break;
+  }
+}
 

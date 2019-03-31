@@ -41,10 +41,8 @@ class rectangle{
   double coordRepY(int i) const;
 
 
-  void dessine();
 
 
-  void remplirTab();
 };
 
 

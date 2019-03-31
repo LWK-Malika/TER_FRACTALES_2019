@@ -294,7 +294,7 @@ void Rafraichir(void) {
 
 
   
-
+  /*
   glColor3f(1,1,1);
   
   glBegin(GL_LINES);
@@ -303,7 +303,7 @@ void Rafraichir(void) {
   glEnd();      	// Fermer le polygone
   glFlush();
 
-
+  */
   remplirTab();
 
   //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
@@ -319,7 +319,7 @@ void Rafraichir(void) {
   glBegin(GL_LINES);
   glColor3f(1,1,1);
   glVertex2f(0, 0);
-  glVertex2f(0, 1);
+  glVertex2f(0, -1);
   glEnd();
   glFlush();
 
@@ -363,7 +363,8 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
      cout << "Fractale par défaut"<<endl;
      couleur=0;//réinitialise la couleur
      glLoadIdentity(); //réinitialise le repère
-     gluOrtho2D( xmin=-2.15,xmax=0.55,ymin=-1.3, ymax=1.3);//zoom du repère
+     gluOrtho2D( xmin=-2.15,xmax=0.55, ymax=1.3,ymin=-1.3);//zoom du repère
+  
      Rafraichir();
      break;
 
@@ -396,37 +397,37 @@ void touche(int key, int x, int y){
     
     glLoadIdentity(); //réinitialise le repère
     
-    gluOrtho2D( xmin,xmax,ymin=ymin-distMoveY,ymax=ymax-distMoveY);
+    gluOrtho2D( xmin,xmax,ymax=ymax-distMoveY,ymin=ymin-distMoveY);
     deplaceTab(20,4);
     dessine();
     break;
 		
   case GLUT_KEY_DOWN :
     glLoadIdentity(); //réinitialise le repère
-    gluOrtho2D( xmin,xmax,ymin=ymin+distMoveY,ymax=ymax+distMoveY);
+    gluOrtho2D( xmin,xmax,ymax=ymax+distMoveY,ymin=ymin+distMoveY);
     deplaceTab(20,3);
     dessine();
     
     break;
 
-  case GLUT_KEY_LEFT :
+  case GLUT_KEY_RIGHT :
 
     glLoadIdentity(); //réinitialise le repère
 
 
     
-    gluOrtho2D( xmin=xmin-distMoveX,xmax=xmax-distMoveX,ymin, ymax);
+    gluOrtho2D( xmin=xmin-distMoveX,xmax=xmax-distMoveX, ymax,ymin);
     deplaceTab(20,1);
     dessine();
     
     
     break;
     
-  case GLUT_KEY_RIGHT :
+  case GLUT_KEY_LEFT:
         
     glLoadIdentity(); //réinitialise le repère
 
-    gluOrtho2D( xmin=xmin+distMoveX,xmax=xmax+distMoveX,ymin, ymax);
+    gluOrtho2D( xmin=xmin+distMoveX,xmax=xmax+distMoveX, ymax,ymin);
     deplaceTab(20,2);
     dessine();
     
@@ -724,7 +725,9 @@ int main(int argc, char* argv[]) {
 
 
   
-  gluOrtho2D(xmin, xmax, ymin, ymax);	// zoom du repère  
+  gluOrtho2D(xmin, xmax, ymax,ymin);	// zoom du repère
+
+  // glScalef(1,-1,1);
   glutDisplayFunc(Rafraichir); // Callback de la fenêtre
 
   //glPointSize(2); //changer taille point

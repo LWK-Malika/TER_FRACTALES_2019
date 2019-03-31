@@ -2,7 +2,7 @@
 #define GestionTab_h
 
 
-//#include "Point.h"
+#include "Point.h"
 #include "rectangle.h"
 extern rectangle cadre;
 extern std::vector<std::vector<int>> tab;
@@ -12,11 +12,19 @@ extern int couleur;
 class gestionTab{
 
 
-  void dessine();
+  static void dessine();
 
-  void remplirTab();
+  static void remplirTab();
+
+
+  
+  static void completeTab( rectangle aRemplir);
+  static void newTab(int move, int dir);
+
 
   
 };
+
+
 
 #endif
