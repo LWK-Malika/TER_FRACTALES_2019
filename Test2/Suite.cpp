@@ -7,15 +7,14 @@
 #include <ctime>
 using namespace std;
 
-/*  TODO LIST
-  - 
-  Difficile à faire :
-  - Faire durer les suites intéressantes
-  - Mettre en pause
+/* Améliorations à faire
+  - Ajouter une entrée clavier permettant d'arrêter le programme
+  - Plus de couleurs (avec le a)
 */
 
-/* A Améliorer
-  - Plus de couleurs (avec le a)
+/* Abandonnés car trop compliqué
+  - Faire durer les suites intéressantes
+  - Mettre en pause
 */
 
 // --- Variables globaux
@@ -66,7 +65,6 @@ void clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier);
       initialise();   
       break;
   }
-  cout << "<-";
 }
 
 // Convertir des coordonnées en pixel [0, 800] en coordonnée du repère [-2, 2]
@@ -168,7 +166,7 @@ int main(int argc, char** argv)
   float tailleX = xmax - xmin, tailleY = ymax - ymin;
 
   cout << " Voulez-vous aussi afficher les suites préféfinies ?" << endl 
-    << " Tapez '1' pour oui et '0' pour non: " << endl;
+    << " > [1]: Oui" << endl << " > [0]: Non" << endl;
   cin >> a;
 
   glutInit(&argc, argv); 
@@ -200,6 +198,10 @@ int main(int argc, char** argv)
   }
 
   glutMouseFunc(clique);
+
+  cout << " > [Clique Gauche]: Affiche la suite" << endl 
+  << " > [Clique Droit]: Efface, puis affiche la suite " << endl 
+  << " > [Entrée]: Efface" << endl << endl;
 
   glutMainLoop(); // Permet un "arrêt sur image"
 }

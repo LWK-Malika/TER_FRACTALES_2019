@@ -47,7 +47,6 @@ else
 endif
 #	$(MSG)$(ECH) "SOURCES ["$(SOURCES)"] \nOBJETS ["$(OBJ)"]"
 	$(MSG)$(ECH) "Le programme" $(EXE) "est compilé...\n"
-	
 
 
 
