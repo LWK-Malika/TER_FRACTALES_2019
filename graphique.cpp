@@ -252,6 +252,10 @@ void deplaceTab(int move, int dir){
 
 void occuranceDiv(){
 
+  for(int i=0;i<100; i++)
+    tabOcc[i]=0;
+
+  
   for(int i=0; i<800; i++)
     for(int j=0; j<800; j++)
       tabOcc[tab[i][j]]++;
