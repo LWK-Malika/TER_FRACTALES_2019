@@ -78,10 +78,20 @@ double distPixToRepY(int pixel){
 }
 
 
+// float modulo(float itinairaire, float occurance ){
+//   return ((float)((int)(itinairaire + occurance)%400))/400 ;
+// }
 
-
-
-
+float modulo(float itinairaire, float occurance){
+  return (itinairaire)/800 ;
+}
+float distance(int i, int j, int occ){
+  // return ((pow((float)(pixelToRepereX(i)),2) +pow((float)(pixelToRepereY(j)),2) + ((float)((int)(occ%100))/100) ));
+  float a = pow((float)(pixelToRepereX(i)),2);
+  float b = pow((float)(pixelToRepereY(j)),2);
+  float c = ((float)((int)(occ%100))/100);
+  return (sqrt(a + b)/100 + c);
+}
 
 void dessine(){
 
@@ -99,9 +109,13 @@ void dessine(){
   for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudié
     for(int  j=0;j<800;j++){
 
-      if (tab[i][j]==-1)
-    glColor3f(0.2, 0.2, 0.2);  
-  
+      if (tab[i][j]==-1){
+    glColor3f(0, 0, 0);  
+    // glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
+    //       distance(i, j, tabOcc[tab[i][j]]),
+    //       distance(i, j, tabOcc[tab[i][j]]));
+    // cout << distance(i, j,tabOcc[tab[i][j]])<<endl;
+  }
       else
 	if(couleur==0)
 	  glColor3f(cos(exp(5*(0.01*tab[i][j]))+4),
@@ -115,27 +129,30 @@ void dessine(){
 		      0.5-0.00001*tabOcc[tab[i][j]]);
 	  }
 	  else{
-	    //vert -> bleu -> rouge
-	    float tabCouleur[10][3]={
-	      {0,1,0}, {0,1,0.85},
-	      {0,0.8,1}, {0,0.95,1},
-	      {0,0,1}, {0.8,0,1},
-	      {1,0,1}, {1,0,0.5},
-	      {1,0,0}, {1,0.5,0}};
-	    
-	    //rouge ->vert->bleu
-	    // float tabCouleur[10][3]={{1,0,0}, {1,0.5,0},
-	    // 			     {1,1,0}, {0.5,1,0},
-	    // 			     {0,1,0}, {0,1,0.5},
-	    // 			     {0,1,1}, {0,0.5,1},
-	    // 			     {0,0,1}, {1,0,1}};
-
-	    
-	    glColor3f(tabCouleur[(tab[i][j]/10)][0] ,
-		      tabCouleur[(tab[i][j]/10)][1],
-		      tabCouleur[(tab[i][j]/10)][2]  );
-    
-
+      if (couleur == 2)
+      {
+      
+      // glColor3f(0.2 + modulo(tab[i][j], tabOcc[tab[i][j]]) ,
+      //     modulo(0.3+tab[i][j], tabOcc[tab[i][j]]),
+      //     modulo(tab[i][j], tabOcc[tab[i][j]]) );
+        glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
+          distance(i, j, tabOcc[tab[i][j]]),
+          distance(i, j, tabOcc[tab[i][j]]));
+      cout << modulo(tab[i][j], tabOcc[tab[i][j]]) <<endl;
+      }
+      else{
+        //vert -> bleu -> rouge
+      float tabCouleur[10][3]={
+        {0,1,0}, {0,1,0.85},
+        {0,0.8,1}, {0,0.95,1},
+        {0,0,1}, {0.8,0,1},
+        {1,0,1}, {1,0,0.5},
+        {1,0,0}, {1,0.5,0}};
+      
+      glColor3f(tabCouleur[(tab[i][j]/10)][0] ,
+          tabCouleur[(tab[i][j]/10)][1],
+          tabCouleur[(tab[i][j]/10)][2]  );
+      }  
 	  }
 	  
 	}
@@ -361,7 +378,12 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
      couleur=974;
      dessine();
      break;
-
+   
+   case 114: //touche a
+     cout << "Couleur test" << endl;
+     couleur = 2;
+     dessine();
+     break; 
      
    case 13: //touche entrer
      cout << "Fractale par défaut"<<endl;
