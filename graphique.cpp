@@ -2,6 +2,7 @@
 //compiler avec g++ graphique.cpp -o graphique -lglut -lGLU -lGL
 #include "Point.h"
 #include "rectangle.h"
+#include "gestionTab.h"
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -35,8 +36,10 @@ rectangle cadreTmp(0,0,0,0);
 //coordonné temporaire qui permet d'effacer les traits non utile
 int tempX;
 int tempY;
+
 vector< vector<int> > tab;
 vector<vector<point> > tabC;
+
 
 int cliqX;
 int cliqY;
@@ -182,6 +185,13 @@ void dessine(){
         {1,0,1}, {1,0,0.5},
         {1,0,0}, {1,0.5,0}};
       
+      	  //rouge ->vert->bleu
+	  // float tabCouleur[10][3]={{1,0,0}, {1,0.5,0},
+	  // 			     {1,1,0}, {0.5,1,0},
+	  // 			     {0,1,0}, {0,1,0.5},
+	  // 			     {0,1,1}, {0,0.5,1},
+	  // 			     {0,0,1}, {1,0,1}};
+      
       glColor3f(tabCouleur[(tab[i][j]/10)][0] ,
           tabCouleur[(tab[i][j]/10)][1],
           tabCouleur[(tab[i][j]/10)][2]  );
@@ -220,6 +230,7 @@ void remplirTab(){
 ///
 ///
 
+///
 //complete le tableau
 void completeTab(int imin, int imax, int jmin,int jmax){
 
@@ -231,6 +242,7 @@ void completeTab(int imin, int imax, int jmin,int jmax){
   }
 }
 
+///
 void newTab(int move, int dir){
   //dir de 1 a 4;
   
@@ -371,20 +383,6 @@ void Rafraichir(void) {
 
   
   // -----------------------------------------------------------------
- 
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(0, -1);
-  glEnd();
-  glFlush();
-
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(1, 0);
-  glEnd();
-  glFlush();
 
 }
 
@@ -428,8 +426,28 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
   
      Rafraichir();
      break;
+   case 113:
+     cout << "Affichage du repère"<<endl;
 
-
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(0, -1);
+     glEnd();
+     glFlush();
+     
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(1, 0);
+     glEnd();
+     glFlush();
+     break;
+  
+   case 115:
+     cout << "Supression du repère"<<endl;
+     dessine();
+     break;
      //ajout ici des autre evenement du clavier
    }
 }
@@ -454,7 +472,7 @@ void touche(int key, int x, int y){
  
  cout<<"distmoveX = "<<distMoveX<<"distmoveY = "<<distMoveY<<endl;
   switch(key){
-  case GLUT_KEY_UP :
+  case GLUT_KEY_DOWN :
     
     glLoadIdentity(); //réinitialise le repère
     
@@ -463,7 +481,7 @@ void touche(int key, int x, int y){
     dessine();
     break;
 		
-  case GLUT_KEY_DOWN :
+  case GLUT_KEY_UP :
     glLoadIdentity(); //réinitialise le repère
     gluOrtho2D( xmin,xmax,ymax=ymax+distMoveY,ymin=ymin+distMoveY);
     deplaceTab(20,3);
@@ -471,7 +489,7 @@ void touche(int key, int x, int y){
     
     break;
 
-  case GLUT_KEY_RIGHT :
+  case GLUT_KEY_LEFT :
 
     glLoadIdentity(); //réinitialise le repère
 
@@ -484,7 +502,7 @@ void touche(int key, int x, int y){
     
     break;
     
-  case GLUT_KEY_LEFT:
+  case GLUT_KEY_RIGHT:
         
     glLoadIdentity(); //réinitialise le repère
 
@@ -791,6 +809,8 @@ int main(int argc, char* argv[]) {
   // glScalef(1,-1,1);
   glutDisplayFunc(Rafraichir); // Callback de la fenêtre
 
+  //glutDisplayFunc(gestionTab::Rafraichir);
+  
   //glPointSize(2); //changer taille point
 
   
@@ -801,6 +821,8 @@ int main(int argc, char* argv[]) {
 
   //evenement clavier basique
   glutKeyboardFunc(clavier);
+
+  //  glutKeyboardFunc(gestionTab::clavier);
 
   //evenement touche clavier "spécial"
   glutSpecialFunc(touche);

@@ -15,6 +15,8 @@ class rectangle{
   rectangle(double xmin, double ymin, double xmax, double ymax);
 
   void reinitialise();
+
+  void resetRepere();
   
   double getXmin() const;
   double getYmin() const;
