@@ -36,6 +36,7 @@ rectangle cadreTmp(0,0,0,0);
 int tempX;
 int tempY;
 vector< vector<int> > tab;
+vector<vector<point> > tabC;
 
 int cliqX;
 int cliqY;
@@ -53,6 +54,18 @@ int tabOcc[100]={0};
 int couleur=0;
 
 
+void remplirTabDernierPoint(){
+  double tailleX=abs(xmax-xmin);
+  double tailleY=abs(ymax-ymin);
+  for (int i=0 ; i<800 ; i++) {
+    tabC.push_back(vector<point>(800));
+    for (int j=0 ; j<800 ; j++) {
+      tabC[i][j]=point::converge((tailleX / 800) * i + xmin,
+       (tailleY / 800) * j + ymin); 
+    }
+  }
+
+}
 
 double pixelToRepereX(int pixel){
   double tailleX=abs(xmax-xmin);
@@ -92,7 +105,9 @@ float distance(int i, int j, int occ){
   float c = ((float)((int)(occ%100))/100);
   return (sqrt(a + b)/100 + c);
 }
-
+float distance(float i, float j){
+  return sqrt(pow(i,2) + pow(j,2));
+}
 void dessine(){
 
   //////////
@@ -101,7 +116,8 @@ void dessine(){
   double tailleY=abs(ymax-ymin); 
 
   //////////
-
+  if(couleur==2)
+	remplirTabDernierPoint();
   
 
   glBegin(GL_POINTS); 	//mode affichage de points
@@ -110,11 +126,20 @@ void dessine(){
     for(int  j=0;j<800;j++){
 
       if (tab[i][j]==-1){
-    glColor3f(0, 0, 0);  
+      	if (couleur==2){
+
+
+     glColor3f(0.2 + distance(tabC[i][j].getX(),tabC[i][j].getY()),
+           0.1,
+          0.2); 
+ }
+    //cout << distance(tabC[i][j].getX(),tabC[i][j].getY())  <<endl;
     // glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
     //       distance(i, j, tabOcc[tab[i][j]]),
     //       distance(i, j, tabOcc[tab[i][j]]));
     // cout << distance(i, j,tabOcc[tab[i][j]])<<endl;
+       	else
+		    glColor3f(0, 0, 0); 
   }
       else
 	if(couleur==0)
@@ -126,7 +151,7 @@ void dessine(){
 	    
 	    glColor3f(0.00001*tabOcc[tab[i][j]],
 		      1-0.0001*tabOcc[tab[i][j]],
-		      0.5-0.00001*tabOcc[tab[i][j]]);
+		      0.5-0.00001*tabOcc[tab[i][j]]);  
 	  }
 	  else{
       if (couleur == 2)
@@ -135,9 +160,17 @@ void dessine(){
       // glColor3f(0.2 + modulo(tab[i][j], tabOcc[tab[i][j]]) ,
       //     modulo(0.3+tab[i][j], tabOcc[tab[i][j]]),
       //     modulo(tab[i][j], tabOcc[tab[i][j]]) );
-        glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
-          distance(i, j, tabOcc[tab[i][j]]),
-          distance(i, j, tabOcc[tab[i][j]]));
+
+        // glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
+        //   distance(i, j, tabOcc[tab[i][j]]),
+        //   distance(i, j, tabOcc[tab[i][j]]));
+        // cout << distance(tabC[i][j].getX(),tabC[i][j].getY())  <<endl;
+
+		glColor3f(0.2 + distance(tabC[i][j].getX(),tabC[i][j].getY())/10,
+          0.1,
+         0.2);
+       // cout << distance(tabC[i][j].getX(),tabC[i][j].getY())  <<endl;
+
 	//   cout << modulo(tab[i][j], tabOcc[tab[i][j]]) <<endl;
       }
       else{
@@ -180,6 +213,7 @@ void remplirTab(){
     }
   }
 }
+
 
 
 ////
@@ -326,6 +360,7 @@ void Rafraichir(void) {
 
   */
   remplirTab();
+  //remplirTabDernierPoint();
 
   //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
   occuranceDiv();

@@ -16,7 +16,7 @@ class point{
   
 
   static int diverge(double x, double y);
-
+  static point converge(double x, double y);
 };
 
 #endif

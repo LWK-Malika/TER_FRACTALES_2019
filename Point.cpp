@@ -43,3 +43,24 @@ int point::diverge(double r,double i){
   else
     return cmp;
 }
+
+point point::converge(double r, double i){
+
+  double ZnR=0;
+  double ZnI=0;
+
+  double temporaire;
+  
+  int cmp=0;
+  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<100){
+
+    temporaire=ZnR;
+    
+    ZnR=pow(ZnR,2)-pow(ZnI,2)+r;    
+    ZnI=2*temporaire*ZnI+i;
+    cmp++;
+  }
+  point dernierPoint = point(ZnR, ZnI);
+  return dernierPoint;  
+
+}
