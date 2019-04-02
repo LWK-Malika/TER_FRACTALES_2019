@@ -345,20 +345,6 @@ void Rafraichir(void) {
 
   
   // -----------------------------------------------------------------
- 
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(0, -1);
-  glEnd();
-  glFlush();
-
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(1, 0);
-  glEnd();
-  glFlush();
 
 }
 
@@ -402,8 +388,28 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
   
      Rafraichir();
      break;
+   case 113:
+     cout << "Affichage du repère"<<endl;
 
-
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(0, -1);
+     glEnd();
+     glFlush();
+     
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(1, 0);
+     glEnd();
+     glFlush();
+     break;
+  
+   case 115:
+     cout << "Supression du repère"<<endl;
+     dessine();
+     break;
      //ajout ici des autre evenement du clavier
    }
 }
