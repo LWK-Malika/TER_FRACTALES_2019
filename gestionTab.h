@@ -4,13 +4,16 @@
 
 #include "Point.h"
 #include "rectangle.h"
+#include <vector>
+
 extern rectangle cadre;
-extern std::vector<std::vector<int>> tab;
-extern int* tabOcc;
+extern std::vector< std::vector<int> > tab;
+extern int tabOcc[100];
 extern int couleur;
 
 class gestionTab{
 
+ public:
 
   static double modulo(double itineraire, double occurance);
 

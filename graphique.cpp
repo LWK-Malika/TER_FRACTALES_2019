@@ -2,6 +2,7 @@
 //compiler avec g++ graphique.cpp -o graphique -lglut -lGLU -lGL
 #include "Point.h"
 #include "rectangle.h"
+#include "gestionTab.h"
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -35,7 +36,7 @@ rectangle cadreTmp(0,0,0,0);
 //coordonné temporaire qui permet d'effacer les traits non utile
 int tempX;
 int tempY;
-vector< vector<int> > tab;
+std::vector< std::vector<int> > tab;
 
 int cliqX;
 int cliqY;
@@ -765,6 +766,8 @@ int main(int argc, char* argv[]) {
   // glScalef(1,-1,1);
   glutDisplayFunc(Rafraichir); // Callback de la fenêtre
 
+  //glutDisplayFunc(gestionTab::Rafraichir);
+  
   //glPointSize(2); //changer taille point
 
   

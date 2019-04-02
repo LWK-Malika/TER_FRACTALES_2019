@@ -2,7 +2,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <vector>
+//#include <vector>
 #include <cmath>
 
 #include "gestionTab.h"
@@ -178,20 +178,4 @@ void gestionTab::Rafraichir(void){
   occuranceDiv();
 
    dessine();
-
-   //affiche le l'axe du repère. 
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(0, -1);
-  glEnd();
-  glFlush();
-
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(1, 0);
-  glEnd();
-  glFlush();
-
 }
