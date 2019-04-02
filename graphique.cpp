@@ -129,7 +129,7 @@ void dessine(){
       	if (couleur==2){
 
 
-     glColor3f(0.2 + distance(tabC[i][j].getX(),tabC[i][j].getY()),
+     glColor3f(0.2+distance(tabC[i][j].getX(),tabC[i][j].getY()),
            0.1,
           0.2); 
  }
@@ -166,7 +166,7 @@ void dessine(){
         //   distance(i, j, tabOcc[tab[i][j]]));
         // cout << distance(tabC[i][j].getX(),tabC[i][j].getY())  <<endl;
 
-		glColor3f(0.2 + distance(tabC[i][j].getX(),tabC[i][j].getY())/10,
+		glColor3f( 0.4+distance(tabC[i][j].getX(),tabC[i][j].getY())/10,
           0.1,
          0.2);
        // cout << distance(tabC[i][j].getX(),tabC[i][j].getY())  <<endl;
