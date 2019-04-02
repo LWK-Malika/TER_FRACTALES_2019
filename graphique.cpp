@@ -138,7 +138,7 @@ void dessine(){
         glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
           distance(i, j, tabOcc[tab[i][j]]),
           distance(i, j, tabOcc[tab[i][j]]));
-      cout << modulo(tab[i][j], tabOcc[tab[i][j]]) <<endl;
+	//   cout << modulo(tab[i][j], tabOcc[tab[i][j]]) <<endl;
       }
       else{
         //vert -> bleu -> rouge
