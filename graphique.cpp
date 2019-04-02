@@ -785,6 +785,8 @@ int main(int argc, char* argv[]) {
   //evenement clavier basique
   glutKeyboardFunc(clavier);
 
+  //  glutKeyboardFunc(gestionTab::clavier);
+
   //evenement touche clavier "spécial"
   glutSpecialFunc(touche);
   

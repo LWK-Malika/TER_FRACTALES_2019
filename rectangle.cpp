@@ -27,6 +27,11 @@ void rectangle::reinitialise(){
   setXmin(1.3);
 }
 
+void rectangle::resetRepere(){
+  reinitialise();
+  gluOrtho2D(getXmin(), getXmax(), getYmax(), getYmin());
+
+}
 
 
 double rectangle::getXmin() const{

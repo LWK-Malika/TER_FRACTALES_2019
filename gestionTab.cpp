@@ -179,3 +179,73 @@ void gestionTab::Rafraichir(void){
 
    dessine();
 }
+
+
+
+
+//gere les touche basique du clavier
+void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
+{
+  printf("Touche : %c = %d \n", key, key);
+  // test, permet de savoir quelle touche est tapé
+   switch (key) {
+   case 97: //touche a 
+ 
+     std::cout << "couleur par défaut"<<std::endl;
+      couleur=0;
+      dessine();
+      break;
+   case 122: //touche z
+     
+     std::cout << "couleur en fonction du nombre d'occurence pour chaque temps de divergence."<<std::endl;
+     couleur=1;
+     dessine();
+     break;
+
+   case 101: //touche e
+     std::cout << "Couleurs par intervalles"<<std::endl;
+     couleur=974;
+     dessine();
+     break;
+   
+   case 114: //touche a
+     std::cout << "Couleur test" << std::endl;
+     couleur = 2;
+     dessine();
+     break; 
+     
+   case 13: //touche entrer
+     std::cout << "Fractale par défaut"<<std::endl;
+     couleur=0;//réinitialise la couleur
+     glLoadIdentity(); //réinitialise le repère
+     //cadre.reinitialise();
+     //gluOrtho2D( xmin=-2.15,xmax=0.55, ymax=1.3,ymin=-1.3);//zoom du repère
+     cadre.resetRepere();
+  
+     Rafraichir();
+     break;
+   case 113:
+     std::cout << "Affichage du repère"<<std::endl;
+
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(0, -1);
+     glEnd();
+     glFlush();
+     
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(1, 0);
+     glEnd();
+     glFlush();
+     break;
+  
+   case 115:
+     std::cout << "Supression du repère"<<std::endl;
+     dessine();
+     break;
+     //ajout ici des autre evenement du clavier
+   }
+}

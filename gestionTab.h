@@ -30,6 +30,10 @@ class gestionTab{
   static void occuranceDiv();
   
   static void Rafraichir(void);
+
+  static void clavier(unsigned char key, int x, int y);
+
+  
 };
 
 
