@@ -346,20 +346,6 @@ void Rafraichir(void) {
 
   
   // -----------------------------------------------------------------
- 
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(0, -1);
-  glEnd();
-  glFlush();
-
-  glBegin(GL_LINES);
-  glColor3f(1,1,1);
-  glVertex2f(0, 0);
-  glVertex2f(1, 0);
-  glEnd();
-  glFlush();
 
 }
 
@@ -403,8 +389,28 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
   
      Rafraichir();
      break;
+   case 113:
+     cout << "Affichage du repère"<<endl;
 
-
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(0, -1);
+     glEnd();
+     glFlush();
+     
+     glBegin(GL_LINES);
+     glColor3f(1,1,1);
+     glVertex2f(0, 0);
+     glVertex2f(1, 0);
+     glEnd();
+     glFlush();
+     break;
+  
+   case 115:
+     cout << "Supression du repère"<<endl;
+     dessine();
+     break;
      //ajout ici des autre evenement du clavier
    }
 }
@@ -429,7 +435,7 @@ void touche(int key, int x, int y){
  
  cout<<"distmoveX = "<<distMoveX<<"distmoveY = "<<distMoveY<<endl;
   switch(key){
-  case GLUT_KEY_UP :
+  case GLUT_KEY_DOWN :
     
     glLoadIdentity(); //réinitialise le repère
     
@@ -438,7 +444,7 @@ void touche(int key, int x, int y){
     dessine();
     break;
 		
-  case GLUT_KEY_DOWN :
+  case GLUT_KEY_UP :
     glLoadIdentity(); //réinitialise le repère
     gluOrtho2D( xmin,xmax,ymax=ymax+distMoveY,ymin=ymin+distMoveY);
     deplaceTab(20,3);
@@ -446,7 +452,7 @@ void touche(int key, int x, int y){
     
     break;
 
-  case GLUT_KEY_RIGHT :
+  case GLUT_KEY_LEFT :
 
     glLoadIdentity(); //réinitialise le repère
 
@@ -459,7 +465,7 @@ void touche(int key, int x, int y){
     
     break;
     
-  case GLUT_KEY_LEFT:
+  case GLUT_KEY_RIGHT:
         
     glLoadIdentity(); //réinitialise le repère
 
