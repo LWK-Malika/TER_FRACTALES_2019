@@ -434,7 +434,7 @@ void touche(int key, int x, int y){
  
  cout<<"distmoveX = "<<distMoveX<<"distmoveY = "<<distMoveY<<endl;
   switch(key){
-  case GLUT_KEY_UP :
+  case GLUT_KEY_DOWN :
     
     glLoadIdentity(); //réinitialise le repère
     
@@ -443,7 +443,7 @@ void touche(int key, int x, int y){
     dessine();
     break;
 		
-  case GLUT_KEY_DOWN :
+  case GLUT_KEY_UP :
     glLoadIdentity(); //réinitialise le repère
     gluOrtho2D( xmin,xmax,ymax=ymax+distMoveY,ymin=ymin+distMoveY);
     deplaceTab(20,3);
@@ -451,7 +451,7 @@ void touche(int key, int x, int y){
     
     break;
 
-  case GLUT_KEY_RIGHT :
+  case GLUT_KEY_LEFT :
 
     glLoadIdentity(); //réinitialise le repère
 
@@ -464,7 +464,7 @@ void touche(int key, int x, int y){
     
     break;
     
-  case GLUT_KEY_LEFT:
+  case GLUT_KEY_RIGHT:
         
     glLoadIdentity(); //réinitialise le repère
 
