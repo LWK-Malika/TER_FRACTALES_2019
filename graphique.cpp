@@ -149,6 +149,13 @@ void dessine(){
         {1,0,1}, {1,0,0.5},
         {1,0,0}, {1,0.5,0}};
       
+      	  //rouge ->vert->bleu
+	  // float tabCouleur[10][3]={{1,0,0}, {1,0.5,0},
+	  // 			     {1,1,0}, {0.5,1,0},
+	  // 			     {0,1,0}, {0,1,0.5},
+	  // 			     {0,1,1}, {0,0.5,1},
+	  // 			     {0,0,1}, {1,0,1}};
+      
       glColor3f(tabCouleur[(tab[i][j]/10)][0] ,
           tabCouleur[(tab[i][j]/10)][1],
           tabCouleur[(tab[i][j]/10)][2]  );
@@ -186,6 +193,7 @@ void remplirTab(){
 ///
 ///
 
+///
 //complete le tableau
 void completeTab(int imin, int imax, int jmin,int jmax){
 
@@ -197,6 +205,7 @@ void completeTab(int imin, int imax, int jmin,int jmax){
   }
 }
 
+///
 void newTab(int move, int dir){
   //dir de 1 a 4;
   

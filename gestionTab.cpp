@@ -7,6 +7,18 @@
 
 #include "gestionTab.h"
 
+double gestionTab::modulo(double itinairaire, double occurance){
+  return (itinairaire)/800;
+ }
+
+
+double gestionTab::distance(int i, int j, int occ){
+  // return ((pow((float)(pixelToRepereX(i)),2) +pow((float)(pixelToRepereY(j)),2) + ((float)((int)(occ%100))/100) ));
+  float a = pow((double)(cadre.pixelToRepereX(i)),2);
+  float b = pow((double)(cadre.pixelToRepereY(j)),2);
+  float c = ((double)((int)(occ%100))/100);
+  return (sqrt(a + b)/100 + c);
+}
 
 void gestionTab::dessine(){
     
@@ -29,6 +41,14 @@ void gestionTab::dessine(){
 		    1-0.0001*tabOcc[tab[i][j]],
 		    0.5-0.00001*tabOcc[tab[i][j]]);
 	  break;
+	  	case 2:
+ {
+   glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
+	     distance(i, j, tabOcc[tab[i][j]]),
+	     distance(i, j, tabOcc[tab[i][j]]));
+      }
+
+      break;
 	case 974:	  
 	  //vert -> bleu -> rouge
 	  float tabCouleur[10][3]={
@@ -138,3 +158,40 @@ void gestionTab::newTab(int move, int dir){
   }
 }
 
+
+void gestionTab::occuranceDiv(){
+  for(int i=0;i<100; i++)
+    tabOcc[i]=0;
+
+  
+  for(int i=0; i<800; i++)
+    for(int j=0; j<800; j++)
+      tabOcc[tab[i][j]]++;
+
+  }
+
+void gestionTab::Rafraichir(void){
+  glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
+   remplirTab();
+
+    //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
+  occuranceDiv();
+
+   dessine();
+
+   //affiche le l'axe du repère. 
+  glBegin(GL_LINES);
+  glColor3f(1,1,1);
+  glVertex2f(0, 0);
+  glVertex2f(0, -1);
+  glEnd();
+  glFlush();
+
+  glBegin(GL_LINES);
+  glColor3f(1,1,1);
+  glVertex2f(0, 0);
+  glVertex2f(1, 0);
+  glEnd();
+  glFlush();
+
+}
