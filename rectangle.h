@@ -50,6 +50,7 @@ class rectangle{
 
   // void clique(int button, int state, int x, int y);
 
+  void operator= (rectangle & bis);
 
 };
 

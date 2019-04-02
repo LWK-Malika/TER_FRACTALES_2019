@@ -24,6 +24,8 @@ double ymax=1.3;
 
 rectangle cadre(-2.15,-1.3,0.55,1.3); 
 
+//rectangle zoom(
+
 double xmin1;
 double ymin1;
 double xmax1;
@@ -695,7 +697,7 @@ void clique (int button, int state, int x, int y) {
      case 4: //roulette vers le bas
        if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
 	 //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
-       cout<<"miaou"<<endl<<endl;
+      
 
     //dezoom
        xmin=xmin*(xmin<0?1.1:0.9);
@@ -750,7 +752,7 @@ void clique (int button, int state, int x, int y) {
       ymin1=((tailleY/800)*y+ymin);
     }
       
-
+-
       
     if(state == GLUT_UP)	  {
 

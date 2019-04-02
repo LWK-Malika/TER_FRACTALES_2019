@@ -122,4 +122,9 @@ void rectangle::inverse(){
 }
 
 
-
+void rectangle::operator= (rectangle & bis){
+  this->setXmin( bis.getXmin() );
+  this->setXmax( bis.getXmax() );
+  this->setYmin( bis.getYmin() );
+  this->setYmax( bis.getYmax() );
+}
