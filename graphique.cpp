@@ -23,8 +23,8 @@ double ymax=1.3;
 //////////
 
 rectangle cadre(-2.15,-1.3,0.55,1.3); 
-
-//rectangle zoom(
+ 
+rectangle zoom(-2.15,-1.3,0.55,1.3);
 
 double xmin1;
 double ymin1;
@@ -752,7 +752,7 @@ void clique (int button, int state, int x, int y) {
       ymin1=((tailleY/800)*y+ymin);
     }
       
--
+
       
     if(state == GLUT_UP)	  {
 

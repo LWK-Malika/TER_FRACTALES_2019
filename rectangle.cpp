@@ -12,6 +12,7 @@
 extern int couleur;
 extern std::vector<std::vector<int>> tab;
 extern int* tabOcc;
+extern rectangle zoom;
 
 rectangle::rectangle(point min, point max):min(min), max(max){}
 
@@ -127,4 +128,64 @@ void rectangle::operator= (rectangle & bis){
   this->setXmax( bis.getXmax() );
   this->setYmin( bis.getYmin() );
   this->setYmax( bis.getYmax() );
+}
+
+
+
+
+void rectangle::clique (int button, int state, int x, int y) {
+
+  // réinitialisation de temp pour le tracer du carré
+  // tempX=x;
+  // tempY=y;
+
+  // cliqX=x;
+  // cliqY=y;
+  
+  // cout<<endl<<endl<<"clique"<<endl<<"cliqX= "<<x<<"clqY ="<<y<<endl<<endl;
+
+  
+  
+  switch (button) {
+     case 4: //roulette vers le bas
+       if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
+	 //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
+      
+    //dezoom
+
+	 
+	 
+	 setXmin(getXmin()+(getTailleX()*(getYmin()<0?1:-1)));	 
+	 setXmax(getXmax()+(getTailleX()*(getYmin()<0?-1:1)));
+	 
+	 setYmin(getYmin()+(getTailleY()*(getYmin()<0?1:-1)));	 
+	 setYmax(getYmax()+(getTailleY()*(getYmin()<0?-1:1)));
+	 
+	 glLoadIdentity();
+    
+	 gluOrtho2D(getXmin(),getXmax(),getYmax(), getYmin());	      	//zoom du repère
+
+
+	 gestionTab::Rafraichir(); 		// Callback de la fenêtre
+
+       }
+    
+    break;
+    /*
+ case 3: //roulette vers le haut
+    //zoom
+     if (state == GLUT_DOWN){ 
+        xmin=xmin*(xmin>0?1.1:0.9);
+	xmax=xmax*(xmax>0?0.9:1.1);
+       ymin=ymin*(ymin>0?1.1:0.9);
+       ymax=ymax*(ymax>0?0.9:1.1);
+ 
+    glLoadIdentity();
+    gluOrtho2D(xmin,xmax,ymax,ymin);	      	//zoom du repère
+
+    Rafraichir(); 		// Callback de la fenêtre
+     }
+    break;
+    */
+  }
 }

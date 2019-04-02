@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "gestionTab.h"
+#include "rectangle.h"
 
 double gestionTab::modulo(double itinairaire, double occurance){
   return (itinairaire)/800;

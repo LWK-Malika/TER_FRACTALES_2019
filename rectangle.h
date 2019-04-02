@@ -3,6 +3,7 @@
 
 
 #include "Point.h"
+#include "gestionTab.h"
 
 class rectangle{
   private:
@@ -48,9 +49,10 @@ class rectangle{
   void inverse();
 
 
-  // void clique(int button, int state, int x, int y);
+void operator= (rectangle & bis);
 
-  void operator= (rectangle & bis);
+
+void clique(int button, int state, int x, int y);
 
 };
 
