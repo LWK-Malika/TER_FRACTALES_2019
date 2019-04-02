@@ -41,8 +41,14 @@ class rectangle{
 
   double coordRepX(int i) const;
   double coordRepY(int i) const;
+  
+  template<typename T>
+  void static inverse(T &min, T &max);
+  
+  void inverse();
 
 
+  // void clique(int button, int state, int x, int y);
 
 
 };

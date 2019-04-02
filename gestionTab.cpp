@@ -20,14 +20,35 @@ double gestionTab::distance(int i, int j, int occ){
   return (sqrt(a + b)/100 + c);
 }
 
+
+double gestionTab::distance(double i, double j){
+  return sqrt(pow(i,2) + pow(j,2));
+}
+
+
 void gestionTab::dessine(){
+
+  if(couleur==2)
+	remplirTabDernierPoint();
+  
     
   glBegin(GL_POINTS); 	//mode affichage de points  
   for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudié
     for(int  j=0;j<800;j++){     
      
-      if (tab[i][j]==-1)
-	glColor3f(0.2, 0.2, 0.2);             
+      if (tab[i][j]==-1){
+	if (couleur==2){
+	  
+	  
+	  glColor3f(0.2+distance(tabC[i][j].getX(),tabC[i][j].getY()),
+		    0.1,
+		    0.2); 
+	}
+	
+	else	
+	  glColor3f(0, 0, 0);
+      }
+      
       else
 	switch(couleur){
 	case 0:
@@ -86,6 +107,16 @@ void gestionTab::remplirTab(){
 			       * i + cadre.getXmin(),
 			       (cadre.getTailleY() / 800)
 			       * j + cadre.getYmin()); 
+    }
+  }
+}
+
+void gestionTab::remplirTabDernierPoint(){
+  for (int i=0 ; i<800 ; i++) {
+    tabC.push_back(std::vector<point>(800));
+    for (int j=0 ; j<800 ; j++) {
+      tabC[i][j]=point::converge((cadre.getTailleX() / 800) * i + cadre.getXmin(),
+				 (cadre.getTailleY() / 800) * j + cadre.getYmin()); 
     }
   }
 }
@@ -248,4 +279,74 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
      break;
      //ajout ici des autre evenement du clavier
    }
+}
+
+
+
+void gestionTab::touche(int key, int x, int y){
+  /*  cout<<"xmin = "<< xmin
+      <<"xmax = "<< xmax
+      <<"ymin = "<< ymin
+      <<"ymax = "<< ymax<<endl<<endl;*/
+  
+  printf("Touche spécial: %c = %d \n", key, key);
+
+  double distMoveX=cadre.distPixToRepX(20);
+  
+ double distMoveY=cadre.distPixToRepY(20);
+
+ 
+ std::cout<<"distmoveX = "<<distMoveX<<" distmoveY = "<<distMoveY<<std::endl;
+  switch(key){
+  case GLUT_KEY_DOWN :
+    
+    glLoadIdentity(); //réinitialise le repère
+
+    cadre.setYmax(cadre.getYmax()-distMoveY);
+    cadre.setYmin(cadre.getYmin()-distMoveY); 
+    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
+    //gluOrtho2D( xmin,xmax,ymax=ymax-distMoveY,ymin=ymin-distMoveY);
+    newTab(20,4);
+    dessine();
+    break;
+		
+  case GLUT_KEY_UP :
+    glLoadIdentity(); //réinitialise le repère
+
+        cadre.setYmax(cadre.getYmax()+distMoveY);
+    cadre.setYmin(cadre.getYmin()+distMoveY); 
+    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
+    // gluOrtho2D( xmin,xmax,ymax=ymax+distMoveY,ymin=ymin+distMoveY);
+    newTab(20,3);
+    dessine();  
+    break;
+
+    
+  case GLUT_KEY_LEFT :
+
+    glLoadIdentity(); //réinitialise le repère
+
+      cadre.setXmax(cadre.getXmax()-distMoveX);
+    cadre.setXmin(cadre.getXmin()-distMoveX); 
+    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
+    
+    //gluOrtho2D( xmin=xmin-distMoveX,xmax=xmax-distMoveX, ymax,ymin);
+    newTab(20,1);
+    dessine();       
+    break;
+
+    
+  case GLUT_KEY_RIGHT:
+        
+    glLoadIdentity(); //réinitialise le repère
+
+      cadre.setXmax(cadre.getXmax()+distMoveX);
+    cadre.setXmin(cadre.getXmin()+distMoveX); 
+    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
+    
+    //gluOrtho2D( xmin=xmin+distMoveX,xmax=xmax+distMoveX, ymax,ymin);
+    newTab(20,2);
+    dessine();    
+    break; 
+  }
 }

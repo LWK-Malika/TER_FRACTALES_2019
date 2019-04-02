@@ -820,13 +820,13 @@ int main(int argc, char* argv[]) {
   stop = clock();
 
   //evenement clavier basique
-  glutKeyboardFunc(clavier);
+  //glutKeyboardFunc(clavier);
 
-  //  glutKeyboardFunc(gestionTab::clavier);
+  glutKeyboardFunc(gestionTab::clavier);
 
   //evenement touche clavier "spécial"
-  glutSpecialFunc(touche);
-  
+  //glutSpecialFunc(touche);
+  glutSpecialFunc(gestionTab::touche);
 
   cout << "durer du programme: " << difftime(stop, start) << " milliseconde" << endl;
 

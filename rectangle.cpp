@@ -98,3 +98,28 @@ double rectangle::coordRepY(int i) const{
   (getTailleY()/800)*i+getYmin();
 }
 
+
+template<typename T>
+void rectangle::inverse(T &min, T &max){
+  if (max < min) {
+    T a = min;
+    min = max;
+    max = a;   
+  }
+}
+
+void rectangle::inverse(){
+  if (getXmax() < getXmin()) {
+    double a = getXmin();
+    setXmin(getXmax());
+    setXmax(a);   
+  }
+    if (getYmax() < getYmin()) {
+    double a = getYmin();
+    setYmin(getYmax());
+    setYmax(a);   
+  }
+}
+
+
+
