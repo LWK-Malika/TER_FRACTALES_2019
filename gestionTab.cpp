@@ -411,7 +411,7 @@ void gestionTab::clique (int button, int state, int x, int y) {
     Rafraichir(); 		// Callback de la fenêtre
      }
     break;
-    /*   
+    
   case GLUT_LEFT_BUTTON:
     
     if(state == GLUT_DOWN) {
@@ -419,48 +419,63 @@ void gestionTab::clique (int button, int state, int x, int y) {
 
       
       
-      std::cout << "coordonnées en pixel:" << x << ", " << y << endl
+      std::cout << "coordonnées en pixel:" << x << ", " << y << std::endl
 	   << "coordonnée en par rapport a l'axe " <<cadre.pixelToRepereX(x)
 		<<cadre.pixelToRepereX(x)<<std::endl;
 
-      zoom.getXmin(cadre.coordRepX(x))
-      zoom.getYmin(cadre.coordRepY(y))
+      zoom.setXmin(cadre.pixelToRepereX(x));
+      zoom.setYmin(-cadre.pixelToRepereY(y));
 
 	// xmin1=(tailleX/800)*x+xmin;
 	//   ymin1=((tailleY/800)*y+ymin);
     }
       
 
-    /*     
-    if(state == GLUT_UP)	  {
-
-      cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
-	  <<"coordonnée par rapport à l'axe "
-	  <<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
-	
-      xmax1=(tailleX/800)*x+xmin;
-      ymax1=((tailleY/800)*y+ymin);
-	
-      inverse(xmin1,xmax1);
-      inverse(ymin1,ymax1);
-	
-      xmin=xmin1;
-      ymin=ymin1;
-      xmax=xmin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
-      ymax=ymin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
-
-      cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymax= "<<ymax<<endl<<endl;
-
-      glLoadIdentity();
-      gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
-
-      Rafraichir(); 		// Callback de la fenêtre
-
+        
+    if(state == GLUT_UP){
       
+      std::cout << "coordonnées en pixel:" << x << ", " << y << std::endl
+	   << "coordonnée en par rapport a l'axe " <<cadre.pixelToRepereX(x)
+		<<cadre.pixelToRepereX(x)<<std::endl;
+
+
+    zoom.setXmax(cadre.pixelToRepereX(x));
+    zoom.setYmax(-cadre.pixelToRepereY(y));
       
+
+      //  xmax1=(tailleX/800)*x+xmin;
+      //  ymax1=((tailleY/800)*y+ymin);
+
+    zoom.inverse();
+ 
+    
+    
+    double temp=(zoom.getXmin()+
+		 (abs(zoom.getXmax()-zoom.getXmin())+
+		  abs(zoom.getYmax()-zoom.getYmin()))/2);
+
+
+    zoom.setYmax(zoom.getYmin()+
+		 (abs(zoom.getXmax()-zoom.getXmin())+
+		  abs(zoom.getYmax()-zoom.getYmin()))/2);
+
+		  zoom.setXmax(temp);
+  cadre=zoom;    
+    std::cout<<std::endl<<"xmin= "<<cadre.getXmin()<<" xmax= "<<cadre.getXmax()
+	<<" ymin= "<<cadre.getYmin()<<" ymax= "<<cadre.getYmax()<<std::endl<<std::endl;
+    
+    glLoadIdentity();
+    //gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
+
+    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
+   
+    Rafraichir(); 		// Callback de la fenêtre
+ 
+    
+    
     }
     break;
-*/
+    
   }
 }
     
