@@ -4,6 +4,8 @@
 #include <GL/glu.h>
 #include <vector>
 #include <cmath>
+
+
 #include "rectangle.h"
 
 
@@ -12,20 +14,22 @@
 extern int couleur;
 extern std::vector<std::vector<int>> tab;
 extern int* tabOcc;
-extern rectangle zoom;
+//extern rectangle zoom;
 
 rectangle::rectangle(point min, point max):min(min), max(max){}
 
 rectangle::rectangle(double xmin, double ymin, double xmax, double ymax):
   min(xmin,ymin), max(xmax,ymax){}
 
+rectangle::rectangle(rectangle & aCopier):min(aCopier.getXmin(), aCopier.getXmax()),
+					  max(aCopier.getYmin(), aCopier.getYmax()){}
 
 
 void rectangle::reinitialise(){
   setXmin(-2.15);
   setXmax(0.55);
-  setXmin(-1.3);
-  setXmin(1.3);
+  setYmin(-1.3);
+  setYmax(1.3);
 }
 
 void rectangle::resetRepere(){
@@ -132,60 +136,34 @@ void rectangle::operator= (rectangle & bis){
 
 
 
+void rectangle::zoomArriere(){
 
-void rectangle::clique (int button, int state, int x, int y) {
-
-  // réinitialisation de temp pour le tracer du carré
-  // tempX=x;
-  // tempY=y;
-
-  // cliqX=x;
-  // cliqY=y;
+  ///BBBUUUUGGGG a trouver un meilleur algo svp :(
+  rectangle temp(*this);
   
-  // cout<<endl<<endl<<"clique"<<endl<<"cliqX= "<<x<<"clqY ="<<y<<endl<<endl;
+  setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?1:-1)));	 
+  setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?-1:1)));
+  
+  setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?1:-1)));	 
+  setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?-1:1)));
+  
+  glLoadIdentity(); //réinitialise le repère
+  
+  gluOrtho2D(getXmin(),getXmax(),getYmax(), getYmin());	      	//zoom du repère
+}
 
+void rectangle::zoomAvant(){
+
+   rectangle temp(*this);
+   
+  setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?-1:1)));	 
+  setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?1:-1)));
+  
+  setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?-1:1)));	 
+  setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?1:-1)));
   
   
-  switch (button) {
-     case 4: //roulette vers le bas
-       if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
-	 //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
-      
-    //dezoom
-
-	 
-	 
-	 setXmin(getXmin()+(getTailleX()*(getYmin()<0?1:-1)));	 
-	 setXmax(getXmax()+(getTailleX()*(getYmin()<0?-1:1)));
-	 
-	 setYmin(getYmin()+(getTailleY()*(getYmin()<0?1:-1)));	 
-	 setYmax(getYmax()+(getTailleY()*(getYmin()<0?-1:1)));
-	 
-	 glLoadIdentity();
-    
-	 gluOrtho2D(getXmin(),getXmax(),getYmax(), getYmin());	      	//zoom du repère
-
-
-	 gestionTab::Rafraichir(); 		// Callback de la fenêtre
-
-       }
-    
-    break;
-    /*
- case 3: //roulette vers le haut
-    //zoom
-     if (state == GLUT_DOWN){ 
-        xmin=xmin*(xmin>0?1.1:0.9);
-	xmax=xmax*(xmax>0?0.9:1.1);
-       ymin=ymin*(ymin>0?1.1:0.9);
-       ymax=ymax*(ymax>0?0.9:1.1);
- 
-    glLoadIdentity();
-    gluOrtho2D(xmin,xmax,ymax,ymin);	      	//zoom du repère
-
-    Rafraichir(); 		// Callback de la fenêtre
-     }
-    break;
-    */
-  }
+  
+  glLoadIdentity();
+  gluOrtho2D(getXmin(),getXmax(),getYmax(), getYmin());	      	//zoom du repère
 }

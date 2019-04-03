@@ -8,6 +8,11 @@
 #include "gestionTab.h"
 #include "rectangle.h"
 
+
+
+
+
+
 double gestionTab::modulo(double itinairaire, double occurance){
   return (itinairaire)/800;
  }
@@ -185,7 +190,7 @@ void gestionTab::newTab(int move, int dir){
       }
     }
     tab.swap(tabcopie);
-     completeTab(aRemplir4);
+    completeTab(aRemplir4);
     break;
   }
 }
@@ -255,6 +260,11 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
      cadre.resetRepere();
   
      Rafraichir();
+
+     std::cout<<"xmin = "<< cadre.getXmin()
+	 <<"xmax = "<< cadre.getXmax()
+	 <<"ymin = "<< cadre.getYmin()
+	 <<"ymax = "<< cadre.getYmax()<<std::endl<<std::endl;
      break;
    case 113:
      std::cout << "Affichage du repère"<<std::endl;
@@ -351,3 +361,51 @@ void gestionTab::touche(int key, int x, int y){
     break; 
   }
 }
+
+
+
+
+
+
+
+void gestionTab::clique (int button, int state, int x, int y) {
+
+  // réinitialisation de temp pour le tracer du carré
+  // tempX=x;
+  // tempY=y;
+
+  // cliqX=x;
+  // cliqY=y;
+  
+  // cout<<endl<<endl<<"clique"<<endl<<"cliqX= "<<x<<"clqY ="<<y<<endl<<endl;
+
+  
+  
+  switch (button) {
+     case 4: //roulette vers le bas
+       if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
+	 //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
+      
+    //dezoom
+	 
+	 zoom.zoomArriere();
+
+	 Rafraichir(); 		// Callback de la fenêtre
+
+       }
+    
+    break;
+    
+ case 3: //roulette vers le haut
+    //zoom
+     if (state == GLUT_DOWN){ 
+
+     zoom.zoomAvant();
+
+    Rafraichir(); 		// Callback de la fenêtre
+     }
+    break;
+    
+  }
+}
+    

@@ -816,7 +816,9 @@ int main(int argc, char* argv[]) {
   //glPointSize(2); //changer taille point
 
   
-  glutMouseFunc(clique);
+  //glutMouseFunc(clique);
+  glutMouseFunc(gestionTab::clique);
+  
   glutMotionFunc(carre);
   
   stop = clock();
@@ -830,7 +832,9 @@ int main(int argc, char* argv[]) {
   //glutSpecialFunc(touche);
   glutSpecialFunc(gestionTab::touche);
 
-  cout << "durer du programme: " << difftime(stop, start) << " milliseconde" << endl;
+  
+  cout << "durer du programme: " << difftime(stop, start) << " milliseconde"
+       <<endl<<" soit "<< difftime(stop, start)/10000<<" seconde"<<endl<<endl; ;
 
   glutMainLoop(); //permet un "arret sur image"
 }

@@ -7,6 +7,8 @@
 #include <vector>
 
 extern rectangle cadre;
+extern rectangle zoom;
+
 extern std::vector< std::vector<int> > tab;
 extern int tabOcc[100];
 extern int couleur;
@@ -39,6 +41,7 @@ class gestionTab{
   static void touche(int key, int x, int y);
 
 
+  static void clique(int button, int state, int x, int y);
   
 };
 

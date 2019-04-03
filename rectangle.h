@@ -3,7 +3,11 @@
 
 
 #include "Point.h"
-#include "gestionTab.h"
+//#include "gestionTab.h"
+
+
+
+
 
 class rectangle{
   private:
@@ -14,6 +18,8 @@ class rectangle{
  public:
   rectangle(point min, point max);
   rectangle(double xmin, double ymin, double xmax, double ymax);
+
+  rectangle(rectangle & aCopier);
 
   void reinitialise();
 
@@ -49,10 +55,11 @@ class rectangle{
   void inverse();
 
 
-void operator= (rectangle & bis);
+  void operator= (rectangle & bis);
 
+  void zoomArriere();
 
-void clique(int button, int state, int x, int y);
+  void zoomAvant();
 
 };
 
