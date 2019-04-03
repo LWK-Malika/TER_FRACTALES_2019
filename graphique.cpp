@@ -1,4 +1,3 @@
-
 //compiler avec g++ graphique.cpp -o graphique -lglut -lGLU -lGL
 #include "Point.h"
 #include "rectangle.h"
@@ -6,12 +5,9 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-
 #include <ctime> //pour calculer le temps du programme
 #include <vector>
-
 #include <cmath>
-
 #include <iostream>
 using namespace std;
 
@@ -23,16 +19,13 @@ double ymax=1.3;
 //////////
 
 rectangle cadre(-2.15,-1.3,0.55,1.3); 
- 
 rectangle zoom(-2.15,-1.3,0.55,1.3);
+rectangle cadreTmp(0,0,0,0);
 
 double xmin1;
 double ymin1;
 double xmax1;
 double ymax1;
-
-rectangle cadreTmp(0,0,0,0);
-
 
 //variable globale pour déssiner le carré:
 //coordonné temporaire qui permet d'effacer les traits non utile
@@ -42,22 +35,14 @@ int tempY;
 vector< vector<int> > tab;
 vector<vector<point> > tabC;
 
-
 int cliqX;
 int cliqY;
 
-
 //pour le redimentionnement de la fenetre
-
-
-  int fenetreX;
-  int fenetreY;
-
-
+int fenetreX;
+int fenetreY;
 int tabOcc[100]={0};
-
 int couleur=0;
-
 
 void remplirTabDernierPoint(){
   double tailleX=abs(xmax-xmin);
@@ -69,7 +54,6 @@ void remplirTabDernierPoint(){
        (tailleY / 800) * j + ymin); 
     }
   }
-
 }
 
 double pixelToRepereX(int pixel){
@@ -460,6 +444,7 @@ void touche(int key, int x, int y){
   // double tailleX=abs(xmax-xmin);
   //  double tailleY=abs(ymax-ymin);
 
+
   cout<<"xmin = "<< xmin
       <<"xmax = "<< xmax
       <<"ymin = "<< ymin
@@ -471,8 +456,14 @@ void touche(int key, int x, int y){
   
  double distMoveY=distPixToRepY(20);
 
+	// time_t t = clock();	MARCHE PAS - A SUPPRIMER
+	// int c = 0; 
+	// while (difftime(t, clock()) >= 800000000000){
+	// 	cout << "   compteur : " << c++ << "   ";
+	// }
  
  cout<<"distmoveX = "<<distMoveX<<"distmoveY = "<<distMoveY<<endl;
+
   switch(key){
   case GLUT_KEY_DOWN :
     
@@ -513,9 +504,7 @@ void touche(int key, int x, int y){
     dessine();
     
     break;
- 
   }
-
 }
 
 
@@ -803,7 +792,7 @@ int main(int argc, char* argv[]) {
   fenetreX=glutGet(GLUT_WINDOW_WIDTH);
   fenetreY=glutGet(GLUT_WINDOW_HEIGHT);
 
-
+	glutIgnoreKeyRepeat(1); // ignore la répétition d'évênement clavier (touche enfoncé)
 
   
   gluOrtho2D(xmin, xmax, ymax,ymin);	// zoom du repère
@@ -826,11 +815,16 @@ int main(int argc, char* argv[]) {
   //evenement clavier basique
   //glutKeyboardFunc(clavier);
 
-  glutKeyboardFunc(gestionTab::clavier);
+  glutKeyboardUpFunc(gestionTab::clavier);
 
   //evenement touche clavier "spécial"
   //glutSpecialFunc(touche);
-  glutSpecialFunc(gestionTab::touche);
+	// if (difftime(clock(), t) >= 80000){
+  	glutSpecialFunc(gestionTab::touche);
+	// }
+
+//glutKeyboardUpFunc(...);
+//glutSpecialUpFunc(...);
 
   
   cout << "durer du programme: " << difftime(stop, start) << " milliseconde"
