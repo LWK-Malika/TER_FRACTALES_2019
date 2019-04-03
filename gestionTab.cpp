@@ -129,8 +129,16 @@ void gestionTab::remplirTabDernierPoint(){
 
 
 void gestionTab::completeTab( rectangle aRemplir){
-  for (int i=aRemplir.getXmin() ; i<aRemplir.getXmax() ; i++) {  
+  std::cout<<"xmin "<<aRemplir.getXmin()
+      <<"xmax "<<aRemplir.getXmax()
+	   <<"ymin "<<aRemplir.getYmin()
+	   <<"ymax "<<aRemplir.getYmax()
+      <<std::endl;
+ 
+  for (int i=aRemplir.getXmin() ; i<aRemplir.getXmax() ; i++) {
+
     for (int j=aRemplir.getYmin() ; j<aRemplir.getYmax(); j++) {
+
       tab[i][j]=point::diverge(cadre.pixelToRepereX(i),
 			       cadre.pixelToRepereY(j));
     }
@@ -145,11 +153,15 @@ void gestionTab::newTab(int move, int dir){
 
 
   //il n'est pas possible de déclarer une variable dans un switch
-  rectangle aRemplir1(0,0,move,800);
+  /*  rectangle aRemplir1(0,0,move,800);
   rectangle aRemplir2(800-move,0,800,800);
   rectangle aRemplir3(0,0,800,move);
   rectangle aRemplir4(0,800-move,800,800);
-  
+  */
+  rectangle aRemplir1(0,move,0,800);
+  rectangle aRemplir2(800-move,800,0,800);
+  rectangle aRemplir3(0,800,0,move);
+  rectangle aRemplir4(0,800,800-move,800);
   
   switch(dir){
   case 1:
@@ -295,17 +307,11 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
 
 
 void gestionTab::touche(int key, int x, int y){
-  /*  cout<<"xmin = "<< xmin
-      <<"xmax = "<< xmax
-      <<"ymin = "<< ymin
-      <<"ymax = "<< ymax<<endl<<endl;*/
-  
   printf("Touche spécial: %c = %d \n", key, key);
 
   double distMoveX=cadre.distPixToRepX(20);
+  double distMoveY=cadre.distPixToRepY(20);
   
- double distMoveY=cadre.distPixToRepY(20);
-
  
  std::cout<<"distmoveX = "<<distMoveX<<" distmoveY = "<<distMoveY<<std::endl;
   switch(key){
@@ -405,7 +411,56 @@ void gestionTab::clique (int button, int state, int x, int y) {
     Rafraichir(); 		// Callback de la fenêtre
      }
     break;
+    /*   
+  case GLUT_LEFT_BUTTON:
     
+    if(state == GLUT_DOWN) {
+
+
+      
+      
+      std::cout << "coordonnées en pixel:" << x << ", " << y << endl
+	   << "coordonnée en par rapport a l'axe " <<cadre.pixelToRepereX(x)
+		<<cadre.pixelToRepereX(x)<<std::endl;
+
+      zoom.getXmin(cadre.coordRepX(x))
+      zoom.getYmin(cadre.coordRepY(y))
+
+	// xmin1=(tailleX/800)*x+xmin;
+	//   ymin1=((tailleY/800)*y+ymin);
+    }
+      
+
+    /*     
+    if(state == GLUT_UP)	  {
+
+      cout<<"coordonnées en pixel:"<<x<<", "<<y<<endl
+	  <<"coordonnée par rapport à l'axe "
+	  <<(tailleX/800)*x+xmin<<"; "<<(tailleY/800)*y+ymin<<endl;
+	
+      xmax1=(tailleX/800)*x+xmin;
+      ymax1=((tailleY/800)*y+ymin);
+	
+      inverse(xmin1,xmax1);
+      inverse(ymin1,ymax1);
+	
+      xmin=xmin1;
+      ymin=ymin1;
+      xmax=xmin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
+      ymax=ymin1+(abs(xmax1-xmin1)+abs(ymax1-ymin1))/2;
+
+      cout<<endl<<"xmin= "<<xmin<<" xmax= "<<xmax<<" ymin= "<<ymin<<" ymax= "<<ymax<<endl<<endl;
+
+      glLoadIdentity();
+      gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
+
+      Rafraichir(); 		// Callback de la fenêtre
+
+      
+      
+    }
+    break;
+*/
   }
 }
     
