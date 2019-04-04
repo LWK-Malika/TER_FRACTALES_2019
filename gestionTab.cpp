@@ -34,7 +34,7 @@ double gestionTab::distance(double i, double j){
 
 void gestionTab::dessine(){
 
-  if(couleur==2 || couleur ==3)
+  if( couleur ==3)
 	remplirTabDernierPoint();
   
     
@@ -43,7 +43,7 @@ void gestionTab::dessine(){
     for(int  j=0;j<800;j++){     
      
       if (tab[i][j]==-1){
-	if (couleur==2 || couleur == 3){
+	if ( couleur == 3){
 	  
 	  
 	  glColor3f(0.2+distance(tabC[i][j].getX(),tabC[i][j].getY()),
@@ -391,21 +391,12 @@ void gestionTab::touche(int key, int x, int y){
 
 void gestionTab::clique (int button, int state, int x, int y) {
 
-  // réinitialisation de temp pour le tracer du carré
-  // tempX=x;
-  // tempY=y;
-
-  // cliqX=x;
-  // cliqY=y;
+  
 
   zoomTmp.setXmax(x);
   zoomTmp.setYmax(y);
   zoomTmp.setXmin(x);
   zoomTmp.setYmin(y);
-
-
-    
-  // cout<<endl<<endl<<"clique"<<endl<<"cliqX= "<<x<<"clqY ="<<y<<endl<<endl;
 
   
   
@@ -450,8 +441,6 @@ void gestionTab::clique (int button, int state, int x, int y) {
       zoom.setXmin(cadre.pixelToRepereX(x));
       zoom.setYmin(-cadre.pixelToRepereY(y));
 
-	// xmin1=(tailleX/800)*x+xmin;
-	//   ymin1=((tailleY/800)*y+ymin);
     }
       
 
@@ -464,12 +453,7 @@ void gestionTab::clique (int button, int state, int x, int y) {
 
 
     zoom.setXmax(cadre.pixelToRepereX(x));
-    zoom.setYmax(-cadre.pixelToRepereY(y));
-      
-
-      //  xmax1=(tailleX/800)*x+xmin;
-      //  ymax1=((tailleY/800)*y+ymin);
-
+    zoom.setYmax(-cadre.pixelToRepereY(y));    
     zoom.inverse();
  
     
@@ -498,40 +482,133 @@ void gestionTab::clique (int button, int state, int x, int y) {
     break;    
   }
 }
-    
 
 
+/*
+double gestionTab::couleur0(double i,double j,double cst){
 
+  return cos(exp(5*(0.01*tab[i][j]))+cst);
+}
 
+double gestionTab::couleur1(double i,double j, double cst){
+  return cst*tabOcc[tab[i][j]];
+}
+double gestionTab::couleur2(double i,double j, double cst){
+  return cst + distance(i, j, tabOcc[tab[i][j]]);
+}
+double gestionTab::couleur3(double i,double j, double cst){
+    return cst+distance(tabC[i][j].getX(),tabC[i][j].getY())/10;
+}
+double gestionTab::couleur974(double i,double j, double cst){
+   float tabCouleur[10][3]={
+	    {0,1,0}, {0,1,0.85},
+	    {0,0.8,1}, {0,0.95,1},
+	    {0,0,1}, {0.8,0,1},
+	    {1,0,1}, {1,0,0.5},
+	    {1,0,0}, {1,0.5,0}};
+   return tabCouleur[(tab[i][j]/10)][(int)cst];
+ } 
+*/
 
 
 void gestionTab::carre( int x, int y) {
+  /*
+  double (*ptrF)(double, double, double);
 
+  double rouge;
+  double vert;
+  double bleu;
+
+  
+
+  switch (couleur){
+  case 0:
+    ptrF=couleur0;
+    rouge=4;
+    vert=2;
+    bleu=0;
+    break;
+  case 1:
+      ptrF=couleur1;
+    rouge=0;
+    vert=1;
+    bleu=0.5;
+    break;
+  case 2:
+    ptrF=couleur2;
+    break;
+  case 3:
+      ptrF=couleur3;
+    break;
+  case 974:
+  ptrF=couleur974;
+    break;
+  }
+  */
+
+  
   glBegin(GL_POINTS);
 
   //trait horizontal
   for(int a=std::min((double)x, zoomTmp.getXmax()); a < std::max((double)x, zoomTmp.getXmax()); a++){
     for(int b=zoomTmp.getYmin()-1;b<zoomTmp.getYmin()+1; b++){
-      std::cout<<"miaou a= "<<a<<"  tmp Ymin ="<<b <<std::endl;
+
       if(((0<=a) && (a<800))&&((0<=b) && (b<800))){
+ if (tab[a][b]==-1){
+	if ( couleur == 3){
+	  
+	  
+	  glColor3f(0.2+distance(tabC[a][b].getX(),tabC[a][b].getY()),
+		    0.1,
+		    0.2); 
+	}
+	
+	else	
+	  glColor3f(0, 0, 0);
+      }
+      
+      else
+	switch(couleur){
+	case 0:
+	  glColor3f(cos(exp(5*(0.01*tab[a][b]))+4),
+		    cos(exp(5*(0.01*tab[a][b]))+2),
+		    cos(exp(5*(0.01*tab[a][b]))));
+	  break;
+	case 1:
+	  
+	  glColor3f(0.00001*tabOcc[tab[a][b]],
+		    1-0.0001*tabOcc[tab[a][b]],
+		    0.5-0.00001*tabOcc[tab[a][b]]);
+	  break;
+	case 2:
+	  {
+	    glColor3f(0.2 + distance(a,b, tabOcc[tab[a][b]]),
+		      distance(a,b, tabOcc[tab[a][b]]),
+		      distance(a, b, tabOcc[tab[a][b]]));
+	  }
+	  
+	  break;
+	case 3:
+	  glColor3f( 0.4+distance(tabC[a][b].getX(),tabC[a][b].getY())/10,
+		     0.1,
+		     0.2);
+	  break;
+      
+	case 974:	  
+	  //vert -> bleu -> rouge
+	  float tabCouleur[10][3]={
+	    {0,1,0}, {0,1,0.85},
+	    {0,0.8,1}, {0,0.95,1},
+	    {0,0,1}, {0.8,0,1},
+	    {1,0,1}, {1,0,0.5},
+	    {1,0,0}, {1,0.5,0}};
 
-
-	  std::cout<<tab[a][-zoomTmp.getYmin()]<<std::endl;
-	  if (tab[a][b]==-1){ 
-	 
-	  glColor3f(0,0,0);
-	 
-       }
-	   
-       else{
-	 	 glColor3f(cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))+4),
-	 	    cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))+2),
-	  	    cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))));
 	    
-		 // glColor3f(0,0,0);
-	 
+	  glColor3f(tabCouleur[(tab[a][b]/10)][0] ,
+		    tabCouleur[(tab[a][b]/10)][1],
+		    tabCouleur[(tab[a][b]/10)][2]  );
        }
-	  std::cout<<" cadre.pixelToRepereX(a)= "<<cadre.pixelToRepereX(a)<<"Y ="<<-cadre.pixelToRepereY(b)<<std::endl;
+
 	  glVertex2f(cadre.pixelToRepereX(a),-cadre.pixelToRepereY(b));
 
      }   
@@ -542,27 +619,64 @@ void gestionTab::carre( int x, int y) {
    for(int b=zoomTmp.getXmax()-1;b<zoomTmp.getXmax()+1; b++){
      for(int a=std::min( zoomTmp.getYmin(), zoomTmp.getYmax())-1; a < std::max(zoomTmp.getYmin(), zoomTmp.getYmax())+1; a++){
  
-      std::cout<<"miaou a= "<<a<<"  tmp Ymin ="<<b <<std::endl;
+ 
       if(((0<=a) && (a<800))&&((0<=b) && (b<800))){
 
+ if (tab[b][a]==-1){
+	if ( couleur == 3){
+	  
+	  
+	  glColor3f(0.2+distance(tabC[b][a].getX(),tabC[b][a].getY()),
+		    0.1,
+		    0.2); 
+	}
+	
+	else	
+	  glColor3f(0, 0, 0);
+      }
+      
+      else
+	switch(couleur){
+	case 0:
+	  glColor3f(cos(exp(5*(0.01*tab[b][a]))+4),
+		    cos(exp(5*(0.01*tab[b][a]))+2),
+		    cos(exp(5*(0.01*tab[b][a]))));
+	  break;
+	case 1:
+	  
+	  glColor3f(0.00001*tabOcc[tab[b][a]],
+		    1-0.0001*tabOcc[tab[b][a]],
+		    0.5-0.00001*tabOcc[tab[b][a]]);
+	  break;
+	case 2:
+	  {
+	    glColor3f(0.2 + distance(b, a, tabOcc[tab[b][a]]),
+		      distance(b, a, tabOcc[tab[b][a]]),
+		      distance(b, a, tabOcc[tab[b][a]]));
+	  }
+	  
+	  break;
+	case 3:
+	  glColor3f( 0.4+distance(tabC[b][a].getX(),tabC[b][a].getY())/10,
+		     0.1,
+		     0.2);
+	  break;
+      
+	case 974:	  
+	  //vert -> bleu -> rouge
+	  float tabCouleur[10][3]={
+	    {0,1,0}, {0,1,0.85},
+	    {0,0.8,1}, {0,0.95,1},
+	    {0,0,1}, {0.8,0,1},
+	    {1,0,1}, {1,0,0.5},
+	    {1,0,0}, {1,0.5,0}};
 
-	  //CONVERTIR !!!
-	  std::cout<<tab[b][a]<<std::endl;
-	  if (tab[b][a]==-1){ 
-	 
-	  glColor3f(0,0,0);
-	 
-       }
-	   
-       else{
-	 	 glColor3f(cos(exp(5*(0.01*tab[b][a]))+4),
-	 		   cos(exp(5*(0.01*tab[b][a]))+2),
-	 	    cos(exp(5*(0.01*tab[b][a]))));
 	    
-	 //	 	  glColor3f(0,0,0);
-	 
+	  glColor3f(tabCouleur[(tab[b][a]/10)][0] ,
+		    tabCouleur[(tab[b][a]/10)][1],
+		    tabCouleur[(tab[b][a]/10)][2]  );
        }
-	  std::cout<<" cadre.pixelToRepereX(a)= "<<cadre.pixelToRepereX(b)<<"Y ="<<-cadre.pixelToRepereY(a)<<std::endl;
+
 	  glVertex2f(cadre.pixelToRepereX(b),-cadre.pixelToRepereY(a));
 
      }   
@@ -576,61 +690,137 @@ void gestionTab::carre( int x, int y) {
   for(int a=std::min((double)y, zoomTmp.getYmax())-1;
       a < std::max((double)y, zoomTmp.getYmax())+1; a++){
  
-      std::cout<<"miaou a= "<<a<<"  tmp Ymin ="<<b <<std::endl;
+
       if(((0<=a) && (a<800))&&((0<=b) && (b<800))){
 
+ if (tab[b][a]==-1){
+	if ( couleur == 3){
+	  
+	  
+	  glColor3f(0.2+distance(tabC[b][a].getX(),tabC[b][a].getY()),
+		    0.1,
+		    0.2); 
+	}
+	
+	else	
+	  glColor3f(0, 0, 0);
+      }
+      
+      else
+	switch(couleur){
+	case 0:
+	  glColor3f(cos(exp(5*(0.01*tab[b][a]))+4),
+		    cos(exp(5*(0.01*tab[b][a]))+2),
+		    cos(exp(5*(0.01*tab[b][a]))));
+	  break;
+	case 1:
+	  
+	  glColor3f(0.00001*tabOcc[tab[b][a]],
+		    1-0.0001*tabOcc[tab[b][a]],
+		    0.5-0.00001*tabOcc[tab[b][a]]);
+	  break;
+	case 2:
+	  {
+	    glColor3f(0.2 + distance(b, a, tabOcc[tab[b][a]]),
+		      distance(b,a, tabOcc[tab[b][a]]),
+		      distance(b,a, tabOcc[tab[b][a]]));
+	  }
+	  
+	  break;
+	case 3:
+	  glColor3f( 0.4+distance(tabC[b][a].getX(),tabC[b][a].getY())/10,
+		     0.1,
+		     0.2);
+	  break;
+      
+	case 974:	  
+	  //vert -> bleu -> rouge
+	  float tabCouleur[10][3]={
+	    {0,1,0}, {0,1,0.85},
+	    {0,0.8,1}, {0,0.95,1},
+	    {0,0,1}, {0.8,0,1},
+	    {1,0,1}, {1,0,0.5},
+	    {1,0,0}, {1,0.5,0}};
 
-	  //CONVERTIR !!!
-	  std::cout<<tab[b][a]<<std::endl;
-	  if (tab[b][a]==-1){ 
-	 
-	  glColor3f(0,0,0);
-	 
-       }
-	   
-       else{
-	 	 glColor3f(cos(exp(5*(0.01*tab[b][a]))+4),
-	 		   cos(exp(5*(0.01*tab[b][a]))+2),
-	 	    cos(exp(5*(0.01*tab[b][a]))));
 	    
-		 //	  glColor3f(0,0,0);
-	 
+	  glColor3f(tabCouleur[(tab[b][a]/10)][0] ,
+		    tabCouleur[(tab[b][a]/10)][1],
+		    tabCouleur[(tab[b][a]/10)][2]  );
        }
-	  std::cout<<" cadre.pixelToRepereX(a)= "<<cadre.pixelToRepereX(b)<<"Y ="<<-cadre.pixelToRepereY(a)<<std::endl;
+
+
 	  glVertex2f(cadre.pixelToRepereX(b),-cadre.pixelToRepereY(a));
 
      }   
     }}
 
-   /*
- //trait horizontal.2
-  for(int a=std::min((double)x, zoomTmp.getXmax()); a < std::max((double)x, zoomTmp.getXmax()); a++){
-    for(int b=zoomTmp.getYmin()-1;b<zoomTmp.getYmin()+1; b++){
-      std::cout<<"miaou a= "<<a<<"  tmp Ymin ="<<b <<std::endl;
+   
+   //trait horizontal.2
+   for(int a=std::min(zoomTmp.getXmin(), zoomTmp.getXmax());
+       a < std::max(zoomTmp.getXmin(), zoomTmp.getXmax()); a++){
+    for(int b=zoomTmp.getYmax()-1;b<zoomTmp.getYmax()+1; b++){
+ 
       if(((0<=a) && (a<800))&&((0<=b) && (b<800))){
+	if (tab[a][b]==-1){
+	  if ( couleur == 3){
+	  
+	  
+	  glColor3f(0.2+distance(tabC[a][b].getX(),tabC[a][b].getY()),
+		    0.1,
+		    0.2); 
+	}
+	
+	else	
+	  glColor3f(0, 0, 0);
+      }
+      
+      else
+	switch(couleur){
+	case 0:
+	  glColor3f(cos(exp(5*(0.01*tab[a][b]))+4),
+		    cos(exp(5*(0.01*tab[a][b]))+2),
+		    cos(exp(5*(0.01*tab[a][b]))));
+	  break;
+	case 1:
+	  
+	  glColor3f(0.00001*tabOcc[tab[a][b]],
+		    1-0.0001*tabOcc[tab[a][b]],
+		    0.5-0.00001*tabOcc[tab[a][b]]);
+	  break;
+	case 2:
+	  {
+	    glColor3f(0.2 + distance(a,b, tabOcc[tab[a][b]]),
+		      distance(a, b, tabOcc[tab[a][b]]),
+		      distance(a, b, tabOcc[tab[a][b]]));
+	  }
+	  
+	  break;
+	case 3:
+	  glColor3f( 0.4+distance(tabC[a][b].getX(),tabC[a][b].getY())/10,
+		     0.1,
+		     0.2);
+	  break;
+      
+	case 974:	  
+	  //vert -> bleu -> rouge
+	  float tabCouleur[10][3]={
+	    {0,1,0}, {0,1,0.85},
+	    {0,0.8,1}, {0,0.95,1},
+	    {0,0,1}, {0.8,0,1},
+	    {1,0,1}, {1,0,0.5},
+	    {1,0,0}, {1,0.5,0}};
 
-
-	  std::cout<<tab[a][-zoomTmp.getYmin()]<<std::endl;
-	  if (tab[a][b]==-1){ 
-	 
-	  glColor3f(0,0,0);
-	 
-       }
-	   
-       else{
-	 	 glColor3f(cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))+4),
-	 	    cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))+2),
-	  	    cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))));
 	    
-		 // glColor3f(0,0,0);
-	 
+	  glColor3f(tabCouleur[(tab[a][b]/10)][0] ,
+		    tabCouleur[(tab[a][b]/10)][1],
+		    tabCouleur[(tab[a][b]/10)][2]  );
        }
-	  std::cout<<" cadre.pixelToRepereX(a)= "<<cadre.pixelToRepereX(a)<<"Y ="<<-cadre.pixelToRepereY(b)<<std::endl;
-	  glVertex2f(cadre.pixelToRepereX(a),-cadre.pixelToRepereY(b));
 
-     }   
+	glVertex2f(cadre.pixelToRepereX(a),-cadre.pixelToRepereY(b));
+	  
+      }   
     }}
-   */
+   
 
 
 
