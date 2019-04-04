@@ -808,7 +808,8 @@ int main(int argc, char* argv[]) {
   //glutMouseFunc(clique);
   glutMouseFunc(gestionTab::clique);
   
-  glutMotionFunc(carre);
+  //glutMotionFunc(carre);
+  glutMotionFunc(gestionTab::carre);
   
   stop = clock();
 

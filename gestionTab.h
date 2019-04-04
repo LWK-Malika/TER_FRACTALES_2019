@@ -42,6 +42,9 @@ class gestionTab{
 
 
   static void clique(int button, int state, int x, int y);
+
+  static void carre( int x, int y);
+
   
 };
 

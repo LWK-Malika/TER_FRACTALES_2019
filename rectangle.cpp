@@ -119,7 +119,7 @@ void rectangle::inverse(){
     setXmin(getXmax());
     setXmax(a);   
   }
-    if (getYmax() < getYmin()) {
+  if (getYmax() < getYmin()) {
     double a = getYmin();
     setYmin(getYmax());
     setYmax(a);   

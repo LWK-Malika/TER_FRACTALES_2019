@@ -34,7 +34,7 @@ double gestionTab::distance(double i, double j){
 
 void gestionTab::dessine(){
 
-  if(couleur==2)
+  if(couleur==2 || couleur ==3)
 	remplirTabDernierPoint();
   
     
@@ -43,7 +43,7 @@ void gestionTab::dessine(){
     for(int  j=0;j<800;j++){     
      
       if (tab[i][j]==-1){
-	if (couleur==2){
+	if (couleur==2 || couleur == 3){
 	  
 	  
 	  glColor3f(0.2+distance(tabC[i][j].getX(),tabC[i][j].getY()),
@@ -68,14 +68,20 @@ void gestionTab::dessine(){
 		    1-0.0001*tabOcc[tab[i][j]],
 		    0.5-0.00001*tabOcc[tab[i][j]]);
 	  break;
-	  	case 2:
- {
-   glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
-	     distance(i, j, tabOcc[tab[i][j]]),
-	     distance(i, j, tabOcc[tab[i][j]]));
-      }
-
-      break;
+	case 2:
+	  {
+	    glColor3f(0.2 + distance(i, j, tabOcc[tab[i][j]]),
+		      distance(i, j, tabOcc[tab[i][j]]),
+		      distance(i, j, tabOcc[tab[i][j]]));
+	  }
+	  
+	  break;
+	case 3:
+	  glColor3f( 0.4+distance(tabC[i][j].getX(),tabC[i][j].getY())/10,
+		     0.1,
+		     0.2);
+	  break;
+      
 	case 974:	  
 	  //vert -> bleu -> rouge
 	  float tabCouleur[10][3]={
@@ -146,6 +152,9 @@ void gestionTab::completeTab( rectangle aRemplir){
 }
 
 void gestionTab::newTab(int move, int dir){
+
+  glClear(GL_COLOR_BUFFER_BIT);
+  
   //dir de 1 a 4;
   std::vector< std::vector<int> > tabcopie(800,std::vector<int>(800,0));
 
@@ -257,9 +266,15 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
      dessine();
      break;
    
-   case 114: //touche a
+   case 114: //touche r
      std::cout << "Couleur test" << std::endl;
      couleur = 2;
+     dessine();
+     break;
+
+   case 116: //touche t
+     std::cout << "Couleur test" << std::endl;
+     couleur = 3;
      dessine();
      break; 
      
@@ -469,13 +484,38 @@ void gestionTab::clique (int button, int state, int x, int y) {
 
     gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
    
-    Rafraichir(); 		// Callback de la fenêtre
- 
-    
-    
+    Rafraichir(); 		// Callback de la fenêtre   
     }
-    break;
-    
+    break;    
   }
 }
     
+
+
+
+
+void gestionTab::carre( int x, int y) {
+
+
+
+
+
+  
+  glColor3f(1,1,1);
+  //trace la ligne verticale partant du point de départ
+  glBegin(GL_LINES);
+  glVertex2f(zoom.getXmin(),zoom.getYmin());
+  glVertex2f(zoom.getXmin(),-cadre.pixelToRepereY(y));
+  glEnd(); 		       	// Fermer le polygone
+
+  //ligne horizontale partant du point de départ
+  glBegin(GL_LINES);
+  glVertex2f(zoom.getXmin(),zoom.getYmin());
+  glVertex2f(cadre.pixelToRepereX(x),zoom.getYmin());
+  glEnd(); 		       	// Fermer le polygone
+  glFlush();
+
+
+
+
+}
