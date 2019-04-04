@@ -397,7 +397,14 @@ void gestionTab::clique (int button, int state, int x, int y) {
 
   // cliqX=x;
   // cliqY=y;
-  
+
+  zoomTmp.setXmax(x);
+  zoomTmp.setYmax(y);
+  zoomTmp.setXmin(x);
+  zoomTmp.setYmin(y);
+
+
+    
   // cout<<endl<<endl<<"clique"<<endl<<"cliqX= "<<x<<"clqY ="<<y<<endl<<endl;
 
   
@@ -412,6 +419,8 @@ void gestionTab::clique (int button, int state, int x, int y) {
 	 zoom.zoomArriere();
 
 	 Rafraichir(); 		// Callback de la fenêtre
+
+
 
        }
     
@@ -494,11 +503,47 @@ void gestionTab::clique (int button, int state, int x, int y) {
 
 
 
+
+
 void gestionTab::carre( int x, int y) {
 
+  for(int a=std::min((double)x, zoomTmp.getXmax()); a < std::max((double)x, zoomTmp.getXmax()); a++)
+    {
+      std::cout<<"miaou a= "<<a<<"  tmp Ymin ="<< zoom.getYmin() <<std::endl;
+        if((0<=a) && (a<800)){
+
+
+	  //CONVERTIR !!!
+	  if (tab[a][zoomTmp.getYmin()]==-1){ 
+	 
+	  glColor3f(0,0,0);
+	 
+       }
+	   
+       else{
+	 //	 glColor3f(cos(exp(5*(0.01*tab[a][zoom.getYmin()]))+4),
+	 //	    cos(exp(5*(0.01*tab[a][zoom.getYmin()]))+2),
+//	    cos(exp(5*(0.01*tab[a][zoom.getYmin()]))));
+	    
+  	 glColor3f(1,0,0);
+	 
+       }
+
+	  glVertex2f(cadre.pixelToRepereX(a),cadre.pixelToRepereY(zoom.getYmin()));
+
+     }   
+   }
+    
+
+  
+
+  
+  
 
 
 
+  
+  
 
   
   glColor3f(1,1,1);
@@ -516,6 +561,9 @@ void gestionTab::carre( int x, int y) {
   glFlush();
 
 
+  zoomTmp.setXmax(x);
+  zoomTmp.setYmax(y);
 
+  // zoomTmp.inverse();
 
 }

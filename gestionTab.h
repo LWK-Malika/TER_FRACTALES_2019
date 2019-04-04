@@ -8,6 +8,7 @@
 
 extern rectangle cadre;
 extern rectangle zoom;
+extern rectangle zoomTmp;
 
 extern std::vector< std::vector<int> > tab;
 extern int tabOcc[100];
@@ -44,6 +45,7 @@ class gestionTab{
   static void clique(int button, int state, int x, int y);
 
   static void carre( int x, int y);
+
 
   
 };

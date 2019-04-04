@@ -18,14 +18,17 @@ double ymin=-1.3;
 double ymax=1.3;
 //////////
 
-rectangle cadre(-2.15,-1.3,0.55,1.3); 
-rectangle zoom(-2.15,-1.3,0.55,1.3);
-rectangle cadreTmp(0,0,0,0);
+rectangle cadre(-2.15,-1.3,0.55,1.3);  //contient les dimension du repère
+rectangle zoom(-2.15,-1.3,0.55,1.3);   //contient les futur dimension lors du zoom "tirer-glisser"
+rectangle zoomTmp(0,0,0,0);            //contient les dimension de zoom a l'instant T-1 
 
+//
 double xmin1;
 double ymin1;
 double xmax1;
 double ymax1;
+//
+
 
 //variable globale pour déssiner le carré:
 //coordonné temporaire qui permet d'effacer les traits non utile
