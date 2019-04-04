@@ -76,7 +76,21 @@ double rectangle::getTailleX()const{
 double rectangle::getTailleY()const{
   return abs(getYmax()-getYmin());
 }
+
+
+//a verifier
+double rectangle::repereToPixelX(int point){
+  return (point-getXmin())*(800/getTailleX());
+}
+
+double rectangle::repereToPixelY(int point){
+  return (point-getYmin())*(800/getTailleY());
+}
   
+
+
+
+
   
 double rectangle::pixelToRepereX(int pixel)const{
 

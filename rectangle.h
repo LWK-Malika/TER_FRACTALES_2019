@@ -38,6 +38,11 @@ class rectangle{
 
   double getTailleX()const;
   double getTailleY()const;
+
+  double repereToPixelX(int point);
+  double repereToPixelY(int point);
+  
+
   
   double pixelToRepereX(int pixel)const; 
   double pixelToRepereY(int pixel)const;

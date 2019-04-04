@@ -507,33 +507,37 @@ void gestionTab::clique (int button, int state, int x, int y) {
 
 void gestionTab::carre( int x, int y) {
 
-  for(int a=std::min((double)x, zoomTmp.getXmax()); a < std::max((double)x, zoomTmp.getXmax()); a++)
-    {
-      std::cout<<"miaou a= "<<a<<"  tmp Ymin ="<< zoom.getYmin() <<std::endl;
+  glBegin(GL_POINTS);
+  for(int a=std::min((double)x, zoomTmp.getXmax()); a < std::max((double)x, zoomTmp.getXmax()); a++){
+    for(int b=zoomTmp.getYmin()-1;b<zoomTmp.getYmin()+3; b++){
+      std::cout<<"miaou a= "<<a<<"  tmp Ymin ="<<b <<std::endl;
         if((0<=a) && (a<800)){
 
 
 	  //CONVERTIR !!!
-	  if (tab[a][zoomTmp.getYmin()]==-1){ 
+	  std::cout<<tab[a][-zoomTmp.getYmin()]<<std::endl;
+	  if (tab[a][b]==-1){ 
 	 
 	  glColor3f(0,0,0);
 	 
        }
 	   
        else{
-	 //	 glColor3f(cos(exp(5*(0.01*tab[a][zoom.getYmin()]))+4),
-	 //	    cos(exp(5*(0.01*tab[a][zoom.getYmin()]))+2),
-//	    cos(exp(5*(0.01*tab[a][zoom.getYmin()]))));
+	 	 glColor3f(cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))+4),
+	 	    cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))+2),
+	  	    cos(exp(5*(0.01*tab[a][zoomTmp.getYmin()]))));
 	    
-  	 glColor3f(1,0,0);
+		 // glColor3f(0,0,0);
 	 
        }
-
-	  glVertex2f(cadre.pixelToRepereX(a),cadre.pixelToRepereY(zoom.getYmin()));
+	  std::cout<<" cadre.pixelToRepereX(a)= "<<cadre.pixelToRepereX(a)<<"Y ="<<-cadre.pixelToRepereY(b)<<std::endl;
+	  glVertex2f(cadre.pixelToRepereX(a),-cadre.pixelToRepereY(b));
 
      }   
-   }
-    
+    }}
+  glEnd(); 		       	// Fermer le polygone
+  glFlush();
+
 
   
 
