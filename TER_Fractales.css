@@ -1,6 +1,6 @@
 /* L'image de fond */
-html .main {
-	background-image: url("data/bg.jpg");
+html /*.main*/ {
+	background-image: url("data/1.jpg");
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
@@ -10,7 +10,7 @@ html .main {
 .bg {
 	background-position: center;
 	background-size: cover;
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.7);
 	box-shadow: 0px 12px 20px 1px rgba(0, 0, 0, 0.80);
 	border-radius: 15px 15px 15px 15px;
 	position: fixed;
@@ -21,7 +21,7 @@ html .main {
 /* Contient tout les Dropdown */
 .menu {
 	width: 100%
-	overflow: auto;
+/*	overflow: auto; */
 }
 
 /* Les boutons des Dropdown */
@@ -41,13 +41,7 @@ html .main {
 
 /* L'onglet s'illumine en orange quand on est sur une page html du TP en question */
 #acceuil {
-	color: rgba(255, 150, 80, 1.0);
-}
-#tp1 {
-	color: rgba(255, 150, 80, 1.0);
-}
-#tp2 {
-	color: rgba(255, 150, 80, 1.0);
+	color: aquamarine;
 }
 
 /* Dropdown */
@@ -82,11 +76,11 @@ html .main {
 	border: 1px solid rgba(0, 0, 0, 0.50);
 	font-size: 20px;
 	padding: 10px 14px;
-	color: rgba(255, 150, 80, 1.0);
+	color: aquamarine;
 }
 
 .dd-content a:active {
-	color: rgb(255, 150, 100);
+	color: aquamarine;
 }
 
 /* Montre le contenu quand on passe la souris dessus */
@@ -98,18 +92,19 @@ html .main {
 .dd:hover .dd-btn {
 	border: 8px inset rgba(0, 0, 0, 0.75);
 	background-color: rgba(160, 160, 160, 0.8);
-	color: rgba(255, 150, 80, 1.0);
+	color: aquamarine;
 }
 
-/* Bouton "Back to the top" */
+/* Bouton Haut de Page */
 #top {
     position: fixed;
-    bottom: 20px;
+    bottom: 60px;
     right: 30px; 
     z-index: 100;
     border: none; 
     outline: none;
-    background-color: rgba(255, 150, 80, 1.0);
+		/*background-color: rgba(255, 150, 80, 1.0);*/
+		background-color: aquamarine;
     color: black; 
     cursor: pointer;
     padding: 5px; 
@@ -125,9 +120,36 @@ html .main {
 #top a:visited {
 	color: black; 
 }
-
-/* Au survol, devient gris */
 #top:hover {
+  background-color: #555;
+}
+
+/* Bouton Bas de Page */
+#bottom {
+	position: fixed;
+	bottom: 20px;
+	right: 30px; 
+	z-index: 100;
+	border: none; 
+	outline: none;
+	/*background-color: rgba(255, 150, 80, 1.0);*/
+	background-color: aquamarine;
+	color: black; 
+	cursor: pointer;
+	padding: 5px; 
+	border-radius: 10px;
+	font-size: 16px;
+	box-shadow: 0px 12px 20px 1px rgba(0, 0, 0, 0.20);
+	font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+}
+#bottom a {
+	text-decoration: none;
+	color: black; 
+}
+#bottom a:visited {
+	color: black; 
+}
+#bottom:hover {
   background-color: #555;
 }
 
@@ -156,7 +178,7 @@ html .main {
 /* Animation du titre */
 @keyframes a1 {
 	0% {color: white;}
-	50% {color: rgba(255, 150, 80, 1.0);}
+	50% {color: aquamarine;}
 	10% {color: white;}
 }
 
@@ -224,9 +246,9 @@ html .main {
 /* Animation de text1 */
 @keyframes ani3 {
 	0%{left: 0px; bottom: 0px; font-size: 20; color: white}
-	15%{left: 275px; bottom: 0px; font-size: 60; color: rgba(255, 150, 80, 1.0)}
+	15%{left: 275px; bottom: 0px; font-size: 60; color: aquamarine}
 	50%{left: 550px; bottom: 0px; font-size: 20; color: white}
-	75%{left: 275px; bottom: 0px; font-size: 60; color: rgba(255, 150, 80, 1.0)}
+	75%{left: 275px; bottom: 0px; font-size: 60; color: aquamarine}
 	100%{left: 0px; bottom: 0px; font-size: 20; color: white}
 }
 
@@ -240,7 +262,7 @@ html .main {
 }
 
 .body u {
-	color: rgba(255, 150, 80, 1.0);
+	color: aquamarine;
 }
 
 .body video {	
@@ -262,7 +284,7 @@ html .main {
 .body th {
 	box-shadow: 0px 12px 20px 1px rgba(0, 0, 0, 0.20);
 	border-radius: 15px 5px 15px 5px;
-	color: rgba(255, 150, 80, 1.0);
+	color: aquamarine;
 }
 
 /* Les autres lignes */
@@ -279,7 +301,7 @@ html .main {
 
 /* Les liens, au survol */
 .body a:hover {
-	color: rgba(255, 150, 80, 1.0);
+	color: aquamarine;
 }
 
 /* Le bas de page */
