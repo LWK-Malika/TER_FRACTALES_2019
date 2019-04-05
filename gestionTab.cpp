@@ -162,16 +162,16 @@ void gestionTab::newTab(int move, int dir){
 
 
   //il n'est pas possible de déclarer une variable dans un switch
-  /*  rectangle aRemplir1(0,0,move,800);
+  rectangle aRemplir1(0,0,move,800);
   rectangle aRemplir2(800-move,0,800,800);
   rectangle aRemplir3(0,0,800,move);
   rectangle aRemplir4(0,800-move,800,800);
-  */
-  rectangle aRemplir1(0,move,0,800);
+  
+  /* rectangle aRemplir1(0,move,0,800);
   rectangle aRemplir2(800-move,800,0,800);
   rectangle aRemplir3(0,800,0,move);
   rectangle aRemplir4(0,800,800-move,800);
-  
+  */
   switch(dir){
   case 1:
     //vers la gauche
@@ -372,8 +372,8 @@ void gestionTab::touche(int key, int x, int y){
         
     glLoadIdentity(); //réinitialise le repère
 
-      cadre.setXmax(cadre.getXmax()+distMoveX);
-    cadre.setXmin(cadre.getXmin()+distMoveX); 
+    cadre.setXmax(cadre.getXmax()+distMoveX);
+    cadre.setXmin(cadre.getXmin()+distMoveX);
     gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
     
     //gluOrtho2D( xmin=xmin+distMoveX,xmax=xmax+distMoveX, ymax,ymin);
@@ -401,30 +401,24 @@ void gestionTab::clique (int button, int state, int x, int y) {
   
   
   switch (button) {
-     case 4: //roulette vers le bas
-       if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
-	 //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
+  case 4: //roulette vers le bas
+    if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
+      //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
       
-    //dezoom
-	 
-	 zoom.zoomArriere();
-
-	 Rafraichir(); 		// Callback de la fenêtre
-
-
-
-       }
+      //dezoom	 
+      cadre.zoomArriere();
+      Rafraichir(); 		// Callback de la fenêtre
+    }
     
     break;
     
- case 3: //roulette vers le haut
+  case 3: //roulette vers le haut
     //zoom
-     if (state == GLUT_DOWN){ 
+    if (state == GLUT_DOWN){ 
 
-     zoom.zoomAvant();
-
-    Rafraichir(); 		// Callback de la fenêtre
-     }
+      cadre.zoomAvant();
+      Rafraichir(); 		// Callback de la fenêtre
+    }
     break;
     
   case GLUT_LEFT_BUTTON:

@@ -46,12 +46,13 @@ class gestionTab{
 
   static void carre( int x, int y);
 
+  /*
   static double couleur0(double i,double j,double cst);
   static double couleur1 (double i,double j,double cst);
   static double couleur2(double i,double j,double cst);
   static double couleur3(double i,double j,double cst);
   static double couleur974(double i,double j,double cst);
-  
+  */
 };
 
 

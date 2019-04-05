@@ -21,8 +21,8 @@ rectangle::rectangle(point min, point max):min(min), max(max){}
 rectangle::rectangle(double xmin, double ymin, double xmax, double ymax):
   min(xmin,ymin), max(xmax,ymax){}
 
-rectangle::rectangle(rectangle & aCopier):min(aCopier.getXmin(), aCopier.getXmax()),
-					  max(aCopier.getYmin(), aCopier.getYmax()){}
+rectangle::rectangle(rectangle & aCopier):min(aCopier.getXmin(), aCopier.getYmin()),
+					  max(aCopier.getXmax(), aCopier.getYmax()){}
 
 
 void rectangle::reinitialise(){
@@ -154,9 +154,13 @@ void rectangle::zoomArriere(){
 
   ///BBBUUUUGGGG a trouver un meilleur algo svp :(
   rectangle temp(*this);
+
+
   
   setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?1:-1)));	 
   setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?-1:1)));
+
+
   
   setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?1:-1)));	 
   setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?-1:1)));
@@ -169,15 +173,23 @@ void rectangle::zoomArriere(){
 void rectangle::zoomAvant(){
 
    rectangle temp(*this);
+
    
   setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?-1:1)));	 
   setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?1:-1)));
-  
+
+ 
+ 
   setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?-1:1)));	 
   setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?1:-1)));
   
-  
+  std::cout<<"xmin= "<<getXmin()<<" tempXmin= "<<temp.getXmin() <<std::endl;
+  std::cout<<"xmax= "<<getXmax()<<" tempXmax= "<<temp.getXmax() <<std::endl;
+  std::cout<<"ymin= "<<getYmin()<<" tempYmin= "<<temp.getYmin() <<std::endl;
+  std::cout<<"ymax= "<<getYmax()<<" tempYmax= "<<temp.getYmax() <<std::endl<<std::endl;
   
   glLoadIdentity();
   gluOrtho2D(getXmin(),getXmax(),getYmax(), getYmin());	      	//zoom du repère
+
+  
 }
