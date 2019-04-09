@@ -73,3 +73,8 @@ point& point::operator=(const point &p)
   }
   return *this;
 }
+
+double point:: module(){
+  return (sqrt(pow(x,2)+pow(y,2)));
+}
+  

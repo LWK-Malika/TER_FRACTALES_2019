@@ -478,67 +478,7 @@ void gestionTab::clique (int button, int state, int x, int y) {
 }
 
 
-/*
-double gestionTab::couleur0(double i,double j,double cst){
-
-  return cos(exp(5*(0.01*tab[i][j]))+cst);
-}
-
-double gestionTab::couleur1(double i,double j, double cst){
-  return cst*tabOcc[tab[i][j]];
-}
-double gestionTab::couleur2(double i,double j, double cst){
-  return cst + distance(i, j, tabOcc[tab[i][j]]);
-}
-double gestionTab::couleur3(double i,double j, double cst){
-    return cst+distance(tabC[i][j].getX(),tabC[i][j].getY())/10;
-}
-double gestionTab::couleur974(double i,double j, double cst){
-   float tabCouleur[10][3]={
-	    {0,1,0}, {0,1,0.85},
-	    {0,0.8,1}, {0,0.95,1},
-	    {0,0,1}, {0.8,0,1},
-	    {1,0,1}, {1,0,0.5},
-	    {1,0,0}, {1,0.5,0}};
-   return tabCouleur[(tab[i][j]/10)][(int)cst];
- } 
-*/
-
-
 void gestionTab::carre( int x, int y) {
-  /*
-  double (*ptrF)(double, double, double);
-
-  double rouge;
-  double vert;
-  double bleu;
-
-  
-
-  switch (couleur){
-  case 0:
-    ptrF=couleur0;
-    rouge=4;
-    vert=2;
-    bleu=0;
-    break;
-  case 1:
-      ptrF=couleur1;
-    rouge=0;
-    vert=1;
-    bleu=0.5;
-    break;
-  case 2:
-    ptrF=couleur2;
-    break;
-  case 3:
-      ptrF=couleur3;
-    break;
-  case 974:
-  ptrF=couleur974;
-    break;
-  }
-  */
 
   
   glBegin(GL_POINTS);
@@ -855,16 +795,8 @@ void gestionTab::carre( int x, int y) {
   glVertex2f(zoom.getXmin(),-cadre.pixelToRepereY(y));
   glVertex2f(cadre.pixelToRepereX(x),-cadre.pixelToRepereY(y));
   
-
-
-  
-
-  
   glEnd(); 		       	// Fermer le polygone
   glFlush();
-
-  
-
 
   zoomTmp.setXmax(x);
   zoomTmp.setYmax(y);
@@ -872,3 +804,6 @@ void gestionTab::carre( int x, int y) {
   // zoomTmp.inverse();
 
 }
+
+
+
