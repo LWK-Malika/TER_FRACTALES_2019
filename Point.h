@@ -68,6 +68,11 @@ public:
 ///
 	static point converge(double x, double y);
 
+/// \fn point& operator= (const point &p)
+/// \brief Opérateur d'affectation de point.
+/// \param p : le point que l'on veut affecter à notre point.
+/// \return Renvoie notre point.
+///
 	point& operator=(const point &p);
 
 };
