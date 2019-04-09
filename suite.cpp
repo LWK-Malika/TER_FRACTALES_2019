@@ -58,7 +58,7 @@ void suite::clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier
 	     << " > [touche Q]: affiche suite prédéfinie" <<  std::endl<<std::endl;
     break;
   case 113:
-       double tabl[8][2] = {  // Suites prédéfinies
+       double tabl[9][2] = {  // Suites prédéfinies
       {0, 0.6},
       {0.3,0.5},
       {0.2, 0.5},
@@ -66,10 +66,11 @@ void suite::clavier(unsigned char key, int x, int y) // glutKeyboardFunc(clavier
       {0.577,0.478},
       {-0.7436,0.661746},
       {-0.55,-0.45},
-      {-0.745, 0.055}
+      {-0.745, 0.055},
+      {-1.04,-0.245}
       };
-      for (int i=0 ; i < 8 ; i++) {
-	point c(tabl[i][0],tab[i][1]);
+      for (int i=0 ; i < 9 ; i++) {
+	point c(tabl[i][0],tabl[i][1]);
 	diverge(c, i + 1);
 	
       }
@@ -98,39 +99,39 @@ void suite::diverge(point c, int a){
     a = rand()%10;
   }
 
-
   
-  while ((c.module()<2) and (compteur < stop)){
+  while ((c.module()<4) and (compteur < stop)){
 
     if  (difftime(clock(), depart) >= 8000) { // Vitesse d'affichage
   
-	glBegin(GL_POINTS); // mode affichage de points
 
-	ZnMoins1=Zn;
+      ZnMoins1=Zn;
 
-	//partie reel
-	Zn.setX(pow(ZnMoins1.getX(),2) - pow(ZnMoins1.getY(), 2) + c.getX());
+      //partie reel
+      Zn.setX(pow(ZnMoins1.getX(),2) - pow(ZnMoins1.getY(), 2) + c.getX());
 
-	//partie imaginaire
-	Zn.setY(2*ZnMoins1.getX()*ZnMoins1.getY()+c.getY());
+      //partie imaginaire
+      Zn.setY(2*ZnMoins1.getX()*ZnMoins1.getY()+c.getY());
 
-	//si suite tend vers un point
-	if( abs(Zn.module()-ZnMoins1.module())<0.001){
-	  std::cout << " Arrêt forcé,car la suite tend vers un point" << std::endl;
-	  compteur = stop;
-	}
+      //si suite tend vers un point
+      if( abs(Zn.module()-ZnMoins1.module())<0.001){
+	std::cout << " Arrêt forcé,car la suite tend vers un point" << std::endl;
+	compteur = stop;
+      }
 	
-	compteur++;
+      compteur++;
 	
 	
-	glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
+      glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
+
 	
-	glVertex2f(Zn.getX(), Zn.getY());
+      glBegin(GL_POINTS); // mode affichage de points
+      glVertex2f(Zn.getX(), Zn.getY());
 	
-	glEnd(); 		        
-	glFlush(); 
+      glEnd(); 		        
+      glFlush(); 
 	
-	depart = clock();
+      depart = clock();
     }
   }
 }

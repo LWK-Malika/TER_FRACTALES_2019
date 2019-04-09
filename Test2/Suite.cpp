@@ -142,7 +142,7 @@ void clique(int button, int state, int x, int y) // A COMPLETER
     cout << " Pixel: " << x << ", " << y << endl;
     cout << " Repère: " << dx << ", " << dy << endl;
 
-    if (button == GLUT_RIGHT_BUTTON) { 
+    if (button == GLUT_RIGHT_BUTTON && state ==GLUT DOWN) { 
       initialise(); 
     }
     diverge(dx, dy, -1);
@@ -180,7 +180,7 @@ int main(int argc, char** argv)
   if (c.r == 0 && c.i == 0) // si on a pas rentrer de complexe en paramètre
     diverge(c.r, c.i, 1);
 
-  double tab[8][2] = {  // Suites prédéfinies
+  double tab[9][2] = {  // Suites prédéfinies
     {0, 0.6},
     {0.3,0.5},
     {0.2, 0.5},
@@ -189,10 +189,11 @@ int main(int argc, char** argv)
     {-0.7436,0.661746},
     {-0.55,-0.45},
     {-0.745, 0.055}
+    {-1.04,-0.245}
   };
 
   if (a) {
-    for (int i=0 ; i < 8 ; i++) {
+    for (int i=0 ; i < 9 ; i++) {
       diverge(tab[i][0], tab[i][1], i + 1);
     }
   }
