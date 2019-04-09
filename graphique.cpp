@@ -2,6 +2,8 @@
 #include "Point.h"
 #include "rectangle.h"
 #include "gestionTab.h"
+#include "suite.h"
+
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -22,6 +24,7 @@ rectangle cadre(-2.15,-1.3,0.55,1.3);  //contient les dimension du repère
 rectangle zoom(-2.15,-1.3,0.55,1.3);   //contient les futur dimension lors du zoom "tirer-glisser"
 rectangle zoomTmp(0,0,0,0);            //contient les dimension de zoom a l'instant T-1 
 
+rectangle cadreSuite(-2,-2,2,2);
 //
 double xmin1;
 double ymin1;
@@ -787,15 +790,21 @@ int main(int argc, char* argv[]) {
   start = clock();
   
   glutInit(&argc, argv); 
+  
+
   glutInitWindowSize(800, 800); // taille fenetre
   glutInitDisplayMode(GLUT_RGB); // On travaille en RGB
+
+
+  
+
   int win = glutCreateWindow("Fractale de Mandelbrot"); // nomme la fenêtre
 
+ 
+  
 
-  fenetreX=glutGet(GLUT_WINDOW_WIDTH);
-  fenetreY=glutGet(GLUT_WINDOW_HEIGHT);
-
-	glutIgnoreKeyRepeat(1); // ignore la répétition d'évênement clavier (touche enfoncé)
+  
+  glutIgnoreKeyRepeat(1); // ignore la répétition d'évênement clavier (touche enfoncé)
 
   
   gluOrtho2D(xmin, xmax, ymax,ymin);	// zoom du repère
@@ -813,9 +822,8 @@ int main(int argc, char* argv[]) {
   
   //glutMotionFunc(carre);
   glutMotionFunc(gestionTab::carre);
+ 
   
-  stop = clock();
-
   //evenement clavier basique
   //glutKeyboardFunc(clavier);
 
@@ -830,9 +838,20 @@ int main(int argc, char* argv[]) {
 //glutKeyboardUpFunc(...);
 //glutSpecialUpFunc(...);
 
-  
-  cout << "durer du programme: " << difftime(stop, start) << " milliseconde"
+	
+  stop = clock(); 
+  cout << "durer de l'affichage de la fractale: " << difftime(stop, start) << " milliseconde"
        <<endl<<" soit "<< difftime(stop, start)/10000<<" seconde"<<endl<<endl; ;
 
+
+  
+  
+   int suite = glutCreateWindow("suite de Mandelbrot"); // nomme la fenêtre
+   suite::initialise();
+  
+   glutKeyboardUpFunc(suite::clavier);
+   glutMouseFunc(suite::clique);
+
+   
   glutMainLoop(); //permet un "arret sur image"
 }

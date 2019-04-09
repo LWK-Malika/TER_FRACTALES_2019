@@ -75,6 +75,9 @@ public:
 ///
 	point& operator=(const point &p);
 
+	double module();
+       
+
 };
 
 #endif

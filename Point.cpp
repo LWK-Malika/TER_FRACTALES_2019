@@ -52,7 +52,7 @@ point point::converge(double r, double i){
   double temporaire;
   
   int cmp=0;
-  while(sqrt(pow(ZnR,2)+pow(ZnI,2))<2 && cmp<100){
+  while(pow(ZnR,2)+pow(ZnI,2)<4 && cmp<100){
 
     temporaire=ZnR;
     
@@ -73,3 +73,8 @@ point& point::operator=(const point &p)
   }
   return *this;
 }
+
+double point:: module(){
+  return (pow(x,2)+pow(y,2));
+}
+  

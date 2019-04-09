@@ -315,7 +315,32 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
      std::cout << "Supression du repère"<<std::endl;
      dessine();
      break;
-     //ajout ici des autre evenement du clavier
+   case 105: //TOUCHE INFORMATION
+     std::cout  << " > [touche i]: affiche l'aide dans le terminal" << std::endl<< std::endl
+		<< " > [Clique Gauche tiré glissé]: zoom dans le carré " << std::endl 
+		<< " > [roulette avant]: zoom avant " <<  std::endl
+		<< " > [roulette arrière]: zoom arrière " <<  std::endl 
+		<< " > [Entrée]:réinitialise la fractale"<< std::endl<< std::endl
+		<< " > [touche A]: affiche la couleur prédéfinie:" <<  std::endl
+		<< "        définie par une sinusoïdale amortie " <<  std::endl
+		<< "        adapté pour une vue d'ensemble de la fractale " <<  std::endl<<std::endl       
+		<< " > [touche Z]: affiche la couleur définie par:" <<  std::endl
+		<< "        le nombre d'occurence afficher a l'écran "  <<  std::endl
+       		<< "        adapté pour une vue zoomé de la fractale " <<  std::endl<<std::endl       
+		<< " > [touche E]: affiche la couleur définie par" <<  std::endl
+		<< "        intervalle de couleurs "  <<  std::endl
+       		<< "        adapté pour une vue très zoomé de la fractale " <<  std::endl<<std::endl       
+		<< " > [touche R]: affiche la couleur définie par" <<  std::endl     
+		<< "        le module par rapport a l'occurence "  <<  std::endl       
+       		<< "        adapté pour une vue peu zoomé de la fractale " <<  std::endl<<std::endl  
+		<< " > [touche T]: affiche la couleur définie par" <<  std::endl<<std::endl
+		<< "        le modulo par rapport au dernier élément de la suite de chaque point "<<  std::endl
+       		<< "        adapté pour tout type de zoom de la fractale " <<  std::endl<<std::endl       
+       
+		<< " > [touche Q]: affiche le repère" <<  std::endl
+		<< " > [touche S]: enlève le repere" <<  std::endl<<std::endl;
+
+     break;
    }
 }
 
@@ -478,67 +503,7 @@ void gestionTab::clique (int button, int state, int x, int y) {
 }
 
 
-/*
-double gestionTab::couleur0(double i,double j,double cst){
-
-  return cos(exp(5*(0.01*tab[i][j]))+cst);
-}
-
-double gestionTab::couleur1(double i,double j, double cst){
-  return cst*tabOcc[tab[i][j]];
-}
-double gestionTab::couleur2(double i,double j, double cst){
-  return cst + distance(i, j, tabOcc[tab[i][j]]);
-}
-double gestionTab::couleur3(double i,double j, double cst){
-    return cst+distance(tabC[i][j].getX(),tabC[i][j].getY())/10;
-}
-double gestionTab::couleur974(double i,double j, double cst){
-   float tabCouleur[10][3]={
-	    {0,1,0}, {0,1,0.85},
-	    {0,0.8,1}, {0,0.95,1},
-	    {0,0,1}, {0.8,0,1},
-	    {1,0,1}, {1,0,0.5},
-	    {1,0,0}, {1,0.5,0}};
-   return tabCouleur[(tab[i][j]/10)][(int)cst];
- } 
-*/
-
-
 void gestionTab::carre( int x, int y) {
-  /*
-  double (*ptrF)(double, double, double);
-
-  double rouge;
-  double vert;
-  double bleu;
-
-  
-
-  switch (couleur){
-  case 0:
-    ptrF=couleur0;
-    rouge=4;
-    vert=2;
-    bleu=0;
-    break;
-  case 1:
-      ptrF=couleur1;
-    rouge=0;
-    vert=1;
-    bleu=0.5;
-    break;
-  case 2:
-    ptrF=couleur2;
-    break;
-  case 3:
-      ptrF=couleur3;
-    break;
-  case 974:
-  ptrF=couleur974;
-    break;
-  }
-  */
 
   
   glBegin(GL_POINTS);
@@ -855,16 +820,8 @@ void gestionTab::carre( int x, int y) {
   glVertex2f(zoom.getXmin(),-cadre.pixelToRepereY(y));
   glVertex2f(cadre.pixelToRepereX(x),-cadre.pixelToRepereY(y));
   
-
-
-  
-
-  
   glEnd(); 		       	// Fermer le polygone
   glFlush();
-
-  
-
 
   zoomTmp.setXmax(x);
   zoomTmp.setYmax(y);
@@ -872,3 +829,6 @@ void gestionTab::carre( int x, int y) {
   // zoomTmp.inverse();
 
 }
+
+
+
