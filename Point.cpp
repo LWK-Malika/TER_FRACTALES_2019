@@ -62,5 +62,14 @@ point point::converge(double r, double i){
   }
   point dernierPoint = point(ZnR, ZnI);
   return dernierPoint;  
+}
 
+point& point::operator=(const point &p)
+{
+  if (this != &p)
+  {
+    x = p.x;
+    y = p.y;
+  }
+  return *this;
 }
