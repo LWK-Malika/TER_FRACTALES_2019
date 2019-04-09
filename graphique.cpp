@@ -847,9 +847,11 @@ int main(int argc, char* argv[]) {
   
   
    int suite = glutCreateWindow("suite de Mandelbrot"); // nomme la fenêtre
-   glutKeyboardUpFunc(suite::clavier);
-  
    suite::initialise();
+  
+   glutKeyboardUpFunc(suite::clavier);
+   glutMouseFunc(suite::clique);
+
    
   glutMainLoop(); //permet un "arret sur image"
 }

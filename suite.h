@@ -9,8 +9,8 @@
 extern rectangle cadreSuite;
 
 class suite{
- private:
-  static bool pause;// = false;
+  // private:
+  //static bool pause;// = false;
 
 
  public:
@@ -19,7 +19,9 @@ class suite{
 
   static void clavier(unsigned char key, int x, int y);
 
-  //static void divergeS(point c, int a);
+  static void diverge(point c, int a);
+
+  static void clique(int button, int state, int x, int y);
 
 
 

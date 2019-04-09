@@ -315,7 +315,32 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
      std::cout << "Supression du repère"<<std::endl;
      dessine();
      break;
-     //ajout ici des autre evenement du clavier
+   case 105: //TOUCHE INFORMATION
+     std::cout  << " > [touche i]: affiche l'aide dans le terminal" << std::endl<< std::endl
+		<< " > [Clique Gauche tiré glissé]: zoom dans le carré " << std::endl 
+		<< " > [roulette avant]: zoom avant " <<  std::endl
+		<< " > [roulette arrière]: zoom arrière " <<  std::endl 
+		<< " > [Entrée]:réinitialise la fractale"<< std::endl<< std::endl
+		<< " > [touche A]: affiche la couleur prédéfinie:" <<  std::endl
+		<< "        définie par une sinusoïdale amortie " <<  std::endl
+		<< "        adapté pour une vue d'ensemble de la fractale " <<  std::endl<<std::endl       
+		<< " > [touche Z]: affiche la couleur définie par:" <<  std::endl
+		<< "        le nombre d'occurence afficher a l'écran "  <<  std::endl
+       		<< "        adapté pour une vue zoomé de la fractale " <<  std::endl<<std::endl       
+		<< " > [touche E]: affiche la couleur définie par" <<  std::endl
+		<< "        intervalle de couleurs "  <<  std::endl
+       		<< "        adapté pour une vue très zoomé de la fractale " <<  std::endl<<std::endl       
+		<< " > [touche R]: affiche la couleur définie par" <<  std::endl     
+		<< "        le module par rapport a l'occurence "  <<  std::endl       
+       		<< "        adapté pour une vue peu zoomé de la fractale " <<  std::endl<<std::endl  
+		<< " > [touche T]: affiche la couleur définie par" <<  std::endl<<std::endl
+		<< "        le modulo par rapport au dernier élément de la suite de chaque point "<<  std::endl
+       		<< "        adapté pour tout type de zoom de la fractale " <<  std::endl<<std::endl       
+       
+		<< " > [touche Q]: affiche le repère" <<  std::endl
+		<< " > [touche S]: enlève le repere" <<  std::endl<<std::endl;
+
+     break;
    }
 }
 
