@@ -154,17 +154,18 @@ void rectangle::zoomArriere(){
 
   ///BBBUUUUGGGG a trouver un meilleur algo svp :(
   rectangle temp(*this);
-
-
   
-  setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?1:-1)));	 
-  setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?-1:1)));
-
-
+  setXmin(temp.getXmin() - (temp.getTailleX() / 10 * (temp.getXmin() < 0 ? 1 : -1)));	 
+  setXmax(temp.getXmax() + (temp.getTailleX() / 10 * (temp.getXmax() < 0 ? -1 : 1)));
   
-  setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?1:-1)));	 
-  setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?-1:1)));
+  setYmin(temp.getYmin() - (temp.getTailleY() / 10 * (temp.getYmin() < 0 ? 1 : -1)));	 
+  setYmax(temp.getYmax() + (temp.getTailleY() / 10 * (temp.getYmax() < 0 ? -1 : 1)));
   
+  std::cout<<"xmin= "<<getXmin()<<" tempXmin= "<<temp.getXmin() <<std::endl;
+  std::cout<<"xmax= "<<getXmax()<<" tempXmax= "<<temp.getXmax() <<std::endl;
+  std::cout<<"ymin= "<<getYmin()<<" tempYmin= "<<temp.getYmin() <<std::endl;
+  std::cout<<"ymax= "<<getYmax()<<" tempYmax= "<<temp.getYmax() <<std::endl<<std::endl;
+
   glLoadIdentity(); //réinitialise le repère
   
   gluOrtho2D(getXmin(),getXmax(),getYmax(), getYmin());	      	//zoom du repère
@@ -175,13 +176,11 @@ void rectangle::zoomAvant(){
    rectangle temp(*this);
 
    
-  setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?-1:1)));	 
-  setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?1:-1)));
-
+  setXmin(temp.getXmin() - (temp.getTailleX() / 10 * (temp.getXmin() < 0 ? -1 : 1)));	 
+  setXmax(temp.getXmax() + (temp.getTailleX() / 10 * (temp.getXmax() < 0 ? 1 : -1)));
  
- 
-  setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?-1:1)));	 
-  setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?1:-1)));
+  setYmin(temp.getYmin() - (temp.getTailleY() / 10 * (temp.getYmin() < 0 ? -1 : 1)));	 
+  setYmax(temp.getYmax() + (temp.getTailleY() / 10 * (temp.getYmax() < 0 ? 1 : -1)));
   
   std::cout<<"xmin= "<<getXmin()<<" tempXmin= "<<temp.getXmin() <<std::endl;
   std::cout<<"xmax= "<<getXmax()<<" tempXmax= "<<temp.getXmax() <<std::endl;
