@@ -100,7 +100,7 @@ void suite::diverge(point c, int a){
   }
 
   
-  while ((c.module()<4) and (compteur < stop)){
+  while ((Zn.module()<4) and (compteur < stop)){
 
     if  (difftime(clock(), depart) >= 8000) { // Vitesse d'affichage
   
