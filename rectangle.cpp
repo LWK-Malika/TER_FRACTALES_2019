@@ -157,13 +157,13 @@ void rectangle::zoomArriere(){
 
 
   
-  setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?1:-1)));	 
-  setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?-1:1)));
-
+  setXmin(temp.getXmin()-(temp.getTailleX()/10));	 
+  setXmax(temp.getXmax()+(temp.getTailleX()/10));
+    
 
   
-  setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?1:-1)));	 
-  setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?-1:1)));
+  setYmin(temp.getYmin()-(temp.getTailleY()/10));	 
+  setYmax(temp.getYmax()+(temp.getTailleY()/10));
   
   glLoadIdentity(); //réinitialise le repère
   
@@ -175,13 +175,13 @@ void rectangle::zoomAvant(){
    rectangle temp(*this);
 
    
-  setXmin(temp.getXmin()+(temp.getTailleX()/10*(temp.getXmin()<0?-1:1)));	 
-  setXmax(temp.getXmax()+(temp.getTailleX()/10*(temp.getXmax()<0?1:-1)));
+   setXmin(temp.getXmin()+(temp.getTailleX()/10));	 
+   setXmax(temp.getXmax()-(temp.getTailleX()/10));
 
  
  
-  setYmin(temp.getYmin()+(temp.getTailleY()/10*(temp.getYmin()<0?-1:1)));	 
-  setYmax(temp.getYmax()+(temp.getTailleY()/10*(temp.getYmax()<0?1:-1)));
+   setYmin(temp.getYmin()+(temp.getTailleY()/10));
+   setYmax(temp.getYmax()-(temp.getTailleY()/10));
   
   std::cout<<"xmin= "<<getXmin()<<" tempXmin= "<<temp.getXmin() <<std::endl;
   std::cout<<"xmax= "<<getXmax()<<" tempXmax= "<<temp.getXmax() <<std::endl;
