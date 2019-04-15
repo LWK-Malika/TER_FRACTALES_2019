@@ -39,7 +39,7 @@ void gestionTab::dessine(){
   
     
   glBegin(GL_POINTS); 	//mode affichage de points  
-  for(int i=0;i<800;i++){ //double boucle pour parcourir les points étudié
+  for(int i=0;i<800;i++){ //double boucle pour parcourir les points etudie
     for(int  j=0;j<800;j++){     
      
       if (tab[i][j]==-1){
@@ -158,10 +158,10 @@ void gestionTab::newTab(int move, int dir){
   //dir de 1 a 4;
   std::vector< std::vector<int> > tabcopie(800,std::vector<int>(800,0));
 
-  //suivant la valeur de dir, on ne complète pas le tableau au meme endroit.
+  //suivant la valeur de dir, on ne complete pas le tableau au meme endroit.
 
 
-  //il n'est pas possible de déclarer une variable dans un switch
+  //il n'est pas possible de declarer une variable dans un switch
   rectangle aRemplir1(0,0,move,800);
   rectangle aRemplir2(800-move,0,800,800);
   rectangle aRemplir3(0,0,800,move);
@@ -245,11 +245,11 @@ void gestionTab::Rafraichir(void){
 void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
 {
   printf("Touche : %c = %d \n", key, key);
-  // test, permet de savoir quelle touche est tapé
+  // test, permet de savoir quelle touche est tape
    switch (key) {
    case 97: //touche a 
  
-     std::cout << "couleur par défaut"<<std::endl;
+     std::cout << "couleur par defaut"<<std::endl;
       couleur=0;
       dessine();
       break;
@@ -279,22 +279,22 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
      break; 
      
    case 13: //touche entrer
-     std::cout << "Fractale par défaut"<<std::endl;
-     couleur=0;//réinitialise la couleur
-     glLoadIdentity(); //réinitialise le repère
+     std::cout << "Fractale par defaut"<<std::endl;
+     couleur=0;//reinitialise la couleur
+     glLoadIdentity(); //reinitialise le repere
      //cadre.reinitialise();
-     //gluOrtho2D( xmin=-2.15,xmax=0.55, ymax=1.3,ymin=-1.3);//zoom du repère
+     //gluOrtho2D( xmin=-2.15,xmax=0.55, ymax=1.3,ymin=-1.3);//zoom du repere
      cadre.resetRepere();
   
      Rafraichir();
 
-     std::cout<<"xmin = "<< cadre.getXmin()
-	 <<"xmax = "<< cadre.getXmax()
-	 <<"ymin = "<< cadre.getYmin()
-	 <<"ymax = "<< cadre.getYmax()<<std::endl<<std::endl;
+     std::cout<<"xmin = "<< cadre.getXmin() << std::endl
+	 <<"xmax = "<< cadre.getXmax() << std::endl
+	 <<"ymin = "<< cadre.getYmin() << std::endl
+	 <<"ymax = "<< cadre.getYmax() << std::endl << std::endl;
      break;
    case 113:
-     std::cout << "Affichage du repère"<<std::endl;
+     std::cout << "Affichage du repere"<<std::endl;
 
      glBegin(GL_LINES);
      glColor3f(1,1,1);
@@ -312,33 +312,44 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
      break;
   
    case 115:
-     std::cout << "Supression du repère"<<std::endl;
+     std::cout << "Supression du repere"<<std::endl;
      dessine();
      break;
    case 105: //TOUCHE INFORMATION
-     std::cout  << " > [touche i]: affiche l'aide dans le terminal" << std::endl<< std::endl
-		<< " > [Clique Gauche tiré glissé]: zoom dans le carré " << std::endl 
-		<< " > [roulette avant]: zoom avant " <<  std::endl
-		<< " > [roulette arrière]: zoom arrière " <<  std::endl 
-		<< " > [Entrée]:réinitialise la fractale"<< std::endl<< std::endl
-		<< " > [touche A]: affiche la couleur prédéfinie:" <<  std::endl
-		<< "        définie par une sinusoïdale amortie " <<  std::endl
-		<< "        adapté pour une vue d'ensemble de la fractale " <<  std::endl<<std::endl       
-		<< " > [touche Z]: affiche la couleur définie par:" <<  std::endl
-		<< "        le nombre d'occurence afficher a l'écran "  <<  std::endl
-       		<< "        adapté pour une vue zoomé de la fractale " <<  std::endl<<std::endl       
-		<< " > [touche E]: affiche la couleur définie par" <<  std::endl
-		<< "        intervalle de couleurs "  <<  std::endl
-       		<< "        adapté pour une vue très zoomé de la fractale " <<  std::endl<<std::endl       
-		<< " > [touche R]: affiche la couleur définie par" <<  std::endl     
+     std::cout << std::endl
+    << "--- AIDE ---" << std::endl
+    << " > [Touche I]: Affiche l'aide dans le terminal." << std::endl<< std::endl
+
+    << "--- ZOOM ---" << std::endl
+		<< " > [Clique Gauche (cliquer-glisser)]: Zoom dans le carre." << std::endl 
+		<< " > [Roulette avant]: Zoom avant." <<  std::endl
+		<< " > [Roulette arriere]: Zoom arriere." <<  std::endl
+    << " > [Entree]: Reinitialise la fractale."<< std::endl << std::endl
+
+    << "--- COLORISATION ---" << std::endl
+		<< " > [Touche A]: Affiche la couleur predefinie:" <<  std::endl
+		<< "        definie par une sinusoidale amortie " <<  std::endl
+		<< "        une vue d'ensemble de la fractale." <<  std::endl<<std::endl   
+
+		<< " > [Touche Z]: Affiche la couleur definie par:" <<  std::endl
+		<< "        le nombre d'occurence afficher a l'ecran "  <<  std::endl
+    << "        une vue zoome de la fractale." <<  std::endl<<std::endl   
+
+		<< " > [Touche E]: Affiche la couleur definie par" <<  std::endl
+		<< "        intervalle de couleurs."  <<  std::endl
+    << "        une vue tres zoome de la fractale." <<  std::endl<<std::endl   
+
+		<< " > [Touche R]: Affiche la couleur definie par" <<  std::endl     
 		<< "        le module par rapport a l'occurence "  <<  std::endl       
-       		<< "        adapté pour une vue peu zoomé de la fractale " <<  std::endl<<std::endl  
-		<< " > [touche T]: affiche la couleur définie par" <<  std::endl<<std::endl
-		<< "        le modulo par rapport au dernier élément de la suite de chaque point "<<  std::endl
-       		<< "        adapté pour tout type de zoom de la fractale " <<  std::endl<<std::endl       
-       
-		<< " > [touche Q]: affiche le repère" <<  std::endl
-		<< " > [touche S]: enlève le repere" <<  std::endl<<std::endl;
+    << "        une vue peu zoome de la fractale." <<  std::endl<<std::endl  
+
+		<< " > [Touche T]: Affiche la couleur definie par" <<  std::endl
+		<< "        le modulo par rapport au dernier element de la suite de chaque point "<<  std::endl
+    << "        tout type de zoom de la fractale." <<  std::endl<<std::endl
+
+    << "--- REPERE ---" << std::endl     
+		<< " > [Touche Q]: Affiche le repere." <<  std::endl
+		<< " > [Touche S]: Enleve le repere." <<  std::endl<<std::endl;
 
      break;
    }
@@ -347,7 +358,7 @@ void gestionTab::clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(
 
 
 void gestionTab::touche(int key, int x, int y){
-  printf("Touche spécial: %c = %d \n", key, key);
+  printf("Touche special: %c = %d \n", key, key);
 
   double distMoveX=cadre.distPixToRepX(20);
   double distMoveY=cadre.distPixToRepY(20);
@@ -357,7 +368,7 @@ void gestionTab::touche(int key, int x, int y){
   switch(key){
   case GLUT_KEY_DOWN :
     
-    glLoadIdentity(); //réinitialise le repère
+    glLoadIdentity(); //reinitialise le repere
 
     cadre.setYmax(cadre.getYmax()-distMoveY);
     cadre.setYmin(cadre.getYmin()-distMoveY); 
@@ -368,7 +379,7 @@ void gestionTab::touche(int key, int x, int y){
     break;
 		
   case GLUT_KEY_UP :
-    glLoadIdentity(); //réinitialise le repère
+    glLoadIdentity(); //reinitialise le repere
 
         cadre.setYmax(cadre.getYmax()+distMoveY);
     cadre.setYmin(cadre.getYmin()+distMoveY); 
@@ -381,7 +392,7 @@ void gestionTab::touche(int key, int x, int y){
     
   case GLUT_KEY_LEFT :
 
-    glLoadIdentity(); //réinitialise le repère
+    glLoadIdentity(); //reinitialise le repere
 
       cadre.setXmax(cadre.getXmax()-distMoveX);
     cadre.setXmin(cadre.getXmin()-distMoveX); 
@@ -395,7 +406,7 @@ void gestionTab::touche(int key, int x, int y){
     
   case GLUT_KEY_RIGHT:
         
-    glLoadIdentity(); //réinitialise le repère
+    glLoadIdentity(); //reinitialise le repere
 
     cadre.setXmax(cadre.getXmax()+distMoveX);
     cadre.setXmin(cadre.getXmin()+distMoveX);
@@ -432,7 +443,7 @@ void gestionTab::clique (int button, int state, int x, int y) {
       
       //dezoom	 
       cadre.zoomArriere();
-      Rafraichir(); 		// Callback de la fenêtre
+      Rafraichir(); 		// Callback de la fenetre
     }
     
     break;
@@ -442,7 +453,7 @@ void gestionTab::clique (int button, int state, int x, int y) {
     if (state == GLUT_DOWN){ 
 
       cadre.zoomAvant();
-      Rafraichir(); 		// Callback de la fenêtre
+      Rafraichir(); 		// Callback de la fenetre
     }
     break;
     
@@ -453,8 +464,8 @@ void gestionTab::clique (int button, int state, int x, int y) {
 
       
       
-      std::cout << "coordonnées en pixel:" << x << ", " << y << std::endl
-	   << "coordonnée en par rapport a l'axe " <<cadre.pixelToRepereX(x)
+      std::cout << "coordonnees en pixel:" << x << ", " << y << std::endl
+	   << "coordonnee en par rapport a l'axe " <<cadre.pixelToRepereX(x)
 		<<cadre.pixelToRepereX(x)<<std::endl;
 
       zoom.setXmin(cadre.pixelToRepereX(x));
@@ -466,8 +477,8 @@ void gestionTab::clique (int button, int state, int x, int y) {
         
     if(state == GLUT_UP){
       
-      std::cout << "coordonnées en pixel:" << x << ", " << y << std::endl
-	   << "coordonnée en par rapport a l'axe " <<cadre.pixelToRepereX(x)
+      std::cout << "coordonnees en pixel:" << x << ", " << y << std::endl
+	   << "coordonnee en par rapport a l'axe " <<cadre.pixelToRepereX(x)
 		<<cadre.pixelToRepereX(x)<<std::endl;
 
 
@@ -492,11 +503,11 @@ void gestionTab::clique (int button, int state, int x, int y) {
 	<<" ymin= "<<cadre.getYmin()<<" ymax= "<<cadre.getYmax()<<std::endl<<std::endl;
     
     glLoadIdentity();
-    //gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repère
+    //gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repere
 
     gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
    
-    Rafraichir(); 		// Callback de la fenêtre   
+    Rafraichir(); 		// Callback de la fenetre   
     }
     break;    
   }
@@ -798,14 +809,14 @@ void gestionTab::carre( int x, int y) {
  
   
   glColor3f(1,1,1);
-  //trace la ligne verticale partant du point de départ
+  //trace la ligne verticale partant du point de depart
   glBegin(GL_LINES);
 
   
   glVertex2f(zoom.getXmin(),zoom.getYmin());
   glVertex2f(zoom.getXmin(),-cadre.pixelToRepereY(y));
 
-  //ligne horizontale partant du point de départ
+  //ligne horizontale partant du point de depart
 
   glVertex2f(zoom.getXmin(),zoom.getYmin());
   glVertex2f(cadre.pixelToRepereX(x),zoom.getYmin());
