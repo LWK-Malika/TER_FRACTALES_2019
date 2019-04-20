@@ -22,7 +22,7 @@ class rectangle{
   double getXmin() const;
   double getYmin() const;
   double getXmax() const;
-  double  getYmax() const;
+  double getYmax() const;
   
    
   void setXmin(double x);
