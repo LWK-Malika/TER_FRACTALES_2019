@@ -33,7 +33,9 @@ void rectangle::reinitialise(){
 }
 
 void rectangle::resetRepere(){
+  
   reinitialise();
+   glLoadIdentity(); //réinitialise le repère
   gluOrtho2D(getXmin(), getXmax(), getYmax(), getYmin());
 
 }

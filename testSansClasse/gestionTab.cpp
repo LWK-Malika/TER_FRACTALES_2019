@@ -34,8 +34,8 @@ double distance(double i, double j){
 
 void dessine(){
 
-  if( couleur ==3)
-	remplirTabDernierPoint();
+  //if( couleur ==3)
+  //	remplirTabDernierPoint();
   
     
   glBegin(GL_POINTS); 	//mode affichage de points  
@@ -124,6 +124,7 @@ void remplirTab(){
 }
 
 void remplirTabDernierPoint(){
+  
   for (int i=0 ; i<800 ; i++) {
     tabC.push_back(std::vector<point>(800));
     for (int j=0 ; j<800 ; j++) {
@@ -147,6 +148,9 @@ void completeTab( rectangle aRemplir){
 
       tab[i][j]=diverge(cadre.pixelToRepereX(i),
 			       cadre.pixelToRepereY(j));
+       tabC[i][j]=converge((cadre.getTailleX() / 800) * i + cadre.getXmin(),
+				 (cadre.getTailleY() / 800) * j + cadre.getYmin()); 
+      
     }
   }
 }
@@ -156,8 +160,14 @@ void newTab(int move, int dir){
   glClear(GL_COLOR_BUFFER_BIT);
   
   //dir de 1 a 4;
+
+  //copie du tableau contenant les rangs de divergences de chaques suite
   std::vector< std::vector<int> > tabcopie(800,std::vector<int>(800,0));
 
+  //copie du tableau spécifique a la couleur T
+   std::vector< std::vector<point> > tabCcopie(800,std::vector<point>(800,0));
+
+  
   //suivant la valeur de dir, on ne complete pas le tableau au meme endroit.
 
 
@@ -172,15 +182,19 @@ void newTab(int move, int dir){
   rectangle aRemplir3(0,800,0,move);
   rectangle aRemplir4(0,800,800-move,800);
   */
+
+  printf("kokokokokoko");
   switch(dir){
   case 1:
     //vers la gauche
     for (int i=move ; i<800 ; i++) {
       for (int j=0 ; j<800 ; j++) {
 	tabcopie[i][j]=tab[i-move][j];
+	tabCcopie[i][j]=tabC[i-move][j];	
       }
     } 
     tab.swap(tabcopie);
+    tabC.swap(tabCcopie);
     completeTab(aRemplir1);
     break;
     
@@ -188,29 +202,36 @@ void newTab(int move, int dir){
   case 2:
     for (int i=0 ; i<800-move ; i++) {
       for (int j=0 ; j<800 ; j++){
-	tabcopie[i][j]=tab[i+move][j]; 
+	tabcopie[i][j]=tab[i+move][j];
+	tabCcopie[i][j]=tabC[i+move][j];;
       }
     }
     tab.swap(tabcopie);
+    tabC.swap(tabCcopie);
     completeTab(aRemplir2);
     break;
   case 3:
     for (int i=0 ; i<800; i++) {
       for (int j=move; j<800 ; j++){
 	tabcopie[i][j]=tab[i][j-move];
+	tabCcopie[i][j]=tabC[i][j-move];
       }
     }
     tab.swap(tabcopie);
+    tabC.swap(tabCcopie);
     completeTab(aRemplir3);
     break;
     
   case 4:
     for (int i=0 ; i<800 ; i++) {
       for (int j=0 ; j<800-move ; j++){
-	tabcopie[i][j]=tab[i][j+move]; 
+	tabcopie[i][j]=tab[i][j+move];
+	tabCcopie[i][j]=tabC[i][j+move];
+				
       }
     }
     tab.swap(tabcopie);
+    tabC.swap(tabCcopie);
     completeTab(aRemplir4);
     break;
   }
@@ -231,7 +252,7 @@ void occuranceDiv(){
 void Rafraichir(void){
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
    remplirTab();
-
+   remplirTabDernierPoint();
     //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
   occuranceDiv();
 

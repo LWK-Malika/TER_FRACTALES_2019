@@ -34,6 +34,7 @@ double gestionTab::distance(double i, double j){
 
 void gestionTab::dessine(){
 
+
   if( couleur ==3)
 	remplirTabDernierPoint();
   
@@ -229,8 +230,11 @@ void gestionTab::occuranceDiv(){
   }
 
 void gestionTab::Rafraichir(void){
+
+
+
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
-   remplirTab();
+  remplirTab();
 
     //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
   occuranceDiv();
