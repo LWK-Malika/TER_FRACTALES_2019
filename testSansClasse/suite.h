@@ -8,24 +8,15 @@
 
 extern rectangle cadreSuite;
 
-class suite{
-  // private:
-  //static bool pause;// = false;
+void initialise();
 
+void clavierS(unsigned char key, int x, int y);
 
- public:
-
-  static void initialise();
-
-  static void clavier(unsigned char key, int x, int y);
-
-  static void diverge(point c, int a);
-
-  static void clique(int button, int state, int x, int y);
+void cliqueS(int button, int state, int x, int y);
 
 
 
 
-};
+
 
 #endif

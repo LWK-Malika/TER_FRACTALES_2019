@@ -9,7 +9,9 @@
 #include "rectangle.h"
 
 
-
+//pour julia, les coordonnée de la suite choisis:
+double Jreel=0;
+double Jimag=0;
 
 
 
@@ -79,7 +81,11 @@ void dessine(){
 	case 3:
 	  glColor3f( 0.4+distance(tabC[i][j].getX(),tabC[i][j].getY())/10,
 		     0.1,
-		     0.2);
+	  	     0.2);
+	  //	  glColor3f( 0.2+distance(tabC[i][j].getX(),tabC[i][j].getY())/10,
+	  //		     1-distance(tabC[i][j].getX(),tabC[i][j].getY())/10,
+	  //	     0.5-distance(tabC[i][j].getX(),tabC[i][j].getY())/10);
+	  
 	  break;
       
 	case 974:	  
@@ -112,13 +118,29 @@ void dessine(){
 
 
 void remplirTab(){
+  
+  
   for (int i=0 ; i<800 ; i++) {
     tab.push_back(std::vector<int>(800));
     for (int j=0 ; j<800 ; j++) {
-      tab[i][j]=diverge((cadre.getTailleX() / 800)
-			       * i + cadre.getXmin(),
-			       (cadre.getTailleY() / 800)
-			       * j + cadre.getYmin()); 
+      if(Fjulia){
+	point a((cadre.getTailleX() / 800)
+			  * i + cadre.getXmin(),
+			  (cadre.getTailleY() / 800)
+		* j + cadre.getYmin());
+
+	  
+	tab[i][j]=a.julia(Jreel, Jimag);
+
+
+	
+      }
+      else{     
+	tab[i][j]=diverge((cadre.getTailleX() / 800)
+			  * i + cadre.getXmin(),
+			  (cadre.getTailleY() / 800)
+			  * j + cadre.getYmin());
+      }
     }
   }
 }
@@ -128,8 +150,18 @@ void remplirTabDernierPoint(){
   for (int i=0 ; i<800 ; i++) {
     tabC.push_back(std::vector<point>(800));
     for (int j=0 ; j<800 ; j++) {
+      if (Fjulia){
+	point a((cadre.getTailleX() / 800)
+		* i + cadre.getXmin(),
+		(cadre.getTailleY() / 800)
+		* j + cadre.getYmin());
+	tabC[i][j]=a.julia2(Jreel,Jimag);
+      }
+      else{
+	
       tabC[i][j]=converge((cadre.getTailleX() / 800) * i + cadre.getXmin(),
-				 (cadre.getTailleY() / 800) * j + cadre.getYmin()); 
+				 (cadre.getTailleY() / 800) * j + cadre.getYmin());
+      }
     }
   }
 }
@@ -137,19 +169,33 @@ void remplirTabDernierPoint(){
 
 void completeTab( rectangle aRemplir){
   std::cout<<"xmin "<<aRemplir.getXmin()
-      <<"xmax "<<aRemplir.getXmax()
+	   <<"xmax "<<aRemplir.getXmax()
 	   <<"ymin "<<aRemplir.getYmin()
 	   <<"ymax "<<aRemplir.getYmax()
-      <<std::endl;
- 
+	   <<std::endl;
+  
   for (int i=aRemplir.getXmin() ; i<aRemplir.getXmax() ; i++) {
-
+    
     for (int j=aRemplir.getYmin() ; j<aRemplir.getYmax(); j++) {
 
-      tab[i][j]=diverge(cadre.pixelToRepereX(i),
-			       cadre.pixelToRepereY(j));
-       tabC[i][j]=converge((cadre.getTailleX() / 800) * i + cadre.getXmin(),
-				 (cadre.getTailleY() / 800) * j + cadre.getYmin()); 
+      if(Fjulia){
+	point a((cadre.getTailleX() / 800)
+		* i + cadre.getXmin(),
+		(cadre.getTailleY() / 800)
+		* j + cadre.getYmin());
+
+	  
+	tab[i][j]=a.julia(Jreel, Jimag);
+	tabC[i][j]=a.julia2(Jreel,Jimag);
+      }
+      else{
+
+      
+	tab[i][j]=diverge(cadre.pixelToRepereX(i),
+			  cadre.pixelToRepereY(j));
+	tabC[i][j]=converge((cadre.getTailleX() / 800) * i + cadre.getXmin(),
+			    (cadre.getTailleY() / 800) * j + cadre.getYmin());
+      }
       
     }
   }
@@ -165,7 +211,7 @@ void newTab(int move, int dir){
   std::vector< std::vector<int> > tabcopie(800,std::vector<int>(800,0));
 
   //copie du tableau spécifique a la couleur T
-   std::vector< std::vector<point> > tabCcopie(800,std::vector<point>(800,0));
+  std::vector< std::vector<point> > tabCcopie(800,std::vector<point>(800,0));
 
   
   //suivant la valeur de dir, on ne complete pas le tableau au meme endroit.
@@ -251,11 +297,11 @@ void occuranceDiv(){
 
 void Rafraichir(void){
   glClear(GL_COLOR_BUFFER_BIT);	// Effacer la surface graphique
-   remplirTab();
-   remplirTabDernierPoint();
-    //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
+  remplirTab();
+  remplirTabDernierPoint();
+  //si la couleur utilise le nombre d'occurance pour chaque temps de divergence:
   occuranceDiv();
-
+  
    dessine();
 }
 
@@ -336,7 +382,25 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
      std::cout << "Supression du repere"<<std::endl;
      dessine();
      break;
-   case 105: //TOUCHE INFORMATION
+
+   case 106: //touche j
+     Fjulia=!(Fjulia);
+
+     if( Fjulia)
+       std::cout << "mode Fractale de julia active, veuiller cliquer sur le repère pour afficher une fractale"<<std::endl;
+     else{
+       std::cout << "mode Fractale de julia desactive"<<std::endl;
+       couleur=0;//reinitialise la couleur
+       glLoadIdentity(); //reinitialise le repere
+       cadre.resetRepere();
+       Rafraichir();
+     }
+     break;
+
+
+
+     
+   case 105: //TOUCHE INFORMATION I
      std::cout << std::endl
     << "--- AIDE ---" << std::endl
     << " > [Touche I]: Affiche l'aide dans le terminal." << std::endl<< std::endl
@@ -353,7 +417,7 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
 		<< "        une vue d'ensemble de la fractale." <<  std::endl<<std::endl   
 
 		<< " > [Touche Z]: Affiche la couleur definie par:" <<  std::endl
-		<< "        le nombre d'occurence afficher a l'ecran "  <<  std::endl
+	       << "        le nombre d'occurence afficher a l'ecran "  <<  std::endl
     << "        une vue zoome de la fractale." <<  std::endl<<std::endl   
 
 		<< " > [Touche E]: Affiche la couleur definie par" <<  std::endl
@@ -504,36 +568,51 @@ void clique (int button, int state, int x, int y) {
 
 
     zoom.setXmax(cadre.pixelToRepereX(x));
-    zoom.setYmax(-cadre.pixelToRepereY(y));    
-    zoom.inverse();
+    zoom.setYmax(-cadre.pixelToRepereY(y));
+
+    if(!((zoom.getXmax()==zoom.getXmin()) &&(zoom.getYmax()==zoom.getYmin()))){
+    
+      zoom.inverse();
  
     
     
-    double temp=(zoom.getXmin()+
-		 (abs(zoom.getXmax()-zoom.getXmin())+
-		  abs(zoom.getYmax()-zoom.getYmin()))/2);
+      double temp=(zoom.getXmin()+
+		   (abs(zoom.getXmax()-zoom.getXmin())+
+		    abs(zoom.getYmax()-zoom.getYmin()))/2);
 
 
-    zoom.setYmax(zoom.getYmin()+
-		 (abs(zoom.getXmax()-zoom.getXmin())+
-		  abs(zoom.getYmax()-zoom.getYmin()))/2);
+      zoom.setYmax(zoom.getYmin()+
+		   (abs(zoom.getXmax()-zoom.getXmin())+
+		    abs(zoom.getYmax()-zoom.getYmin()))/2);
 
-		  zoom.setXmax(temp);
-  cadre=zoom;    
-    std::cout<<std::endl<<"xmin= "<<cadre.getXmin()<<" xmax= "<<cadre.getXmax()
-	<<" ymin= "<<cadre.getYmin()<<" ymax= "<<cadre.getYmax()<<std::endl<<std::endl;
+      zoom.setXmax(temp);
+      cadre=zoom;    
+      std::cout<<std::endl<<"xmin= "<<cadre.getXmin()<<" xmax= "<<cadre.getXmax()
+	       <<" ymin= "<<cadre.getYmin()<<" ymax= "<<cadre.getYmax()<<std::endl<<std::endl;
     
-    glLoadIdentity();
-    //gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repere
+      glLoadIdentity();
+      //gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repere
 
-    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
+      gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
    
-    Rafraichir(); 		// Callback de la fenetre   
+      Rafraichir(); 		// Callback de la fenetre   
     }
-    break;    
+    }
+    break;
+
+  case GLUT_RIGHT_BUTTON:
+    
+    if(state == GLUT_UP) {
+      if(Fjulia){
+	Jreel=cadre.pixelToRepereX(x);
+	Jimag=cadre.pixelToRepereY(y);
+	std::cout<< "Jreel : "<<Jreel <<" Jimag: "<< Jimag<<std::endl;
+	Rafraichir();
+		    
+      }     
+    }
   }
 }
-
 
 void carre( int x, int y) {
 

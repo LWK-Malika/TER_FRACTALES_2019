@@ -15,73 +15,92 @@
 /// 
 class point
 {
-private:
-	double x; /*< abscisse */
-	double y; /*< ordonnée */
+ private:
+  double x; /*< abscisse */
+  double y; /*< ordonnée */
+  
+ public:
+  /// \fn point (double X = 0, double Y = 0)
+  /// \brief Fonction A COMPLETER.
+  /// \param x : coordonnée d'abscisse du point.
+  /// \param y : coordonnée d'ordonnée du point.
+  /// \return A COMPLETER.
+  ///
+  point(double X = 0, double Y = 0);
+  
+  /// \fn double getX () const
+  /// \brief Fonction A COMPLETER.
+  /// \return A COMPLETER.
+  ///
+  double getX() const;
+  
+  /// \fn double getY () const
+  /// \brief Fonction A COMPLETER.
+  /// \return A COMPLETER.
+  ///
+  double getY() const;
 
-public:
-/// \fn point (double X = 0, double Y = 0)
-/// \brief Fonction A COMPLETER.
-/// \param x : coordonnée d'abscisse du point.
-/// \param y : coordonnée d'ordonnée du point.
-/// \return A COMPLETER.
-///
-	point(double X = 0, double Y = 0);
+  /// \fn void setX (double x)
+  /// \brief Fonction A COMPLETER.
+  /// \param x : coordonnée d'abscisse du point.
+  ///
+  void setX(double x);
 
-/// \fn double getX () const
-/// \brief Fonction A COMPLETER.
-/// \return A COMPLETER.
-///
-	double getX() const;
-
-/// \fn double getY () const
-/// \brief Fonction A COMPLETER.
-/// \return A COMPLETER.
-///
-	double getY() const;
-
-/// \fn void setX (double x)
-/// \brief Fonction A COMPLETER.
-/// \param x : coordonnée d'abscisse du point.
-///
-	void setX(double x);
-
-/// \fn void setY(double y)
-/// \brief Fonction A COMPLETER.
-/// \param y : coordonnée d'ordonnée du point.
-///
-	void setY(double y);
-
-
+  /// \fn void setY(double y)
+  /// \brief Fonction A COMPLETER.
+  /// \param y : coordonnée d'ordonnée du point.
+  ///
+  void setY(double y);
 
 
 
-/// \fn point& operator= (const point &p)
-/// \brief Opérateur d'affectation de point.
-/// \param p : le point que l'on veut affecter à notre point.
-/// \return Renvoie notre point.
-///
-	point& operator=(const point &p);
 
-	double module();
+
+  /// \fn point& operator= (const point &p)
+  /// \brief Opérateur d'affectation de point.
+  /// \param p : le point que l'on veut affecter à notre point.
+  /// \return Renvoie notre point.
+  ///
+  point& operator=(const point &p);
+
+  double module();
        
+
+
+
+  /// \fn static int diverge (double x, double y)
+  /// \brief Fonction A COMPLETER.
+  /// \param x : coordonnée d'abscisse du point.
+  /// \param y : coordonnée d'ordonnée du point.
+  /// \return A COMPLETER.
+  ///
+
+
+  void divergeS( int i);
+ 
+  int julia(double R, double I);
+
+  point julia2(double R, double I);
 
 };
 
-/// \fn static int diverge (double x, double y)
-/// \brief Fonction A COMPLETER.
-/// \param x : coordonnée d'abscisse du point.
-/// \param y : coordonnée d'ordonnée du point.
-/// \return A COMPLETER.
-///
 int diverge(double x, double y);
 
+
+ 
 /// \fn point converge (double x, double y)
 /// \brief Fonction A COMPLETER.
 /// \param x : coordonnée d'abscisse du point.
 /// \param y : coordonnée d'ordonnée du point.
 /// \return A COMPLETER.
 ///
+
+
 point converge(double x, double y);
 
+
+
+
 #endif
+
+

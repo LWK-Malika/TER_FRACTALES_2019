@@ -9,13 +9,14 @@
 extern rectangle cadre;
 extern rectangle zoom;
 extern rectangle zoomTmp;
-
+extern bool Fjulia;
 //extern rectangle cadreSuite;
 
 extern std::vector< std::vector<int> > tab;
 extern int tabOcc[100];
 extern int couleur;
 extern std::vector< std::vector<point> > tabC;
+
 
 
 double modulo(double itineraire, double occurance);

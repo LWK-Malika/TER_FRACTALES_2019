@@ -109,6 +109,7 @@ double rectangle::distPixToRepY(int pixel)const{
   return pixelToRepereY(pixel)-pixelToRepereY(0); 
 }
 
+/////////EN DOUBLE:
 double rectangle::coordRepX(int i) const{
   (getTailleX()/800)*i+getXmin();
   
@@ -116,7 +117,7 @@ double rectangle::coordRepX(int i) const{
 double rectangle::coordRepY(int i) const{
   (getTailleY()/800)*i+getYmin();
 }
-
+///////
 
 template<typename T>
 void rectangle::inverse(T &min, T &max){

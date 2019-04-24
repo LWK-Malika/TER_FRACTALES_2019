@@ -29,6 +29,9 @@ vector<vector<point> > tabC;
 int tabOcc[100]={0};
 int couleur=0;
 
+bool Fjulia=false;
+
+
 
 int main(int argc, char* argv[]) {
   time_t start, stop;
@@ -92,10 +95,11 @@ int main(int argc, char* argv[]) {
   
   
    int suite = glutCreateWindow("suite de Mandelbrot"); // nomme la fenêtre
-   suite::initialise();
+
+   initialise();
   
-   glutKeyboardUpFunc(suite::clavier);
-   glutMouseFunc(suite::clique);
+   glutKeyboardUpFunc(clavierS);
+   glutMouseFunc(cliqueS);
 
    
   glutMainLoop(); //permet un "arret sur image"
