@@ -22,41 +22,33 @@ void point::setY(double y) {
 	this->y=y;}
 
 
-void point::divergeS(int a){
-
-
-  std::cout << "-> diverge" << std::endl;
-  //
-
+void point::divergeS(int a)
+{
   float compteur = 0;
   float stop = 300; // nombre d'itération avant l'arrêt
   clock_t depart = clock();
-  //
 
-  point Zn(0,0); //suite
-  point ZnMoins1(0,0); //suite au rang n-1
+  point Zn(0,0); // suite
+  point ZnMoins1(0,0); // suite au rang n-1
 
-  
-  if (a == -1) {
+  if (a == -1) 
+  {
     a = rand()%10;
   }
-
   
-  while ((Zn.module()<4) and (compteur < stop)){
+  while ((Zn.module()<4) and (compteur < stop))
+  {
+    if (difftime(clock(), depart) >= 8000) { // Vitesse d'affichage
+      ZnMoins1 = Zn;
 
-    if  (difftime(clock(), depart) >= 8000) { // Vitesse d'affichage
-  
-
-      ZnMoins1=Zn;
-
-      //partie reel
+      // Partie Réelle
       Zn.setX(pow(ZnMoins1.getX(),2) - pow(ZnMoins1.getY(), 2) + x);
 
-      //partie imaginaire
+      // Partie imaginaire
       Zn.setY(2*ZnMoins1.getX()*ZnMoins1.getY()+ y);
 
-      //si suite tend vers un point
-      if( abs(Zn.module()-ZnMoins1.module())<0.001){
+      // Si suite tend vers un point
+      if (abs(Zn.module()-ZnMoins1.module())<0.001){
 	std::cout << " Arrêt forcé,car la suite tend vers un point" << std::endl;
 	compteur = stop;
       }
