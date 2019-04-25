@@ -49,10 +49,13 @@ endif
 	$(MSG)$(ECH) "Le programme" $(EXE) "est compilé...\n"
 
 
-
-
 #$(SOURCES): $(OBJ)
 #	$(MSG)$(CC) -o $@ $< $(LDFLAGS)
+
+	$(CLR)
+	$(MSG)$(ECH) "Suppression des objets crées ..."
+	$(MSG)rm -rf *.o
+	$(MSG)$(ECH) $(RARROW)"Done"$(LARROW)
 
 $(EXE): $(OBJ)
 	$(MSG)$(ECH) "SOURCES ["$(SOURCES)"] \nOBJETS ["$(OBJ)"]"
