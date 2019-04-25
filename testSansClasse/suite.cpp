@@ -44,8 +44,8 @@ void clavierS(unsigned char key, int x, int y)
       std::cout<< " > [Touche I]: Affiche l'aide dans le terminal." << std::endl<< std::endl
 	       << " > [Clique Gauche]: Affiche la suite." << std::endl 
 	       << " > [Clique Droit]: Efface, puis affiche la suite. " <<  std::endl 
-	       << " > [Entree]: Efface."<< std::endl
-	       << " > [Touche Q]: Affiche des suites predefinies." <<  std::endl<<std::endl;
+	       << " > [Entrée]: Efface."<< std::endl
+	       << " > [Touche Q]: Affiche des suites prédéSfinies." <<  std::endl<<std::endl;
       break;
     case 113: // Touche : Q (Suites prédéfinies)
       double tabl[9][2] = { 
@@ -74,11 +74,12 @@ void cliqueS(int button, int state, int x, int y)
   {
     point cible(cadreSuite.pixelToRepereX(x), -cadreSuite.pixelToRepereY(y));
     std::cout << std::endl << " Pixel: " << x << ", " << y << std::endl;
-    std::cout << " Repère: " << cible.getX() << ", " <<cible.getY() << std::endl;
+    std::cout << " Repére: " << cible.getX() << ", " << cible.getY() << std::endl;
 
-    if (button == GLUT_RIGHT_BUTTON) { 
-      initialise(); 
+    if (button == GLUT_RIGHT_BUTTON) 
+    { 
+      initialise(); // Efface l'écran
     }
-    cible.divergeS( -1);
+    cible.divergeS(-1); // Affiche la suite
   }
 }
