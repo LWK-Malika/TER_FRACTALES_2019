@@ -36,9 +36,6 @@ double distance(double i, double j){
 
 void dessine(){
 
-  //if( couleur ==3)
-  //	remplirTabDernierPoint();
-  
     
   glBegin(GL_POINTS); 	//mode affichage de points  
   for(int i=0;i<800;i++){ //double boucle pour parcourir les points etudie
@@ -130,10 +127,7 @@ void remplirTab(){
 		* j + cadre.getYmin());
 
 	  
-	tab[i][j]=a.julia(Jreel, Jimag);
-
-
-	
+	tab[i][j]=a.julia(Jreel, Jimag);	
       }
       else{     
 	tab[i][j]=diverge((cadre.getTailleX() / 800)
@@ -168,11 +162,7 @@ void remplirTabDernierPoint(){
 
 
 void completeTab( rectangle aRemplir){
-  std::cout<<"xmin "<<aRemplir.getXmin()
-	   <<"xmax "<<aRemplir.getXmax()
-	   <<"ymin "<<aRemplir.getYmin()
-	   <<"ymax "<<aRemplir.getYmax()
-	   <<std::endl;
+
   
   for (int i=aRemplir.getXmin() ; i<aRemplir.getXmax() ; i++) {
     
@@ -229,7 +219,6 @@ void newTab(int move, int dir){
   rectangle aRemplir4(0,800,800-move,800);
   */
 
-  printf("kokokokokoko");
   switch(dir){
   case 1:
     //vers la gauche
@@ -351,14 +340,17 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
      glLoadIdentity(); //reinitialise le repere
      //cadre.reinitialise();
      //gluOrtho2D( xmin=-2.15,xmax=0.55, ymax=1.3,ymin=-1.3);//zoom du repere
-     cadre.resetRepere();
-  
+     if(Fjulia)
+       cadre.resetRepereJulia();
+     else
+       cadre.resetRepere();
+     
      Rafraichir();
 
-     std::cout<<"xmin = "<< cadre.getXmin() << std::endl
-	 <<"xmax = "<< cadre.getXmax() << std::endl
-	 <<"ymin = "<< cadre.getYmin() << std::endl
-	 <<"ymax = "<< cadre.getYmax() << std::endl << std::endl;
+     //  std::cout<<"xmin = "<< cadre.getXmin() << std::endl
+     //	 <<"xmax = "<< cadre.getXmax() << std::endl
+     //	 <<"ymin = "<< cadre.getYmin() << std::endl
+     //	 <<"ymax = "<< cadre.getYmax() << std::endl << std::endl;
      break;
    case 113:
      std::cout << "Affichage du repere"<<std::endl;
@@ -390,9 +382,13 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
        std::cout << "mode Fractale de julia active, veuiller cliquer sur le repère pour afficher une fractale"<<std::endl;
      else{
        std::cout << "mode Fractale de julia desactive"<<std::endl;
-       couleur=0;//reinitialise la couleur
+
+       if(cadre.repereBaseJ()){
+	 
        glLoadIdentity(); //reinitialise le repere
        cadre.resetRepere();
+      
+       }
        Rafraichir();
      }
      break;
@@ -434,7 +430,13 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
 
     << "--- REPERE ---" << std::endl     
 		<< " > [Touche Q]: Affiche le repere." <<  std::endl
-		<< " > [Touche S]: Enleve le repere." <<  std::endl<<std::endl;
+		<< " > [Touche S]: Enleve le repere." <<  std::endl<<std::endl
+    << "--- FRACTALE DE JULIA ---" <<  std::endl
+	        << " > [touche J]: mode fractale de julia et vice versa "<<  std::endl
+	       
+	        << " > [clique droit] si mode fractale de julia active, dessine la fractale de julia par rapport a se point " <<  std::endl
+	        << " > les autres fonctionnalité fonctionne avec les fractales de Julia "
+		<<  std::endl<<std::endl;
 
      break;
    }
@@ -443,13 +445,12 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
 
 
 void touche(int key, int x, int y){
-  printf("Touche special: %c = %d \n", key, key);
+  //printf("Touche special: %c = %d \n", key, key);
 
   double distMoveX=cadre.distPixToRepX(20);
   double distMoveY=cadre.distPixToRepY(20);
   
  
- std::cout<<"distmoveX = "<<distMoveX<<" distmoveY = "<<distMoveY<<std::endl;
   switch(key){
   case GLUT_KEY_DOWN :
     
@@ -519,8 +520,7 @@ void clique (int button, int state, int x, int y) {
   zoomTmp.setXmin(x);
   zoomTmp.setYmin(y);
 
-  
-  
+   
   switch (button) {
   case 4: //roulette vers le bas
     if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
@@ -545,26 +545,16 @@ void clique (int button, int state, int x, int y) {
   case GLUT_LEFT_BUTTON:
     
     if(state == GLUT_DOWN) {
-
-
-      
-      
-      std::cout << "coordonnees en pixel:" << x << ", " << y << std::endl
-	   << "coordonnee en par rapport a l'axe " <<cadre.pixelToRepereX(x)
-		<<cadre.pixelToRepereX(x)<<std::endl;
+     
 
       zoom.setXmin(cadre.pixelToRepereX(x));
       zoom.setYmin(-cadre.pixelToRepereY(y));
 
     }
       
-
         
     if(state == GLUT_UP){
       
-      std::cout << "coordonnees en pixel:" << x << ", " << y << std::endl
-	   << "coordonnee en par rapport a l'axe " <<cadre.pixelToRepereX(x)
-		<<cadre.pixelToRepereX(x)<<std::endl;
 
 
     zoom.setXmax(cadre.pixelToRepereX(x));
@@ -601,12 +591,20 @@ void clique (int button, int state, int x, int y) {
     break;
 
   case GLUT_RIGHT_BUTTON:
+    //permet de supprimer les trait parasite lors d'un tirer glisser clique droit
+    zoom.setXmin(cadre.pixelToRepereX(x));
+    zoom.setYmin(-cadre.pixelToRepereY(y));
+    
     
     if(state == GLUT_UP) {
       if(Fjulia){
 	Jreel=cadre.pixelToRepereX(x);
 	Jimag=cadre.pixelToRepereY(y);
 	std::cout<< "Jreel : "<<Jreel <<" Jimag: "<< Jimag<<std::endl;
+	if(cadre.repereBaseM()){
+	  glLoadIdentity(); //reinitialise le repere
+	  cadre.resetRepereJulia();
+	    }
 	Rafraichir();
 		    
       }     

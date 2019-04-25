@@ -16,8 +16,15 @@ class rectangle{
   rectangle(rectangle & aCopier);
 
   void reinitialise();
+  void reinitialiseJulia();
 
   void resetRepere();
+  void resetRepereJulia();
+  
+  bool repereBaseM();
+
+  bool repereBaseJ();
+
   
   double getXmin() const;
   double getYmin() const;

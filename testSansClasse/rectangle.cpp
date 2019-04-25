@@ -14,7 +14,7 @@
 extern int couleur;
 extern std::vector<std::vector<int>> tab;
 extern int* tabOcc;
-//extern rectangle zoom;
+
 
 rectangle::rectangle(point min, point max):min(min), max(max){}
 
@@ -32,11 +32,36 @@ void rectangle::reinitialise(){
   setYmax(1.3);
 }
 
+void rectangle::reinitialiseJulia(){
+  setXmin(-2);
+  setXmax(2);
+  setYmin(-2);
+  setYmax(2);
+}
+
+
 void rectangle::resetRepere(){
   reinitialise();
   gluOrtho2D(getXmin(), getXmax(), getYmax(), getYmin());
+}
+
+void rectangle::resetRepereJulia(){
+  reinitialiseJulia();
+  gluOrtho2D(getXmin(), getXmax(), getYmax(), getYmin());
+}
+
+
+
+bool rectangle::repereBaseM(){
+  return (getXmin()==-2.15 && getXmax() == 0.55 && getYmin() == -1.3 && getYmax()==1.3);
 
 }
+
+bool rectangle::repereBaseJ(){
+  return (getXmin()==-2 && getXmax() == 2  && getYmin() == -2 && getYmax()==2);
+
+}
+
 
 
 double rectangle::getXmin() const{
@@ -166,10 +191,12 @@ void rectangle::zoomArriere(){
   setYmax(temp.getYmax()+(temp.getTailleY()/10));
 
   
-  std::cout<<"xmin= "<<getXmin()<<" tempXmin= "<<temp.getXmin() <<std::endl;
-  std::cout<<"xmax= "<<getXmax()<<" tempXmax= "<<temp.getXmax() <<std::endl;
-  std::cout<<"ymin= "<<getYmin()<<" tempYmin= "<<temp.getYmin() <<std::endl;
-  std::cout<<"ymax= "<<getYmax()<<" tempYmax= "<<temp.getYmax() <<std::endl<<std::endl;
+  std::cout<<std::endl
+	   <<" xmin= "<<getXmin()
+	   <<" xmax= "<<getXmax()
+	   <<" ymin= "<<getYmin()
+	   <<"ymax= "<<getYmax()
+	   <<std::endl<<std::endl;
 
   glLoadIdentity(); //réinitialise le repère
   
@@ -190,11 +217,13 @@ void rectangle::zoomAvant(){
    setYmin(temp.getYmin()+(temp.getTailleY()/10));
    setYmax(temp.getYmax()-(temp.getTailleY()/10));
 
-  
-  std::cout<<"xmin= "<<getXmin()<<" tempXmin= "<<temp.getXmin() <<std::endl;
-  std::cout<<"xmax= "<<getXmax()<<" tempXmax= "<<temp.getXmax() <<std::endl;
-  std::cout<<"ymin= "<<getYmin()<<" tempYmin= "<<temp.getYmin() <<std::endl;
-  std::cout<<"ymax= "<<getYmax()<<" tempYmax= "<<temp.getYmax() <<std::endl<<std::endl;
+   
+  std::cout<<std::endl
+	   <<" xmin= "<<getXmin()
+	   <<" xmax= "<<getXmax()
+	   <<" ymin= "<<getYmin()
+	   <<"ymax= "<<getYmax()
+	   <<std::endl<<std::endl;
   
   glLoadIdentity();
   gluOrtho2D(getXmin(),getXmax(),getYmax(), getYmin());	      	//zoom du repère
