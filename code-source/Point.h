@@ -1,18 +1,6 @@
 #ifndef Point_h
 #define Point_h
 
-///	\file Point.c
-/// \brief Header de la classe point.
-/// \author M. Bardin, A. Canton Condes, A. Lamouchi, M. Lin-Wee-Kuan
-/// \version 0.1
-/// \date 9 avril 2019
-///
-/// Header de la classe point déclarant par ailleurs les méthodes diverge et converge.
-///
-
-/// \class point Point.h
-/// \brief A COMPLETER
-/// 
 class point
 {
  private:
@@ -20,87 +8,33 @@ class point
   double y; /*< ordonnée */
   
  public:
-  /// \fn point (double X = 0, double Y = 0)
-  /// \brief Fonction A COMPLETER.
-  /// \param x : coordonnée d'abscisse du point.
-  /// \param y : coordonnée d'ordonnée du point.
-  /// \return A COMPLETER.
-  ///
+  // Constructeur
   point(double X = 0, double Y = 0);
-  
-  /// \fn double getX () const
-  /// \brief Fonction A COMPLETER.
-  /// \return A COMPLETER.
-  ///
+
+  // Accesseurs en lecture
   double getX() const;
-  
-  /// \fn double getY () const
-  /// \brief Fonction A COMPLETER.
-  /// \return A COMPLETER.
-  ///
   double getY() const;
 
-  /// \fn void setX (double x)
-  /// \brief Fonction A COMPLETER.
-  /// \param x : coordonnée d'abscisse du point.
-  ///
+  // Accesseurs en écriture
   void setX(double x);
-
-  /// \fn void setY(double y)
-  /// \brief Fonction A COMPLETER.
-  /// \param y : coordonnée d'ordonnée du point.
-  ///
   void setY(double y);
 
-
-
-
-
-  /// \fn point& operator= (const point &p)
-  /// \brief Opérateur d'affectation de point.
-  /// \param p : le point que l'on veut affecter à notre point.
-  /// \return Renvoie notre point.
-  ///
-  point& operator=(const point &p);
-
+  // Somme de carré de x et de carré de y
   double module();
-       
-
-
-
-  /// \fn static int diverge (double x, double y)
-  /// \brief Fonction A COMPLETER.
-  /// \param x : coordonnée d'abscisse du point.
-  /// \param y : coordonnée d'ordonnée du point.
-  /// \return A COMPLETER.
-  ///
-
-
-  void divergeS( int i);
+      
+  // Affiche les points des suites
+  void divergeS(int i);
  
+  // Calcule la fractale de Julia via le complexe donné
   int julia(double R, double I);
-
   point julia2(double R, double I);
 
+  // Opérateur d'affectation
+  point& operator=(const point &p);
 };
 
+// Pour remplir l'affiche des fractales de Mandelbrot
 int diverge(double x, double y);
-
-
- 
-/// \fn point converge (double x, double y)
-/// \brief Fonction A COMPLETER.
-/// \param x : coordonnée d'abscisse du point.
-/// \param y : coordonnée d'ordonnée du point.
-/// \return A COMPLETER.
-///
-
-
 point converge(double x, double y);
 
-
-
-
 #endif
-
-
