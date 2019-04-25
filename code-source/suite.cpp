@@ -41,11 +41,11 @@ void clavierS(unsigned char key, int x, int y)
       initialise();   
       break;
     case 105: // Touche : I (Informations)
-      std::cout<< " > [Touche I]: Affiche l'aide dans le terminal." << std::endl<< std::endl
+      std::cout << " > [Touche I]: Affiche l'aide dans le terminal." << std::endl << std::endl
 	       << " > [Clique Gauche]: Affiche la suite." << std::endl 
 	       << " > [Clique Droit]: Efface, puis affiche la suite. " <<  std::endl 
-	       << " > [Entrée]: Efface."<< std::endl
-	       << " > [Touche Q]: Affiche des suites prédéSfinies." <<  std::endl<<std::endl;
+	       << " > [Entrée]: Efface." << std::endl
+	       << " > [Touche Q]: Affiche des suites prédéSfinies." <<  std::endl << std::endl;
       break;
     case 113: // Touche : Q (Suites prédéfinies)
       double tabl[9][2] = { 
