@@ -302,313 +302,260 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
 {
   printf("Touche : %c = %d \n", key, key);
   // test, permet de savoir quelle touche est tape
-   switch (key) {
-   case 97: //touche a 
- 
-     std::cout << "couleur par defaut"<<std::endl;
+  switch (key) 
+  {
+    case 97: //touche a 
+      std::cout << "Colorisation A : sinusoïdale."<<std::endl;
       couleur=0;
       dessine();
       break;
-   case 122: //touche z
-     
-     std::cout << "couleur en fonction du nombre d'occurence pour chaque temps de divergence."<<std::endl;
-     couleur=1;
-     dessine();
-     break;
 
-   case 101: //touche e
-     std::cout << "Couleurs par intervalles"<<std::endl;
-     couleur=974;
-     dessine();
-     break;
+    case 122: //touche z
+      std::cout << "Colorisation Z : en fonction du nombre d'occurences pour chaque temps de divergence."<<std::endl;
+      couleur=1;
+      dessine();
+      break;
+
+    case 101: //touche e
+      std::cout << "Couleurs par intervalles"<<std::endl;
+      couleur=974;
+      dessine();
+      break;
    
-   case 114: //touche r
-     std::cout << "Couleur test" << std::endl;
-     couleur = 2;
-     dessine();
-     break;
+    case 114: //touche r
+      std::cout << "Couleur test" << std::endl;
+      couleur = 2;
+      dessine();
+      break;
 
-   case 116: //touche t
-     std::cout << "Couleur test" << std::endl;
-     couleur = 3;
-     dessine();
-     break; 
+    case 116: //touche t
+      std::cout << "Couleur test" << std::endl;
+      couleur = 3;
+      dessine();
+      break; 
      
-   case 13: //touche entrer
-     std::cout << "Fractale par defaut"<<std::endl;
-     couleur=0;//reinitialise la couleur
-     glLoadIdentity(); //reinitialise le repere
-     //cadre.reinitialise();
-     //gluOrtho2D( xmin=-2.15,xmax=0.55, ymax=1.3,ymin=-1.3);//zoom du repere
-     if(Fjulia)
-       cadre.resetRepereJulia();
-     else
-       cadre.resetRepere();
-     
-     Rafraichir();
+    case 13: //touche entrer
+      std::cout << "Fractale par defaut"<<std::endl;
+      couleur=0;//reinitialise la couleur
+      glLoadIdentity(); //reinitialise le repere
+      //cadre.reinitialise();
+      //gluOrtho2D( xmin=-2.15,xmax=0.55, ymax=1.3,ymin=-1.3);//zoom du repere
+      if(Fjulia)
+        cadre.resetRepereJulia();
+      else
+        cadre.resetRepere();
+      Rafraichir();
+      break;
 
-     //  std::cout<<"xmin = "<< cadre.getXmin() << std::endl
-     //	 <<"xmax = "<< cadre.getXmax() << std::endl
-     //	 <<"ymin = "<< cadre.getYmin() << std::endl
-     //	 <<"ymax = "<< cadre.getYmax() << std::endl << std::endl;
-     break;
-   case 113:
-     std::cout << "Affichage du repere"<<std::endl;
-
-     glBegin(GL_LINES);
-     glColor3f(1,1,1);
-     glVertex2f(0, 0);
-     glVertex2f(0, -1);
-     glEnd();
-     glFlush();
+    case 113:
+      std::cout << "Affichage du repere"<<std::endl;
+      glBegin(GL_LINES);
+      glColor3f(1,1,1);
+      glVertex2f(0, 0);
+      glVertex2f(0, -1);
+      glEnd();
+      glFlush();
      
-     glBegin(GL_LINES);
-     glColor3f(1,1,1);
-     glVertex2f(0, 0);
-     glVertex2f(1, 0);
-     glEnd();
-     glFlush();
-     break;
+      glBegin(GL_LINES);
+      glColor3f(1,1,1);
+      glVertex2f(0, 0);
+      glVertex2f(1, 0);
+      glEnd();
+      glFlush();
+      break;
   
-   case 115:
-     std::cout << "Supression du repere"<<std::endl;
-     dessine();
-     break;
+    case 115:
+      std::cout << "Supression du repere"<<std::endl;
+      dessine();
+      break;
 
-   case 106: //touche j
-     Fjulia=!(Fjulia);
+    case 106: //touche j
+      Fjulia=!(Fjulia);
+      if(Fjulia)
+        std::cout << "mode Fractale de julia active, veuiller cliquer sur le repère pour afficher une fractale"<<std::endl;
+      else
+      {
+        std::cout << "mode Fractale de julia desactive"<<std::endl;
+        if(cadre.repereBaseJ())
+        {
+          glLoadIdentity(); //reinitialise le repere
+          cadre.resetRepere();
+        }
+        Rafraichir();
+      }
+      break;
 
-     if( Fjulia)
-       std::cout << "mode Fractale de julia active, veuiller cliquer sur le repère pour afficher une fractale"<<std::endl;
-     else{
-       std::cout << "mode Fractale de julia desactive"<<std::endl;
+    case 105: //TOUCHE INFORMATION I
+      std::cout << std::endl
+        << "--- AIDE ---" << std::endl
+        << " > [Touche I]: Affiche l'aide dans le terminal." << std::endl << std::endl
 
-       if(cadre.repereBaseJ()){
-	 
-       glLoadIdentity(); //reinitialise le repere
-       cadre.resetRepere();
-      
-       }
-       Rafraichir();
-     }
-     break;
+        << "--- ZOOM ---" << std::endl
+        << " > [Clique Gauche (cliquer-glisser)]: Zoom dans le carre." << std::endl 
+	      << " > [Roulette avant]: Zoom avant." << std::endl
+		    << " > [Roulette arriere]: Zoom arriere." <<  std::endl
+        << " > [Entree]: Reinitialise la fractale." << std::endl << std::endl
 
+        << "--- COLORISATION ---" << std::endl
+		    << " > [Touche A]: Affiche la couleur predefinie:" << std::endl
+		    << "        definie par une sinusoidale amortie " << std::endl
+		    << "        une vue d'ensemble de la fractale." << std::endl << std::endl   
 
+		    << " > [Touche Z]: Affiche la couleur definie par:" << std::endl
+	      << "        le nombre d'occurence afficher a l'ecran " << std::endl
+        << "        une vue zoome de la fractale." << std::endl << std::endl   
 
-     
-   case 105: //TOUCHE INFORMATION I
-     std::cout << std::endl
-    << "--- AIDE ---" << std::endl
-    << " > [Touche I]: Affiche l'aide dans le terminal." << std::endl<< std::endl
+		    << " > [Touche E]: Affiche la couleur definie par" << std::endl
+		    << "        intervalle de couleurs." << std::endl
+        << "        une vue tres zoome de la fractale." << std::endl << std::endl   
 
-    << "--- ZOOM ---" << std::endl
-		<< " > [Clique Gauche (cliquer-glisser)]: Zoom dans le carre." << std::endl 
-		<< " > [Roulette avant]: Zoom avant." <<  std::endl
-		<< " > [Roulette arriere]: Zoom arriere." <<  std::endl
-    << " > [Entree]: Reinitialise la fractale."<< std::endl << std::endl
+		    << " > [Touche R]: Affiche la couleur definie par" << std::endl     
+		    << "        le module par rapport a l'occurence " << std::endl       
+        << "        une vue peu zoome de la fractale." << std::endl << std::endl  
 
-    << "--- COLORISATION ---" << std::endl
-		<< " > [Touche A]: Affiche la couleur predefinie:" <<  std::endl
-		<< "        definie par une sinusoidale amortie " <<  std::endl
-		<< "        une vue d'ensemble de la fractale." <<  std::endl<<std::endl   
+		    << " > [Touche T]: Affiche la couleur definie par" << std::endl
+		    << "        le modulo par rapport au dernier element de la suite de chaque point "<<  std::endl
+        << "        tout type de zoom de la fractale." << std::endl << std::endl
 
-		<< " > [Touche Z]: Affiche la couleur definie par:" <<  std::endl
-	       << "        le nombre d'occurence afficher a l'ecran "  <<  std::endl
-    << "        une vue zoome de la fractale." <<  std::endl<<std::endl   
+        << "--- REPERE ---" << std::endl     
+		    << " > [Touche Q]: Affiche le repere." << std::endl
+		    << " > [Touche S]: Enleve le repere." << std::endl << std::endl
 
-		<< " > [Touche E]: Affiche la couleur definie par" <<  std::endl
-		<< "        intervalle de couleurs."  <<  std::endl
-    << "        une vue tres zoome de la fractale." <<  std::endl<<std::endl   
-
-		<< " > [Touche R]: Affiche la couleur definie par" <<  std::endl     
-		<< "        le module par rapport a l'occurence "  <<  std::endl       
-    << "        une vue peu zoome de la fractale." <<  std::endl<<std::endl  
-
-		<< " > [Touche T]: Affiche la couleur definie par" <<  std::endl
-		<< "        le modulo par rapport au dernier element de la suite de chaque point "<<  std::endl
-    << "        tout type de zoom de la fractale." <<  std::endl<<std::endl
-
-    << "--- REPERE ---" << std::endl     
-		<< " > [Touche Q]: Affiche le repere." <<  std::endl
-		<< " > [Touche S]: Enleve le repere." <<  std::endl<<std::endl
-    << "--- FRACTALE DE JULIA ---" <<  std::endl
-	        << " > [touche J]: mode fractale de julia et vice versa "<<  std::endl
+        << "--- FRACTALE DE JULIA ---" << std::endl
+	      << " > [touche J]: mode fractale de julia et vice versa " << std::endl
 	       
-	        << " > [clique droit] si mode fractale de julia active, dessine la fractale de julia par rapport a se point " <<  std::endl
-	        << " > les autres fonctionnalité fonctionne avec les fractales de Julia "
-		<<  std::endl<<std::endl;
-
-     break;
-   }
+	      << " > [clique droit] si mode fractale de julia active, dessine la fractale de julia par rapport a se point " <<  std::endl
+	      << " > les autres fonctionnalité fonctionne avec les fractales de Julia "
+		    << std::endl << std::endl;
+      break;
+  }
 }
 
-
-
-void touche(int key, int x, int y){
-  //printf("Touche special: %c = %d \n", key, key);
-
+void touche(int key, int x, int y)
+{
   double distMoveX=cadre.distPixToRepX(20);
   double distMoveY=cadre.distPixToRepY(20);
-  
- 
-  switch(key){
-  case GLUT_KEY_DOWN :
-    
-    glLoadIdentity(); //reinitialise le repere
-
-    cadre.setYmax(cadre.getYmax()-distMoveY);
-    cadre.setYmin(cadre.getYmin()-distMoveY); 
-    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
-    //gluOrtho2D( xmin,xmax,ymax=ymax-distMoveY,ymin=ymin-distMoveY);
-    newTab(20,4);
-    dessine();
-    break;
+   
+  switch(key)
+  {
+    case GLUT_KEY_DOWN:
+      glLoadIdentity(); // Réinitialise le repère
+      cadre.setYmax(cadre.getYmax() - distMoveY);
+      cadre.setYmin(cadre.getYmin() - distMoveY); 
+      gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
+      newTab(20, 4);
+      dessine();
+      break;
 		
-  case GLUT_KEY_UP :
-    glLoadIdentity(); //reinitialise le repere
+    case GLUT_KEY_UP:
+      glLoadIdentity(); 
+      cadre.setYmax(cadre.getYmax() + distMoveY);
+      cadre.setYmin(cadre.getYmin() + distMoveY); 
+      gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
+      newTab(20, 3);
+      dessine();  
+      break;
 
-        cadre.setYmax(cadre.getYmax()+distMoveY);
-    cadre.setYmin(cadre.getYmin()+distMoveY); 
-    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
-    // gluOrtho2D( xmin,xmax,ymax=ymax+distMoveY,ymin=ymin+distMoveY);
-    newTab(20,3);
-    dessine();  
-    break;
-
-    
-  case GLUT_KEY_LEFT :
-
-    glLoadIdentity(); //reinitialise le repere
-
-      cadre.setXmax(cadre.getXmax()-distMoveX);
-    cadre.setXmin(cadre.getXmin()-distMoveX); 
-    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
-    
-    //gluOrtho2D( xmin=xmin-distMoveX,xmax=xmax-distMoveX, ymax,ymin);
-    newTab(20,1);
-    dessine();       
-    break;
-
-    
+    case GLUT_KEY_LEFT:
+      glLoadIdentity(); 
+      cadre.setXmax(cadre.getXmax() - distMoveX);
+      cadre.setXmin(cadre.getXmin() - distMoveX); 
+      gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
+      newTab(20, 1);
+      dessine();       
+      break;
+  
   case GLUT_KEY_RIGHT:
-        
-    glLoadIdentity(); //reinitialise le repere
-
-    cadre.setXmax(cadre.getXmax()+distMoveX);
-    cadre.setXmin(cadre.getXmin()+distMoveX);
-    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(),cadre.getYmin());
-    
-    //gluOrtho2D( xmin=xmin+distMoveX,xmax=xmax+distMoveX, ymax,ymin);
-    newTab(20,2);
+    glLoadIdentity();
+    cadre.setXmax(cadre.getXmax() + distMoveX);
+    cadre.setXmin(cadre.getXmin() + distMoveX);
+    gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
+    newTab(20, 2);
     dessine();    
     break; 
   }
 }
 
-
-
-
-
-
-
-void clique (int button, int state, int x, int y) {
-
-  
-
+void clique (int button, int state, int x, int y) 
+{
   zoomTmp.setXmax(x);
   zoomTmp.setYmax(y);
   zoomTmp.setXmin(x);
   zoomTmp.setYmin(y);
 
+  switch (button) 
+  {
+    case 4: // Roulette vers le bas
+      if (state == GLUT_DOWN) // La roulette est vu comme un bouton,
+      { // on evite donc d'avoir l'evenement "commence roulette" et "finis roulette"
+        cadre.zoomArriere(); // Dezoom	 
+        Rafraichir(); // Callback de la fenetre
+      }
+    break;
+    
+    case 3: // Roulette vers le haut
+      if (state == GLUT_DOWN) // Zoom
+      { 
+        cadre.zoomAvant();
+        Rafraichir(); // Callback de la fenetre
+      }
+      break;
+    
+    case GLUT_LEFT_BUTTON:
+      if (state == GLUT_DOWN) 
+      {
+        zoom.setXmin(cadre.pixelToRepereX(x));
+        zoom.setYmin(-cadre.pixelToRepereY(y));
+      }  
+      if (state == GLUT_UP)
+      {
+        zoom.setXmax(cadre.pixelToRepereX(x));
+        zoom.setYmax(-cadre.pixelToRepereY(y));
+
+        if (!((zoom.getXmax()==zoom.getXmin()) &&(zoom.getYmax()==zoom.getYmin())))
+        {
+          zoom.inverse();
+          double temp=(zoom.getXmin()+
+		        (abs(zoom.getXmax()-zoom.getXmin())+
+		        abs(zoom.getYmax()-zoom.getYmin()))/2);
+
+          zoom.setYmax(zoom.getYmin()+
+		        (abs(zoom.getXmax()-zoom.getXmin())+
+		        abs(zoom.getYmax()-zoom.getYmin()))/2);
+
+          zoom.setXmax(temp);
+          cadre=zoom;    
+          std::cout<<std::endl<<"xmin= "<<cadre.getXmin()<<" xmax= "<<cadre.getXmax()
+	          <<" ymin= "<<cadre.getYmin()<<" ymax= "<<cadre.getYmax()<<std::endl<<std::endl;
+    
+          glLoadIdentity();
+          gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
    
-  switch (button) {
-  case 4: //roulette vers le bas
-    if (state == GLUT_DOWN){ //la roulette est vu comme un bouton,
-      //on evite donc d'avoir l'evenement "commence roulette", finis a roulette"
-      
-      //dezoom	 
-      cadre.zoomArriere();
-      Rafraichir(); 		// Callback de la fenetre
-    }
-    
-    break;
-    
-  case 3: //roulette vers le haut
-    //zoom
-    if (state == GLUT_DOWN){ 
+          Rafraichir(); // Callback de la fenetre   
+        }
+      }
+      break;
 
-      cadre.zoomAvant();
-      Rafraichir(); 		// Callback de la fenetre
-    }
-    break;
-    
-  case GLUT_LEFT_BUTTON:
-    
-    if(state == GLUT_DOWN) {
-     
-
+    case GLUT_RIGHT_BUTTON:
+      // Permet de supprimer les trait parasite lors d'un tirer glisser clique droit
       zoom.setXmin(cadre.pixelToRepereX(x));
       zoom.setYmin(-cadre.pixelToRepereY(y));
-
-    }
-      
-        
-    if(state == GLUT_UP){
-      
-
-
-    zoom.setXmax(cadre.pixelToRepereX(x));
-    zoom.setYmax(-cadre.pixelToRepereY(y));
-
-    if(!((zoom.getXmax()==zoom.getXmin()) &&(zoom.getYmax()==zoom.getYmin()))){
     
-      zoom.inverse();
- 
-    
-    
-      double temp=(zoom.getXmin()+
-		   (abs(zoom.getXmax()-zoom.getXmin())+
-		    abs(zoom.getYmax()-zoom.getYmin()))/2);
-
-
-      zoom.setYmax(zoom.getYmin()+
-		   (abs(zoom.getXmax()-zoom.getXmin())+
-		    abs(zoom.getYmax()-zoom.getYmin()))/2);
-
-      zoom.setXmax(temp);
-      cadre=zoom;    
-      std::cout<<std::endl<<"xmin= "<<cadre.getXmin()<<" xmax= "<<cadre.getXmax()
-	       <<" ymin= "<<cadre.getYmin()<<" ymax= "<<cadre.getYmax()<<std::endl<<std::endl;
-    
-      glLoadIdentity();
-      //gluOrtho2D(xmin,xmax,ymax, ymin);	      	//zoom du repere
-
-      gluOrtho2D(cadre.getXmin(), cadre.getXmax(), cadre.getYmax(), cadre.getYmin());
-   
-      Rafraichir(); 		// Callback de la fenetre   
-    }
-    }
-    break;
-
-  case GLUT_RIGHT_BUTTON:
-    //permet de supprimer les trait parasite lors d'un tirer glisser clique droit
-    zoom.setXmin(cadre.pixelToRepereX(x));
-    zoom.setYmin(-cadre.pixelToRepereY(y));
-    
-    
-    if(state == GLUT_UP) {
-      if(Fjulia){
-	Jreel=cadre.pixelToRepereX(x);
-	Jimag=cadre.pixelToRepereY(y);
-	std::cout<< "Jreel : "<<Jreel <<" Jimag: "<< Jimag<<std::endl;
-	if(cadre.repereBaseM()){
-	  glLoadIdentity(); //reinitialise le repere
-	  cadre.resetRepereJulia();
-	    }
-	Rafraichir();
-		    
-      }     
-    }
+      if(state == GLUT_UP) 
+      {
+        if(Fjulia)
+        {
+        	Jreel=cadre.pixelToRepereX(x);
+	        Jimag=cadre.pixelToRepereY(y);
+	        std::cout<< "Jreel : "<<Jreel <<" Jimag: "<< Jimag<<std::endl;
+	        if(cadre.repereBaseM())
+          {
+	          glLoadIdentity(); //reinitialise le repere
+	          cadre.resetRepereJulia();
+	        }
+	      Rafraichir();
+        }     
+      }
   }
 }
 
