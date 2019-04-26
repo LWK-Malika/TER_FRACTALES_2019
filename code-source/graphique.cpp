@@ -6,7 +6,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <ctime> // Pour faire des calcules temporels
+#include <ctime> // Pour faire des calculs temporels
 #include <vector>
 #include <cmath>
 #include <iostream>
@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
   glutInitWindowSize(800, 800); // taille fenetre
   glutInitDisplayMode(GLUT_RGB); // On travaille en RGB
 
-  //créastion de la fenetre
+  //création de la fenêtre
   int win = glutCreateWindow("Fractale de Mandelbrot"); // nomme la fenêtre
   
-  glutIgnoreKeyRepeat(1); // ignore la répétition d'évênement clavier (touche enfoncé)
+  glutIgnoreKeyRepeat(1); // ignore la répétition d'évènement clavier (touche enfoncée)
 
   //appelle de la fonction resetRepere qui met le repère par défaut
   cadre.resetRepere();
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
     << endl << " soit " << difftime(stop, start) / 10000 << " secondes." << endl << endl;
 
   //initialise la deuxieme fenetre
-  //les fonction evenement qui suivent concernerons uniquement cette fenetre
+  //les fonctions evenement qui suivent concernerons uniquement cette fenetre
   int suite = glutCreateWindow("suite de Mandelbrot"); // nomme la fenêtre
 
   //initialise la fenetre
