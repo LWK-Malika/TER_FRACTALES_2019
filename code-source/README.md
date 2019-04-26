@@ -42,8 +42,8 @@ Lors de l'execution du programme, deux fenetre s'ouvre :
 		        une vue zoome de la fractale.
 
 > [Touche E]: Affiche la couleur definie par
-		        intervalle de couleurs.
-		        une vue tres zoome de la fractale.
+		        intervalle de temps de calculs.
+		        optimal pour une vue tres zoome de la fractale.
 
 > [Touche R]: Affiche la couleur definie par
 		        le module par rapport a l'occurence 

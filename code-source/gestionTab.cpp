@@ -371,7 +371,7 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
 		<< "        une vue zoome de la fractale." << std::endl << std::endl   
 
 		<< " > [Touche E]: Affiche la couleur definie par" << std::endl
-		<< "        intervalle de couleurs." << std::endl
+		<< "          intervalle de temps de calculs." << std::endl
 		<< "        une vue tres zoome de la fractale." << std::endl << std::endl   
 
 		<< " > [Touche R]: Affiche la couleur definie par" << std::endl     
