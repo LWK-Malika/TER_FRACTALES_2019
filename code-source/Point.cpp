@@ -141,18 +141,25 @@ int diverge(double r,double i)
   // Zn = 0
   // Zn + 1 = Zn² + c
 
-  double ZnR = 0;
-  double ZnI = 0;
+  point Zn(0,0); // suite
+  point ZnMoins1(0,0); // suite au rang n-1
+  
 
-  double temporaire;
   
   int cmp = 0;
-  while (sqrt(pow(ZnR, 2) + pow(ZnI, 2)) < 2 && cmp < 100)
+
+
+     while (Zn.module() < 4 && cmp < 100)
   {
-    temporaire = ZnR;
+    ZnMoins1 = Zn;
     
-    ZnR = pow(ZnR,2) - pow(ZnI,2) + r;    
-    ZnI = 2 * temporaire * ZnI + i;
+    // Partie Réelle
+    Zn.setX(pow(ZnMoins1.getX(), 2) - pow(ZnMoins1.getY(), 2) + r);
+    
+    // Partie imaginaire
+    Zn.setY(2 * ZnMoins1.getX() * ZnMoins1.getY() + i);
+
+    
     cmp++;
   }
 
