@@ -74,7 +74,7 @@ void cliqueS(int button, int state, int x, int y)
   {
     point cible(cadreSuite.pixelToRepereX(x), -cadreSuite.pixelToRepereY(y));
     std::cout << std::endl << " Pixel: " << x << ", " << y << std::endl;
-    std::cout << " Repére: " << cible.getX() << ", " << cible.getY() << std::endl;
+    std::cout << "point dans le Repére: " << cible.getX() << "+( " << cible.getY() <<"i )"<< std::endl;
 
     if (button == GLUT_RIGHT_BUTTON) 
     { 

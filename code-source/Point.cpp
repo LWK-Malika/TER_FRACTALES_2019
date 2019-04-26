@@ -41,37 +41,41 @@ void point::divergeS(int a)
     a = rand()%10;
   }
   
-  while ((Zn.module() < 4) and (compteur < stop))
-  {
+  while ((Zn.module() < 4) and (compteur < stop)){
     if (difftime(clock(), depart) >= 8000) // Vitesse d'affichage
-    {
-      ZnMoins1 = Zn;
-
-      // Partie Réelle
-      Zn.setX(pow(ZnMoins1.getX(), 2) - pow(ZnMoins1.getY(), 2) + x);
-
-      // Partie imaginaire
-      Zn.setY(2 * ZnMoins1.getX() * ZnMoins1.getY() + y);
-
-      // Si suite tend vers un point
-      if (abs(Zn.module() - ZnMoins1.module()) < 0.001)
-      {
+	{
+	  ZnMoins1 = Zn;
+	  
+	  // Partie Réelle
+	  Zn.setX(pow(ZnMoins1.getX(), 2) - pow(ZnMoins1.getY(), 2) + x);
+	  
+	  // Partie imaginaire
+	  Zn.setY(2 * ZnMoins1.getX() * ZnMoins1.getY() + y);
+	  
+	  // Si suite tend vers un point
+	  if (abs(Zn.module() - ZnMoins1.module()) < 0.001)
+	    {
 	      std::cout << " Arrêt forcé,car la suite tend vers un point" << std::endl;
 	      compteur = stop;
-      }
-      compteur++;
-	
-      glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
-
-      glBegin(GL_POINTS); // mode affichage de points
-      glVertex2f(Zn.getX(), Zn.getY());
-	
-      glEnd(); 		        
-      glFlush(); 
-	
-      depart = clock();
-    }
+	    }
+	  compteur++;
+	  
+	  glColor3f(0.15 * a, 0.7, 1 - 0.15 * a);
+	  
+	  glBegin(GL_POINTS); // mode affichage de points
+	  glVertex2f(Zn.getX(), Zn.getY());
+	  
+	  glEnd(); 		        
+	  glFlush(); 
+	  
+	  depart = clock();
+	}
   }
+  if(compteur <300)
+    printf("\n la suite diverge \n");
+  else
+    printf("\n la suite converge \n");
+  
 }
 
 point& point::operator=(const point &p)
