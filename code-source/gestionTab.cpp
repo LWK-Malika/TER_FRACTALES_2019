@@ -284,19 +284,19 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
       break;
 
     case 101: //touche e
-      std::cout << "Couleurs par intervalles"<<std::endl;
+      std::cout << "Colorisation E : Couleurs par intervalles"<<std::endl;
       couleur=974;
       dessine();
       break;
    
     case 114: //touche r
-      std::cout << "Modulo" << std::endl;
+      std::cout << "Colorisation R : Modulo" << std::endl;
       couleur = 2;
       dessine();
       break;
 
     case 116: //touche t
-      std::cout << "Dernier Element" << std::endl;
+      std::cout << "Colorisation T : Dernier Element" << std::endl;
       couleur = 3;
       dessine();
       break; 
