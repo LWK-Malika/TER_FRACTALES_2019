@@ -290,13 +290,13 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
       break;
    
     case 114: //touche r
-      std::cout << "Couleur test" << std::endl;
+      std::cout << "Modulo" << std::endl;
       couleur = 2;
       dessine();
       break;
 
     case 116: //touche t
-      std::cout << "Couleur test" << std::endl;
+      std::cout << "Dernier Element" << std::endl;
       couleur = 3;
       dessine();
       break; 
