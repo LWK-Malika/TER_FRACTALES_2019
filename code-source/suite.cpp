@@ -41,7 +41,9 @@ void clavierS(unsigned char key, int x, int y)
       initialise();   
       break;
     case 105: // Touche : I (Informations)
-      std::cout << " > [Touche I]: Affiche l'aide dans le terminal." << std::endl << std::endl
+   std::cout <<  std::endl << std::endl
+	     << "--- AIDE ---" << std::endl <<
+      " > [Touche I]: Affiche l'aide dans le terminal." << std::endl << std::endl
 	       << " > [Clique Gauche]: Affiche la suite." << std::endl 
 	       << " > [Clique Droit]: Efface, puis affiche la suite. " <<  std::endl 
 	       << " > [Entrée]: Efface." << std::endl

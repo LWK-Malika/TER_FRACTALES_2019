@@ -351,7 +351,7 @@ void clavier(unsigned char key, int x, int y)  // glutKeyboardfuncS(clavier)
       break;
 
     case 105: //TOUCHE INFORMATION I
-      std::cout << std::endl
+      std::cout << std::endl<< std::endl
 		<< "--- AIDE ---" << std::endl
 		<< " > [Touche I]: Affiche l'aide dans le terminal." << std::endl << std::endl
 
